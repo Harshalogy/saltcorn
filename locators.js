@@ -1,8 +1,6 @@
-class PageObject {
+class PageLocators {
   constructor(page) {
     this.page = page;
-    // Define selectors
-    
     this.tryItNowLink = 'a[href="https://saltcorn.com/tenant/create"]';
     this.subdomainInput = 'input[name="subdomain"]';
     this.submitButton = 'button[type="submit"]';
@@ -23,6 +21,7 @@ class PageObject {
     this.newPage_sidebar='#accordionSidebar > li:nth-child(6) > a > span';
     this.newPageNameInput = '#inputname';
     this.settingsTab = '#accordionSidebar > li:nth-child(7) > a > span';
+    this.settingdropdown='#collapseSettings > div';
     this.aboutApplicationLink = '#collapseSettings > div > a:nth-child(1)';
     this.systemSettingsLink = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(4) > a';
     this.clearAllButton = 'a[href="/admin/clear-all"]';
@@ -51,91 +50,23 @@ class PageObject {
     this.ActionStyledropdown='#saltcorn-builder > div.row > div.col-sm-auto.builder-sidebar > div > div.settings-panel.card.mt-1 > div.card-body.p-2 > div > table > tbody > tr:nth-child(3) > td:nth-child(2) > select';
     this.Actionsizedropdown='#saltcorn-builder > div.row > div.col-sm-auto.builder-sidebar > div > div.settings-panel.card.mt-1 > div.card-body.p-2 > div > table > tbody > tr:nth-child(4) > td:nth-child(2) > select';
     this.ActionHoverTitle='#saltcorn-builder > div.row > div.col-sm-auto.builder-sidebar > div > div.settings-panel.card.mt-1 > div.card-body.p-2 > div > table > tbody > tr:nth-child(6) > td:nth-child(2) > input';
-
-  }
-
-  getRandomString(length) {
-    let result = '';
-    const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
-    const charactersLength = characters.length;
-    for (let i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
-  }
-  async navigateToCreateApplication() {
-    await this.page.click(this.tryItNowLink);
-  }
-
-  async fillSubdomain(subdomain) {
-    await this.page.fill(this.subdomainInput, subdomain);
-  }
-
-  async submitForm() {
-    await this.page.click(this.submitButton);
-  }
-
-  async verifySuccessMessage() {
-    await this.page.waitForSelector(this.successMessage);
-  }
-
-  async navigateToNewApplication() {
-    await this.page.click(this.newApplicationLink);
-  }
-
-  async login(email, password) {
-    await this.page.fill(this.emailInput, email);
-    await this.page.fill(this.passwordInput, password);
-    await Promise.all([
-      this.page.waitForNavigation(),
-      this.page.click(this.submitButton)
-    ]);
-  }
-
-
-
-  async dragAndDrop(source, target) {
-    await this.page.locator(source).dragTo(this.page.locator(target));
-  }
-
-  async SavePageProject(){
-    await this.page.click(this.saveButton);
-  }
-
-  async fillText(selector, text) {
-    await this.page.fill(selector,text);
-  }
-
-  async createNewPage(pageName) {
-    await this.page.click(this.newPage_sidebar);
-    await this.page.waitForSelector(this.newPageButton);
-    await this.page.click(this.newPageButton);
-    await this.page.fill(this.newPageNameInput, pageName);
-    await this.page.click(this.submitButton);
-  }
-
-  async navigateToSettings() {
-    await this.page.click(this.settingsTab);
-    await this.page.click(this.aboutApplicationLink);
-    await this.page.click(this.systemSettingsLink);
-  }
-
-  async clearAll() {
-    await this.page.click(this.clearAllButton);
-    await this.page.waitForTimeout(2500); // Wait for navigation to complete
-    await this.page.click('#inputusers');
-    await this.page.waitForSelector(this.submitButton);
-    await this.page.click(this.submitButton);
-  }
-  
-
-  async waitForToasterMessage() {
-    await this.page.waitForSelector(this.toasterSelector);
-  }
-
-  getToasterMessageLocator() {
-    return this.page.locator(this.toasterSelector);
-  }
+    this.clicktable='a[href="/table"]';
+    this.createtablebutton='a[href="/table/new"]';
+    this.SaltCornButton='#accordionSidebar > a > div';
+    this.createviewbutton='#accordionSidebar > li.nav-item.active > a';
+    this.sidebarviewbutton='#accordionSidebar > li:nth-child(5) > a';
+    this.createnewview='#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > a';
+    this.Homecreateview='#page-inner-content > div:nth-child(2) > div.row.row-cols-1.row-cols-md-3.g-4.g-4.mb-3 > div:nth-child(2) > div > div.card-footer > div > a';
+    this.createtablefromCSV='#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div:nth-child(2) > a.btn.btn-secondary.me-3.mt-1';
+    this.homeCSVuplaod='#page-inner-content > div:nth-child(2) > div.row.row-cols-1.row-cols-md-3.g-4.g-4.mb-3 > div:nth-child(1) > div > div.card-footer > div > a.btn.btn-secondary.ms-2';
+    this.Defaultusertable='#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div.table-responsive > table > tbody > tr > td:nth-child(1) > a';
+    this.Yourtabletab='#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > span > h5 > ul > li:nth-child(1) > a';
+    this.relationshipdiagram='#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > span > h5 > ul > li:nth-child(2) > a';
+    this.discoverbutton='#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div:nth-child(2) > a:nth-child(3)';
+    this.HomeTableText='';
+    this.Home_new_page_button='#page-inner-content > div:nth-child(2) > div.row.row-cols-1.row-cols-md-3.g-4.g-4.mb-3 > div:nth-child(3) > div > div.card-footer > div > a';
+  } 
 }
 
-module.exports = PageObject;
+
+module.exports = PageLocators;
