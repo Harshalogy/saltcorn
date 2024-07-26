@@ -1,196 +1,219 @@
-const { test, expect, chromium } = require('@playwright/test');
-const { baseURL, derivedURL } = require('../base_url');
-const PageFunctions = require('../function');
-const PageObject = require('../locators.js');
-// Function to generate a random string
-function generateRandomString(length) {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let result = '';
-  for (let i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * characters.length));
-  }
-  return result;
-}
+const { test, expect } = require('@playwright/test');
+const { baseURL, derivedURL } = require('../pageobject/base_url.js');
+const PageFunctions = require('../pageobject/function.js');
+const PageObject = require('../pageobject/locators.js');
 
-test('Validate Login functionality', async ({ page }) => {
-  const functions = new PageFunctions(page);
-  const pageobject = new PageObject(page);
-  const randomSubdomain = generateRandomString(10);
+let storageState = 'storageState.json';
 
-  await functions.navigateToBaseURL(baseURL, derivedURL);
-  await functions.login('myproject19july@mailinator.com', 'myproject19july');
-  await functions.submit();
-  // Add more actions and assertions
+test.describe('E2E Test Suite', () => {
+  let functions;
+  let pageobject;
+  let context;
+  let page;
 
-  await functions.createNewPage('My_project' + generateRandomString(10));
+  test.beforeAll(async ({ browser }) => {
+    // Create a new context and page for all tests
+    context = await browser.newContext();
+    page = await context.newPage();
+    
+    // Initialize page functions and navigate to base URL
+    functions = new PageFunctions(page);
+    await functions.navigateToBaseURL(baseURL, derivedURL);
+    
+    // Perform login
+    await functions.login('myproject19july@mailinator.com', 'myproject19july');
+    await functions.submit();
+    
+    // Save logged-in state
+    await context.storageState({ path: storageState });
+  });
 
-  // drag and drop textsource and rename
-  await functions.dragAndDrop(pageobject.textSource, pageobject.target);
-  await functions.fillText(pageobject.textlocator, 'Testing');
+  test.beforeEach(async ({ browser }) => {
+    // Reuse the existing context with saved storage state
+    context = await browser.newContext({ storageState });
+    
+    // Initialize page functions and page object
+    functions = new PageFunctions(page);
+    pageobject = new PageObject(page);
+    await functions.navigateToBaseURL(baseURL, derivedURL);
+  });
 
-  // Check Text settings is visible
-  await expect(page.getByText('Text settings')).toBeVisible();
-  await expect(page.getByText('Text to display')).toBeVisible();
+  test('Create a new page with random string', async () => {
+    // Generate a random string
+    const randomString = PageFunctions.generateRandomString(10);
+    
+    await functions.createNewPage('My_project_' + randomString);
+    await functions.dragAndDrop(pageobject.textSource, pageobject.target);
+    await functions.fillText(pageobject.textlocator, 'Testing');
 
-  // check delete button exist and visible
-  const deleteButton = await page.locator(pageobject.deletebutton);
-  await expect(deleteButton).toBeVisible();
+    // Check Text settings
+    await expect(page.getByText('Text settings')).toBeVisible();
+    await expect(page.getByText('Text to display')).toBeVisible();
+  });
 
-  // Check clone button exist and visible
-  const cloneButton = await page.locator(pageobject.clonebutton);
-  await expect(cloneButton).toBeVisible();
+  test('Check buttons visibility and text', async () => {
+    // Generate a random string
+    const randomString = PageFunctions.generateRandomString(10);
+    
+    await functions.createNewPage('My_project_' + randomString);
+    await functions.dragAndDrop(pageobject.textSource, pageobject.target);
+    await functions.fillText(pageobject.textlocator, 'Testing');
 
-  // Check Text to display has text
-  const heloworld = page.locator(pageobject.textlocator);
-  await expect(heloworld).toHaveText('Testing');
+    // Check delete button
+    const deleteButton = await page.locator(pageobject.deletebutton);
+    await expect(deleteButton).toBeVisible();
 
-  // //------ line Break
-  await functions.dragAndDrop(pageobject.lineBreakSource, pageobject.target);
+    // Check clone button
+    const cloneButton = await page.locator(pageobject.clonebutton);
+    await expect(cloneButton).toBeVisible();
+  });
 
-  // drag and drop htmleditor and rename
-  await functions.dragAndDrop(pageobject.htmlCodeSource, pageobject.target);
-  await functions.fillText(pageobject.htmltextlocator, '<h3>Hello Sumit</h3>');
+  test('Check text and HTML box content', async () => {
+    // Generate a random string
+    const randomString = PageFunctions.generateRandomString(10);
+    
+    await functions.createNewPage('My_project_' + randomString);
+    await functions.dragAndDrop(pageobject.textSource, pageobject.target);
+    await functions.fillText(pageobject.textlocator, 'Testing');
 
+    const heloworld = page.locator(pageobject.textlocator);
+    await expect(heloworld).toHaveText('Testing');
 
-  //Check HTML box has text
-  const htmlbox = page.locator(pageobject.htmltextlocator);
-  await expect(htmlbox).toBeVisible;
+    await functions.dragAndDrop(pageobject.htmlCodeSource, pageobject.target);
+    await functions.fillText(pageobject.htmltextlocator, '<h3>Hello Sumit</h3>');
 
-  // //------ line Break
-  await functions.dragAndDrop(pageobject.lineBreakSource, pageobject.target);
+    const htmlbox = page.locator(pageobject.htmltextlocator);
+    await expect(htmlbox).toBeVisible();
+  });
 
-  await page.waitForTimeout(2000);
+  test('Check image, card and link settings', async () => {
+    // Generate a random string
+    const randomString = PageFunctions.generateRandomString(10);
+    
+    await functions.createNewPage('My_project_' + randomString);
 
-  // drag and drop image source
-  await functions.dragAndDrop(pageobject.imageSource, pageobject.target);
+    // Image settings
+    await functions.dragAndDrop(pageobject.imageSource, pageobject.target);
+    await expect(page.getByText('Image settings')).toBeVisible();
 
-  //Check the Image settings text
-  await expect(page.getByText('Image settings')).toBeVisible();
+    // Card settings
+    await functions.dragAndDrop(pageobject.cardSource, pageobject.target);
+    await functions.fillText(pageobject.cardtextlocator, 'Master Visa Debit Card');
+    const cardTitle = page.locator(pageobject.cardtextlocator);
+    await expect(cardTitle).toHaveValue('Master Visa Debit Card');
+    const urlField = page.locator(pageobject.CardUrl);
+    await expect(urlField).toHaveValue('');
 
-  //------ line Break
-  await functions.dragAndDrop(pageobject.lineBreakSource, pageobject.target);
+    // Link settings
+    await functions.dragAndDrop(pageobject.linkSource, pageobject.target);
+    await functions.fillText(pageobject.linklocator, 'youtube link');
+    const Linktext = page.locator(pageobject.linklocator);
+    await expect(Linktext).toHaveValue('youtube link');
+    await functions.fillText(pageobject.linkurllocator, 'https://www.youtube.com/@saltcorn');
+    const Linkurl = page.locator(pageobject.linkurllocator);
+    await expect(Linkurl).toHaveValue('https://www.youtube.com/@saltcorn');
+  });
 
-  // drag and drop card and rename
-  await functions.dragAndDrop(pageobject.cardSource, pageobject.target);
-  await functions.fillText(pageobject.cardtextlocator, 'Master Visa Debit Card');
+  test('Check search and container settings', async () => {
+    // Generate a random string
+    const randomString = PageFunctions.generateRandomString(10);
+    
+    await functions.createNewPage('My_project_' + randomString);
 
-  // Check if 'Card title' field is empty
-  const cardTitle = page.locator(pageobject.cardtextlocator);
-  await expect(cardTitle).toHaveValue('Master Visa Debit Card');
+    // Search settings
+    await functions.dragAndDrop(pageobject.SearchLocator, pageobject.target);
+    const hasDropdownCheckbox = await page.locator(pageobject.hasdropdowncheckbox);
+    await expect(hasDropdownCheckbox).not.toBeChecked();
+    const showStateBadgesCheckbox = await page.locator(pageobject.statebadgecheckbox);
+    await expect(showStateBadgesCheckbox).not.toBeChecked();
+    const autofocusCheckbox = await page.locator(pageobject.Autofocuscheckbox);
+    await expect(autofocusCheckbox).not.toBeChecked();
 
-  // Check if 'URL' field is empty
-  const urlField = page.locator(pageobject.CardUrl);
-  await expect(urlField).toHaveValue('');
-  //------ line Break
-  await functions.dragAndDrop(pageobject.lineBreakSource, pageobject.target);
+    // Container settings
+    await functions.dragAndDrop(pageobject.containsdraglocator, pageobject.target);
+    await expect(page.getByText('Container settings')).toBeVisible();
+    const displaySection = await page.locator(pageobject.containerdisplaysetting);
+    await expect(displaySection).toBeVisible();
+    const contentsSection = await page.locator(pageobject.containercontentsetting);
+    await expect(contentsSection).toBeVisible();
+    const flexPropertiesSection = await page.locator(pageobject.containerflexsetting);
+    await expect(flexPropertiesSection).toBeVisible();
+    const containerLinkSection = await page.locator(pageobject.containercontentlink);
+    await expect(containerLinkSection).toBeVisible();
+    const customClassCSSSection = await page.locator(pageobject.containercustomclass);
+    await expect(customClassCSSSection).toBeVisible();
+  });
 
-  // drag and drop link source and edit link
-  await functions.dragAndDrop(pageobject.linkSource, pageobject.target);
-  await functions.fillText(pageobject.linklocator, 'youtube link');
+  test('Check action settings', async () => {
+    // Generate a random string
+    const randomString = PageFunctions.generateRandomString(10);
+    
+    await functions.createNewPage('My_project_' + randomString);
 
-  //check link text has text
-  const Linktext = page.locator(pageobject.linklocator);
-  await expect(Linktext).toHaveValue('youtube link');
+    // Action settings
+    await functions.dragAndDrop(pageobject.ActionLocator, pageobject.target);
+    await expect(page.getByText('Action settings')).toBeVisible();
+    const actionDropdown = await page.locator(pageobject.ActionDropdown);
+    await expect(actionDropdown).toBeVisible();
+    await expect(actionDropdown).toHaveValue('GoBack');
+    const labelInput = await page.locator(pageobject.ActionLabel);
+    await expect(labelInput).toBeVisible();
+    await expect(labelInput).toHaveValue('');
+    const styleDropdown = await page.locator(pageobject.ActionStyledropdown);
+    await expect(styleDropdown).toBeVisible();
+    await expect(styleDropdown).toHaveValue('btn-primary');
+    const sizeDropdown = await page.locator(pageobject.Actionsizedropdown);
+    await expect(sizeDropdown).toBeVisible();
+    await expect(sizeDropdown).toHaveValue('');
+    const hoverTitleInput = await page.locator(pageobject.ActionHoverTitle);
+    await expect(hoverTitleInput).toBeVisible();
+    await expect(hoverTitleInput).toHaveValue('');
 
-  // Enter youtube url of saltcorn.com
-  await functions.fillText(pageobject.linkurllocator, 'https://www.youtube.com/@saltcorn');
+  });
 
-  //Check Link Url has Link of saltcorn Youtube channel
-  const Linkurl = page.locator(pageobject.linkurllocator);
-  await expect(Linkurl).toHaveValue('https://www.youtube.com/@saltcorn');
+  test('Create a new page with random string and navigate to new site URL', async ({ browser }) => {
 
-  //------ line Break
-  await functions.dragAndDrop(pageobject.lineBreakSource, pageobject.target);
+    // Generate a random string
+    const randomString = PageFunctions.generateRandomString(10);
 
-  //----- drag and drop search option
-  await functions.dragAndDrop(pageobject.SearchLocator, pageobject.target);
+    // Create a new page with the random string appended to the project name
+    await functions.createNewPage('My_project_' + randomString);
+    await functions.dragAndDrop(pageobject.textSource, pageobject.target);
 
-  // Assertions of Search tab
-  // Assertion for the "Has Dropdown" checkbox
-  const hasDropdownCheckbox = await page.locator(pageobject.hasdropdowncheckbox);
-  await expect(hasDropdownCheckbox).not.toBeChecked();
+    // Save project
+    await functions.SavePageProject();
 
-  // Assertion for the "Show current state badges" checkbox
-  const showStateBadgesCheckbox = await page.locator(pageobject.statebadgecheckbox);
-  await expect(showStateBadgesCheckbox).not.toBeChecked();
+    // Construct the URL
+    const url = baseURL +`/page/My_project_${randomString}`;
 
-  // Assertion for the "Autofocus" checkbox
-  const autofocusCheckbox = await page.locator(pageobject.Autofocuscheckbox);
-  await expect(autofocusCheckbox).not.toBeChecked();
+    // Navigate to the constructed URL in the same page
+    await page.goto(url);
 
-  //------ line Break
-  await functions.dragAndDrop(pageobject.lineBreakSource, pageobject.target);
+    // Assert that the page is not blank
+    const bodyContent = await page.content();
+    expect(bodyContent.trim()).not.toBe('');
 
+    // Optionally, check the URL of the current page
+    expect(page.url()).toBe(baseURL + derivedURL + 'page/' + 'My_project_' + randomString);
 
-  //------ drag and drop Container option
-  await functions.dragAndDrop(pageobject.containsdraglocator, pageobject.target);
+    // wait for a specific condition or timeout
+    await page.waitForTimeout(5000); // Wait for 5 seconds 
+  });
 
-  //Assertions of container settings
-  await expect(page.getByText('Container settings')).toBeVisible();
-
-  // Assertions for the expandable sections
-  const displaySection = await page.locator(pageobject.containerdisplaysetting);
-  await expect(displaySection).toBeVisible();
-
-  const contentsSection = await page.locator(pageobject.containercontentsetting);
-  await expect(contentsSection).toBeVisible();
-
-  const flexPropertiesSection = await page.locator(pageobject.containerflexsetting);
-  await expect(flexPropertiesSection).toBeVisible();
-
-  const containerLinkSection = await page.locator(pageobject.containercontentlink);
-  await expect(containerLinkSection).toBeVisible();
-
-  const customClassCSSSection = await page.locator(pageobject.containercustomclass);
-  await expect(customClassCSSSection).toBeVisible();
-
-  //------ line Break
-  await functions.dragAndDrop(pageobject.lineBreakSource, pageobject.target);
-
-  //------ drag and drop search option
-  await functions.dragAndDrop(pageobject.ActionLocator, pageobject.target);
-
-
-  //Assertions of action tab
-  await expect(page.getByText('Action settings')).toBeVisible();
-
-  // Assertion for the "Action" dropdown
-  const actionDropdown = await page.locator(pageobject.ActionDropdown);
-  await expect(actionDropdown).toBeVisible();
-  await expect(actionDropdown).toHaveValue('GoBack');
-
-  // Assertion for the "Label" input field
-  const labelInput = await page.locator(pageobject.ActionLabel);
-  await expect(labelInput).toBeVisible();
-  await expect(labelInput).toHaveValue('');
-
-  // Assertion for the "Style" dropdown
-  const styleDropdown = await page.locator(pageobject.ActionStyledropdown);
-  await expect(styleDropdown).toBeVisible();
-  await expect(styleDropdown).toHaveValue('btn-primary');  // Adjust if the default value is different
-
-  // Assertion for the "Size" dropdown
-  const sizeDropdown = await page.locator(pageobject.Actionsizedropdown);
-  await expect(sizeDropdown).toBeVisible();
-  await expect(sizeDropdown).toHaveValue('');  // Adjust if the default value is different
-
-
-  // Assertion for the "Hover title" input field
-  const hoverTitleInput = await page.locator(pageobject.ActionHoverTitle);
-  await expect(hoverTitleInput).toBeVisible();
-  await expect(hoverTitleInput).toHaveValue('');  // Adjust if the default value is different
-
-  // save project
-  await functions.SavePageProject();
-
-
-  // Navigate to setting page and clear all changes
-  await page.waitForTimeout(2500);
-  await functions.navigateToSettings();
-  await functions.clearAll();
-
-  //verify toaster msg that clear all deleted all the changes
-  await functions.waitForToasterMessage();
-  const title = functions.getToasterMessageLocator();
-  await expect(title).toHaveText(pageobject.expectedtoastermsg);
+  test('Navigate to setting page and clear all changes', async () => {
+    functions = new PageFunctions(page);
+     // Wait for any potential UI stabilization or asynchronous actions
+     await page.waitForTimeout(10000);
+    
+     // Perform navigation and clear all operations
+     await functions.navigateToSettings();
+     await functions.navigateToaboutapplication();
+     await functions.aboutapplicationtosystem();
+     await functions.clearAll();
+ 
+     // Verify toaster message that clear all deleted all the changes
+     await functions.waitForToasterMessage();
+     const title = functions.getToasterMessageLocator();
+    await expect(title).toHaveText(pageobject.expectedtoastermsg);
+  });
 });

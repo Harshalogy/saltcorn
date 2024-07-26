@@ -1,3 +1,4 @@
+const { expect } = require('@playwright/test');
 class PageFunctions {
   constructor(page) {
     this.page = page;
@@ -38,9 +39,55 @@ class PageFunctions {
   async navigateToSettings() {
 
     await this.page.click(this.locators.settingsTab);
+  }
+  async navigateToaboutapplication(){
     await this.page.waitForSelector(this.locators.aboutApplicationLink);
     await this.page.click(this.locators.aboutApplicationLink, { force: true });
+  }
+  async aboutapplicationtosystem(){
     await this.page.click(this.locators.systemSettingsLink);
+    
+  }
+  async Validateeachtabofaboutapplications(){
+    const tabs = [
+      'Site identity',
+      'Backup',
+      'Email',
+      'System',
+      'Mobile app',
+      'Development',
+      'Notifications'
+  ];
+
+  // Check if each tab is visible and has the correct text
+  for (const tab of tabs) {
+      const tabLocator = this.page.locator(`ul.nav.nav-pills.plugin-section a.nav-link:has-text("${tab}")`);
+      await expect(tabLocator).toBeVisible();
+      await expect(tabLocator).toHaveText(tab);
+      await (tabLocator).click();
+  }
+  }
+  async Validateeachtabofmodule(){
+    const tabs = [
+      'All',
+      'Modules',
+      'Packs',
+      'Themes',
+      'Installed'
+    ];
+  
+    // Check if each tab is visible, has the correct text, and click it
+    for (const tab of tabs) {
+      const tabLocator =this.page.locator(`div.card-body ul.nav.nav-pills.plugin-section a.nav-link:has-text("${tab}")`);
+      await expect(tabLocator).toBeVisible();
+      await expect(tabLocator).toHaveText(tab);
+      await (tabLocator).click();
+  }  
+}
+
+async navigateTomodule(){
+  await this.page.waitForSelector(this.locators.Modulesettngsidebar);
+  await this.page.click(this.locators.Modulesettngsidebar);
   }
 
   async clearAll() {
@@ -75,36 +122,29 @@ class PageFunctions {
     await this.page.click(this.locators.sidebarviewbutton)
   }
 
-  // async clickAllSettingsInDropdown() {
-  //   const dropdownSelector = this.locators.settingdropdown + ' a';
-    
-  //   // Get all dropdown items
-  //   const settings = await this.page.$$(dropdownSelector);
-  
-  //   for (const setting of settings) {
-  //     try {
-  //       // Wait for the element to be visible before clicking
-  //       await this.page.waitForSelector(dropdownSelector, { state: 'visible', timeout: 5000 });
-  
-  //       // Optionally re-fetch the settings list to ensure current state
-  //       const isElementVisible = await setting.isVisible();
-  //       if (isElementVisible) {
-  //         await setting.click();
-  //         // Wait for any changes or navigation if needed
-  //         await this.page.waitForTimeout(5000); // Adjust the timeout as necessary
-  //       } else {
-  //         console.log('Element is not visible:', setting);
-  //       }
-  
-  //       // Re-fetch the settings list if the DOM changes after each click
-  //       // settings = await this.page.$$(dropdownSelector);
-  
-  //     } catch (error) {
-  //       console.error('Error clicking element:', error);
-  //     }
+  static generateRandomString(length) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
+  // async clickAllDropdownItems(page,settingdropdown) {
+  //   await this.page.click(this.locators.settingsTab);
+  //   // Get all the dropdown items
+  //   const dropdownItems = await page.$$(this.locators.settingdropdown + 'a.collapse-item');
+
+  //   // Loop through each dropdown item and click it
+  //   for (const item of dropdownItems) {
+  //     await item.click();
+  //     // Optionally, you can add some assertion or wait time here if needed
   //   }
   // }
-    
+
+  
 }
 
 module.exports = PageFunctions;
