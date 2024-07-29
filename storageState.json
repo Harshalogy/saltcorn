@@ -1,0 +1,35 @@
+{
+  "cookies": [
+    {
+      "name": "_sc_screen_info_",
+      "value": "{\"width\":1280,\"height\":720,\"innerWidth\":1280,\"innerHeight\":720}",
+      "domain": ".e2etest.saltcorn.co",
+      "path": "/",
+      "expires": 1756823361.045734,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "loggedin",
+      "value": "true",
+      "domain": "e2etest.saltcorn.co",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "connect.sid",
+      "value": "s%3AUgznka-Y3RAAfPpGP5q9z4NAl8Jt6bo9.%2BE53LCaRKoNJ2l2wltPQKXtn9M1qY%2Fie%2FviTgbYNOdA",
+      "domain": "e2etest.saltcorn.co",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": false,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": []
+}
