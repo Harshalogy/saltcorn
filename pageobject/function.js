@@ -228,6 +228,19 @@ class PageFunctions {
     return result;
   }
 
+  async enterValueInDiv(page, selector, value) {
+    await page.evaluate((selector, value) => {
+      const element = document.querySelector(selector);
+      if (element) {
+        element.contentEditable = true;
+        element.innerText = value; // Set the desired text here
+      } else {
+        throw new Error(`Element with selector ${selector} not found`);
+      }
+    }, selector, value);
+  }
+  
+
   // async clickAllDropdownItems(page,settingdropdown) {
   //   await this.page.click(this.locators.settingsTab);
   //   // Get all the dropdown items

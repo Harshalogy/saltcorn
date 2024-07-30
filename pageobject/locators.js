@@ -25,7 +25,14 @@ class PageLocators {
     this.errormessagelocator= '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > form > div:nth-child(4) > div:nth-child(4) > input';
     this.EditlinkLocator = '#page-inner-content > div:nth-child(2) > div:nth-child(3) > div > div > div:nth-child(2) > a';
     this.addrowlocator = '#page-inner-content > div:nth-child(2) > nav > ol > li.ms-auto > div > button';
-    this.tablocater = '#jsGrid > div.tabulator-tableholder > div';
+    this.tab1locater = 'div.tabulator-cell[tabulator-field="full_name"]';
+    this.tab2locator = 'div.tabulator-cell[tabulator-field="date_of_birth"]';
+    this.tab3locator = 'div.tabulator-cell[tabulator-field="address"]';
+    this.calendarlocator = '#page-top > div.flatpickr-calendar.hasTime.animate.open.arrowTop.arrowLeft'
+    this.yearlocator = '#page-top > div.flatpickr-calendar.hasTime.animate.open.arrowTop.arrowLeft > div.flatpickr-months > div > div > div > input';
+    this.monthlocator = '#page-top > div.flatpickr-calendar.hasTime.animate.open.arrowTop.arrowLeft > div.flatpickr-months > div > div > select';
+    this.datelocator = '#page-top > div.flatpickr-calendar.hasTime.animate.open.arrowTop.arrowLeft > div.flatpickr-innerContainer > div > div.flatpickr-days > div > span:nth-child(3)';
+   
     this.target = '#builder-main-canvas > div > div > div';
     this.lineBreakSource = '#saltcorn-builder > div.row > div.col-sm-auto.left-builder-col.builder-left-shrunk > div.componets-and-library-accordion.toolbox-card > div.card.mt-1 > div:nth-child(2) > div:nth-child(1) > div';
     this.htmlCodeSource = '#saltcorn-builder > div.row > div.col-sm-auto.left-builder-col.builder-left-shrunk > div.componets-and-library-accordion.toolbox-card > div.card.mt-1 > div:nth-child(2) > div:nth-child(2)';
