@@ -15,6 +15,9 @@ test.describe('E2E Test Suite', () => {
     // Create a new context and page for all tests
     context = await browser.newContext();
     page = await context.newPage();
+
+    // Maximize the screen
+    await page.setViewportSize({ width: 1350, height: 1080 });
     
     functions = new PageFunctions(page);
     pageobject = new PageObject(page);
