@@ -56,7 +56,6 @@ test.describe('E2E Test Suite', () => {
 
   // check buttons visibility
   test('Check buttons visibility and text', async () => {
-    
     //await functions.drag_And_Drop(pageobject.textSource, pageobject.target);
     await functions.fill_Text(pageobject.textlocator, 'Testing');
 
@@ -93,7 +92,6 @@ test.describe('E2E Test Suite', () => {
 
   //Check card setting
   test('Check card settings', async () => {
-
     // drag and drop the card source
     await functions.drag_And_Drop(pageobject.cardSource, pageobject.target);
     await functions.fill_Text(pageobject.cardtextlocator, 'Master Visa Debit Card');
@@ -107,7 +105,6 @@ test.describe('E2E Test Suite', () => {
 
   // Check link setting
   test('Check link settings', async () => {
-
     // drag and drop the link source
     await functions.drag_And_Drop(pageobject.linkSource, pageobject.target);
     await functions.fill_Text(pageobject.linklocator, 'youtube link');
@@ -122,7 +119,6 @@ test.describe('E2E Test Suite', () => {
 
   // Check search setting
   test('Check search settings', async () => {
-
     //drag and drop the Search Locator
     await functions.drag_And_Drop(pageobject.SearchLocator, pageobject.target);
    
@@ -139,7 +135,6 @@ test.describe('E2E Test Suite', () => {
 
   //Check container settings
   test('Check container settings', async () => {
-
     //drag and drop the contains drag locator
     await functions.drag_And_Drop(pageobject.containsdraglocator, pageobject.target);
     await expect(page.getByText('Container settings')).toBeVisible();
@@ -167,7 +162,6 @@ test.describe('E2E Test Suite', () => {
 
   //Check action settings
   test('Check action settings', async () => {
-
     //drag and drop the action locator
     await functions.drag_And_Drop(pageobject.ActionLocator, pageobject.target);
     await expect(page.getByText('Action settings')).toBeVisible();
@@ -201,7 +195,6 @@ test.describe('E2E Test Suite', () => {
 
   //Create a new page with random string and navigate to new site URL
   test('Create a new page with random string and navigate to new site URL', async ({ browser }) => {
-
     // Generate a random string
     const randomString = PageFunctions.generate_Random_String(10);
 
