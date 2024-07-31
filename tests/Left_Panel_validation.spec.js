@@ -110,8 +110,21 @@ test.describe('E2E Test Suite', () => {
     await functions.navigate_To_about_application();
     // assert the about application url
     expect(page.url()).toBe(baseURL + derivedURL + 'admin');
-    // validate each tab of about application
-    await functions.Validate_each_tab_of_about_applications();
+    // validate each tab of about application and assert url
+    await functions.about_application_to_site_identity();
+    expect(page.url()).toBe(baseURL + derivedURL + 'admin');
+    await functions.about_application_to_backup();
+    expect(page.url()).toBe(baseURL + derivedURL + 'admin' + derivedURL + 'backup');
+    await functions.about_application_to_email();
+    expect(page.url()).toBe(baseURL + derivedURL + 'admin' + derivedURL + 'email');
+    await functions.about_application_to_system();
+    expect(page.url()).toBe(baseURL + derivedURL + 'admin' + derivedURL + 'system');
+    await functions.about_application_to_mobile_app();
+    expect(page.url()).toBe(baseURL + derivedURL + 'admin' + derivedURL + 'build-mobile-app');
+    await functions.about_application_to_development();
+    expect(page.url()).toBe(baseURL + derivedURL + 'admin' + derivedURL + 'dev');
+    await functions.about_application_to_notification();
+    expect(page.url()).toBe(baseURL + derivedURL + 'admin' + derivedURL + 'notifications');
   });
   // Assert the presence of "Module" tab
   test('Validate "Module" tabs', async () => {
@@ -122,8 +135,17 @@ test.describe('E2E Test Suite', () => {
     await functions.navigate_To_module();
     // assert the module url
     expect(page.url()).toBe(baseURL + derivedURL + 'plugins');
-    // validate each tab of module
-    await functions.validate_Each_Tab_Of_Module();
+    // validate each tab of module and assert url
+    await functions.navigate_To_All_modules();
+    expect(page.url()).toBe(baseURL + derivedURL + 'plugins?set=all');
+    await functions.navigate_modules_To_modules();
+    expect(page.url()).toBe(baseURL + derivedURL + 'plugins?set=modules');
+    await functions.navigate_modules_To_packs();
+    expect(page.url()).toBe(baseURL + derivedURL + 'plugins?set=packs');
+    await functions.navigate_modules_To_themes();
+    expect(page.url()).toBe(baseURL + derivedURL + 'plugins?set=themes');
+    await functions.navigate_modules_To_Installed();
+    expect(page.url()).toBe(baseURL + derivedURL + 'plugins?set=installed');
   });
 
   // Assert the presence of "Users and Security" tab
@@ -135,8 +157,19 @@ test.describe('E2E Test Suite', () => {
     await functions.navigate_To_Users_And_Security();
     // assert the user and security url
     expect(page.url()).toBe(baseURL + derivedURL + 'useradmin');
-    // validate each tab of users and security
-    await functions.Validate_each_tab_of_Users_And_Security();
+    // validate each tab of users and security and assert urls
+    await functions.Users_And_Security_to_Users();
+    expect(page.url()).toBe(baseURL + derivedURL + 'useradmin');
+    await functions.Users_And_Security_to_Roles();
+    expect(page.url()).toBe(baseURL + derivedURL + 'roleadmin');
+    await functions.Users_And_Security_to_Login_and_Signup();
+    expect(page.url()).toBe(baseURL + derivedURL + 'useradmin' + derivedURL + 'settings');
+    await functions.Users_And_Security_to_Table_access();
+    expect(page.url()).toBe(baseURL + derivedURL + 'useradmin' + derivedURL + 'table-access');
+    await functions.Users_And_Security_to_HTTP();
+    expect(page.url()).toBe(baseURL + derivedURL + 'useradmin' + derivedURL + 'http');
+    await functions.Users_And_Security_to_Permissions();
+    expect(page.url()).toBe(baseURL + derivedURL + 'useradmin' + derivedURL + 'permissions');
   });
 
   // Assert the presence of "Site Structure" tab
@@ -148,8 +181,23 @@ test.describe('E2E Test Suite', () => {
     await functions.navigate_To_Site_Structure();
     // assert the site structure url
     expect(page.url()).toBe(baseURL + derivedURL + 'menu');
-    // validate each tab of  site structure
-    await functions.Validate_each_tab_of_Site_Structure();
+    // validate each tab of  site structure and assert urls
+    await functions.Site_Structure_to_Menu();
+    expect(page.url()).toBe(baseURL + derivedURL + 'menu');
+    await functions.Site_Structure_to_Search();
+    expect(page.url()).toBe(baseURL + derivedURL + 'search' + derivedURL + 'config');
+    await functions.Site_Structure_to_Library();
+    expect(page.url()).toBe(baseURL + derivedURL + 'library' + derivedURL + 'list');
+    await functions.Site_Structure_to_Languages();
+    expect(page.url()).toBe(baseURL + derivedURL + 'site-structure' + derivedURL + 'localizer');
+    await functions.Site_Structure_to_Page_groups();
+    expect(page.url()).toBe(baseURL + derivedURL + 'page_group' + derivedURL + 'settings');
+    await functions.Site_Structure_to_Tags();
+    expect(page.url()).toBe(baseURL + derivedURL + 'tag');
+    await functions.Site_Structure_to_Diagram();
+    expect(page.url()).toBe(baseURL + derivedURL + 'diagram');
+    await functions.Site_Structure_to_Registry_editor();
+    expect(page.url()).toBe(baseURL + derivedURL + 'registry-editor');
   });
 
   // Assert the presence of "Files" tab
@@ -161,8 +209,13 @@ test.describe('E2E Test Suite', () => {
     await functions.navigate_To_File();
     // assert the files url
     expect(page.url()).toBe(baseURL + derivedURL + 'files');
-    // validate each tab of  files
-    await functions.Validate_each_tab_of_Files();
+    // validate each tab of files and assert urls
+    await functions.Files_to_Files();
+    expect(page.url()).toBe(baseURL + derivedURL + 'files');
+    await functions.Files_to_Storage();
+    expect(page.url()).toBe(baseURL + derivedURL + 'files' + derivedURL +'storage');
+    await functions.Files_to_Settings();
+    expect(page.url()).toBe(baseURL + derivedURL + 'files' + derivedURL +'settings');
   });
 
   // Assert the presence of "Events" tab
@@ -174,7 +227,14 @@ test.describe('E2E Test Suite', () => {
     await functions.navigate_To_Events();
      // assert the events url
      expect(page.url()).toBe(baseURL + derivedURL + 'actions');
-    // validate each tab of events
-    await functions.Validate_each_tab_of_Events();
+    // validate each tab of events and assert urls
+    await functions.Events_to_Triggers();
+    expect(page.url()).toBe(baseURL + derivedURL + 'actions');
+    await functions.Events_to_Custom();
+    expect(page.url()).toBe(baseURL + derivedURL + 'eventlog' + derivedURL +'custom');
+    await functions.Events_to_Log_settings();
+    expect(page.url()).toBe(baseURL + derivedURL + 'eventlog' + derivedURL +'settings');
+    await functions.Events_to_Event_log();
+    expect(page.url()).toBe(baseURL + derivedURL + 'eventlog');
   });
 });
