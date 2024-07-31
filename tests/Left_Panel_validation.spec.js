@@ -90,7 +90,6 @@ test.describe('E2E Test Suite', () => {
 
   // Assert the presence of "Create new views" button
   test('Verify "Views" section and "Create new view" button', async () => {
-    await page.waitForTimeout(2500);
     await functions.views();
     // assert the view edit url
     expect(page.url()).toBe(baseURL + derivedURL + 'viewedit');
@@ -98,6 +97,7 @@ test.describe('E2E Test Suite', () => {
     await expect(page.locator(pageobject.createnewview)).toBeVisible();
     //click on create new view
     await page.click(pageobject.createnewview);
+    // assert the view url
     expect(page.url()).toBe(baseURL + derivedURL + 'viewedit/new');
   });
 
@@ -108,17 +108,20 @@ test.describe('E2E Test Suite', () => {
     await functions.navigate_To_Settings();
     // Navigate to about applications
     await functions.navigate_To_about_application();
+    // assert the about application url
+    expect(page.url()).toBe(baseURL + derivedURL + 'admin');
     // validate each tab of about application
     await functions.Validate_each_tab_of_about_applications();
   });
   // Assert the presence of "Module" tab
   test('Validate "Module" tabs', async () => {
     functions = new PageFunctions(page);
-    await page.waitForTimeout(2000);
     // Navigate to setting
     await functions.navigate_To_Settings();
     // Navigate to Module
     await functions.navigate_To_module();
+    // assert the module url
+    expect(page.url()).toBe(baseURL + derivedURL + 'plugins');
     // validate each tab of module
     await functions.validate_Each_Tab_Of_Module();
   });
@@ -130,6 +133,8 @@ test.describe('E2E Test Suite', () => {
     await functions.navigate_To_Settings();
     // Navigate to Users and Security
     await functions.navigate_To_Users_And_Security();
+    // assert the user and security url
+    expect(page.url()).toBe(baseURL + derivedURL + 'useradmin');
     // validate each tab of users and security
     await functions.Validate_each_tab_of_Users_And_Security();
   });
@@ -141,6 +146,8 @@ test.describe('E2E Test Suite', () => {
     await functions.navigate_To_Settings();
     // Navigate to Site Structure
     await functions.navigate_To_Site_Structure();
+    // assert the site structure url
+    expect(page.url()).toBe(baseURL + derivedURL + 'menu');
     // validate each tab of  site structure
     await functions.Validate_each_tab_of_Site_Structure();
   });
@@ -152,6 +159,8 @@ test.describe('E2E Test Suite', () => {
     await functions.navigate_To_Settings();
     // Navigate to Files
     await functions.navigate_To_File();
+    // assert the files url
+    expect(page.url()).toBe(baseURL + derivedURL + 'files');
     // validate each tab of  files
     await functions.Validate_each_tab_of_Files();
   });
@@ -163,6 +172,8 @@ test.describe('E2E Test Suite', () => {
     await functions.navigate_To_Settings();
     /// Navigate to Events
     await functions.navigate_To_Events();
+     // assert the events url
+     expect(page.url()).toBe(baseURL + derivedURL + 'actions');
     // validate each tab of events
     await functions.Validate_each_tab_of_Events();
   });

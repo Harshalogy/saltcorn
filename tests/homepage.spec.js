@@ -15,6 +15,9 @@ test.describe('E2E Test Suite', () => {
     // Create a new context and page for all tests
     context = await browser.newContext();
     page = await context.newPage();
+
+    // Maximize the screen
+    await page.setViewportSize({ width: 1350, height: 1080 });
     
     // Initialize page functions and navigate to base URL
     functions = new PageFunctions(page);
@@ -222,17 +225,11 @@ test.describe('E2E Test Suite', () => {
 
     // Optionally, check the URL of the current page
     expect(page.url()).toBe(baseURL + derivedURL + 'page/' + 'My_project_' + randomString);
-
-    // wait for a specific condition or timeout
-    await page.waitForTimeout(5000); // Wait for 5 seconds 
   });
 
   // Check clear all function
   test('Navigate to setting page and clear all changes', async () => {
     functions = new PageFunctions(page);
-     // Wait for any potential UI stabilization or asynchronous actions
-     await page.waitForTimeout(4000);
-    
      // Navigate to setting
      await functions.navigate_To_Settings();
      // navigate to about application

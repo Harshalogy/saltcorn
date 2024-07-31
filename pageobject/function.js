@@ -41,13 +41,15 @@ class PageFunctions {
   }
 
   async navigate_To_about_application() {
-    await this.page.waitForSelector(this.locators.aboutApplicationLink);
+    await this.page.waitForSelector(this.locators.aboutApplicationLink, { timeout: 5000 });
     await this.page.click(this.locators.aboutApplicationLink, { force: true });
   }
-  async about_application_to_system() {
-    await this.page.click(this.locators.systemSettingsLink);
 
+  async about_application_to_system() {
+    await this.page.waitForSelector(this.locators.systemSettingsLink);
+    await this.page.click(this.locators.systemSettingsLink);
   }
+  
   async Validate_each_tab_of_about_applications() {
     const tabs = [
       'Site identity',
