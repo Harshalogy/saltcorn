@@ -30,7 +30,21 @@ class PageLocators {
     this.tab1locater = 'div.tabulator-cell[tabulator-field="full_name"]';
     this.tab2locator = 'div.tabulator-cell[tabulator-field="date_of_birth"]';
     this.tab3locator = 'div.tabulator-cell[tabulator-field="address"]';
-    this.idfieldlocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr > td:nth-child(1)'
+    this.idfieldlocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr > td:nth-child(1)';
+    this.idtypelocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr > td:nth-child(2)';
+    this.fullnamefieldlocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(1) > td:nth-child(1)';
+    this.fullnametypelocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(1) > td:nth-child(2)';
+    this.fullnamerequiredtaglocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(1) > td:nth-child(4) > span';
+    this.fullnamevariablelocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(1) > td:nth-child(6) > code';
+    this.fullnamedeletebutton = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(1) > td:nth-child(7) > form > button > i';
+    this.dobfieldlocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(1) > td:nth-child(1)';
+    this.datetypelocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(1) > td:nth-child(2)';
+    this.datevariablelocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(1) > td:nth-child(6) > code';
+    this.deletedobbutton = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(1) > td:nth-child(7) > form > button > i';    
+    this.addressfieldlocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(1) > td:nth-child(1)';
+    this.addresstypelocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(1) > td:nth-child(2)';
+    this.addressvariablelocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(1) > td:nth-child(6) > code';
+    this.deleteaddressbutton = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(1) > td:nth-child(7) > form > button > i';
     this.calendarlocator = '#page-top > div.flatpickr-calendar.hasTime.animate.open.arrowTop.arrowLeft'
     this.yearlocator = '#page-top > div.flatpickr-calendar.hasTime.animate.open.arrowTop.arrowLeft > div.flatpickr-months > div > div > div > input';
     this.monthlocator = '#page-top > div.flatpickr-calendar.hasTime.animate.open.arrowTop.arrowLeft > div.flatpickr-months > div > div > select';
@@ -54,7 +68,6 @@ class PageLocators {
     this.SiteStructure = '#collapseSettings > div > a:nth-child(4)';
     this.File = '#collapseSettings > div > a:nth-child(5)';
     this.Events = '#collapseSettings > div > a:nth-child(6)';
-    this.systemSettingsLink = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(4) > a';
     this.clearAllButton = 'a[href="/admin/clear-all"]';
     this.toasterSelector = '#toasts-area > div > div.toast-body.py-2.fs-6.fw-bold > strong';
     this.htmltextlocator ='#saltcorn-builder > div.row > div.col-sm-auto.builder-sidebar > div > div.settings-panel.card.mt-1 > div.card-body.p-2 > table > tbody > tr > td > textarea';
@@ -96,6 +109,39 @@ class PageLocators {
     this.discoverbutton='#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div:nth-child(2) > a:nth-child(3)';
     this.HomeTableText='';
     this.Home_new_page_button='#page-inner-content > div:nth-child(2) > div.row.row-cols-1.row-cols-md-3.g-4.g-4.mb-3 > div:nth-child(3) > div > div.card-footer > div > a';
+    this.setidentitylocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(1) > a';
+    this.backuplocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(2) > a';
+    this.emaillocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(3) > a';
+    this.systemSettingsLink = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(4) > a';
+    this.mobileapplocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(5) > a';
+    this.developmentlocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(6) > a';
+    this.notificationlocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(7) > a';
+    this.AllModuleslocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(1) > a';
+    this.Moduleslocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(2) > a';
+    this.packslocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(3) > a';
+    this.themeslocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(4) > a';
+    this.Installedlocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(5) > a';
+    this.userslocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(1) > a';
+    this.roleslocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(2) > a';
+    this.loginandsignup = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(3) > a';
+    this.tableaccess = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(4) > a';
+    this.httplocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(5) > a';
+    this.permissionslocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(6) > a';
+    this.menulocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(1) > a';
+    this.searchlocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(2) > a';
+    this.librarylocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(3) > a';
+    this.languagelocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(4) > a';
+    this.pagegroupslocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(5) > a';
+    this.tagslocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(6) > a';
+    this.diagramlocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(7) > a';
+    this.registrylocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(8) > a';
+    this.fileslocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(1) > a';
+    this.storagelocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(2) > a';
+    this.Filesettinglocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(3) > a';
+    this.trigerslocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(1) > a';
+    this.Customlocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(2) > a';
+    this.logsettinglocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(3) > a';
+    this.Eventloglocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(4) > a';
   } 
 }
 
