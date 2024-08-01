@@ -10,6 +10,10 @@ class PageLocators {
     this.passwordInput = 'input[type="password"]';
     this.textSource = '#saltcorn-builder > div.row > div.col-sm-auto.left-builder-col.builder-left-shrunk > div.componets-and-library-accordion.toolbox-card > div.card.mt-1 > div:nth-child(1) > div:nth-child(1)';
     this.textlocator='#saltcorn-builder > div.row > div.col-sm-auto.builder-sidebar > div > div.settings-panel.card.mt-1 > div.card-body.p-2 > div > div.border > div';
+    this.inputbox1 = '#inputaddress';
+    this.inputbox2 = '#inputdate_of_birth';
+    this.fielddropdown = '#saltcorn-builder > div.row > div.col-sm-auto.builder-sidebar > div > div.settings-panel.card.mt-1 > div.card-body.p-2 > table > tbody > tr:nth-child(1) > td:nth-child(2) > select';
+    this.saveactionbutton = '#builder-main-canvas > div:nth-child(1) > div > div > button'
     this.tableNameTextlocator='#page-inner-content > div:nth-child(2) > div.card.mt-4.shadow > div > form > div:nth-child(2) > div.col-sm-10 > input';
     this.createButtonLocator= '#page-inner-content > div:nth-child(2) > div.card.mt-4.shadow > div > form > div:nth-child(3) > div > button';
     this.FieldsLocator='#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody';
@@ -49,8 +53,21 @@ class PageLocators {
     this.yearlocator = '#page-top > div.flatpickr-calendar.hasTime.animate.open.arrowTop.arrowLeft > div.flatpickr-months > div > div > div > input';
     this.monthlocator = '#page-top > div.flatpickr-calendar.hasTime.animate.open.arrowTop.arrowLeft > div.flatpickr-months > div > div > select';
     this.datelocator = '#page-top > div.flatpickr-calendar.hasTime.animate.open.arrowTop.arrowLeft > div.flatpickr-innerContainer > div > div.flatpickr-days > div > span:nth-child(3)';
-   
+    this.nextoption = '#saltcorn-builder > div.row > div.col-sm-auto.builder-sidebar > div > button.btn.btn-sm.btn-primary.builder-save';
+    this.finishprimary = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > form > div:nth-child(12) > div > button.btn.btn-primary';
+    this.nextprimary = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > form > div:nth-child(8) > div > button.btn.btn-primary';
+    this.rowsperpage = '#input_rows_per_page';
+    this.layoutoption = '#tab82036chead0';
+    this.configurebutton = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > form > div:nth-child(8) > div > button';
+    this.databaseoption = '#tab82036chead1';
+    this.finishbutton = '#tab82036chead1 > button';
+    this.newviewlink = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr > td:nth-child(1) > a';
+    this.deleteviewbutton = '#page-inner-content > div:nth-child(2) > div.d-inline > div > table > tbody > tr > td:nth-child(4) > form > button';
     this.target = '#builder-main-canvas > div > div > div';
+    this.space1 = '#builder-main-canvas > div:nth-child(1) > div > div > div.row.selected-node > div.split-col.col-sm-10.text-start.align-items-undefined > div > div';
+    this.destinationtype = '#inputdestination_type';
+    this.destinationview = '#inputview_when_done';
+    this.newcolumn = '#builder-main-canvas > div:nth-child(1) > div > div > div.selected-node.d-flex.w-100.list-column-outer > div.flex-50.list-col-contents > div';
     this.lineBreakSource = '#saltcorn-builder > div.row > div.col-sm-auto.left-builder-col.builder-left-shrunk > div.componets-and-library-accordion.toolbox-card > div.card.mt-1 > div:nth-child(2) > div:nth-child(1) > div';
     this.htmlCodeSource = '#saltcorn-builder > div.row > div.col-sm-auto.left-builder-col.builder-left-shrunk > div.componets-and-library-accordion.toolbox-card > div.card.mt-1 > div:nth-child(2) > div:nth-child(2)';
     this.cardSource = '#saltcorn-builder > div.row > div.col-sm-auto.left-builder-col.builder-left-shrunk > div.componets-and-library-accordion.toolbox-card > div.card.mt-1 > div:nth-child(3) > div:nth-child(1)';
@@ -142,6 +159,14 @@ class PageLocators {
     this.Customlocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(2) > a';
     this.logsettinglocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(3) > a';
     this.Eventloglocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(4) > a';
+    this.viewnametextbox = '#inputname';
+    this.viewdiscriptiontext = '#inputdescription';
+    this.viewpatterndropdown = '#inputviewtemplate';
+    this.viewtabledropdown = '#inputtable_name';
+    this.viewminimumroledropdown = '#inputmin_role';
+    this.addcolumnbutton = '#builder-main-canvas > div:nth-child(1) > button';
+    
+
   } 
 }
 

@@ -35,11 +35,11 @@ class PageFunctions {
   }
 
   async navigate_To_Settings() {
-    await this.page.click(this.locators.settingsTab);
+    await this.page.click(this.locators.settingsTab, { force: true });
   }
 
   async navigate_To_about_application() {
-    await this.page.waitForSelector(this.locators.aboutApplicationLink, { timeout: 5000 });
+    await this.page.waitForSelector(this.locators.aboutApplicationLink, { timeout: 10000 });
     await this.page.click(this.locators.aboutApplicationLink, { force: true });
   }
 
