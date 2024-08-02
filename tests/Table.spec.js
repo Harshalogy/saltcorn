@@ -113,7 +113,7 @@ test.describe('E2E Test Suite', () => {
     await functions.fill_Text(pageobject.descriptionSelector, 'Date of birth of User');
     //Click on next button
     await functions.submit();
-    //await page.click(pageobject.Nextbuttonlocator);
+    // click on next button again
     await functions.submit();
     // check visibility of Date of birth field added
     await expect(page.locator(pageobject.dobfieldlocator)).toBeVisible();
@@ -195,7 +195,7 @@ test.describe('E2E Test Suite', () => {
     await page.keyboard.press('Enter');
   });
 
-  // download table as csv
+  //download table as csv
   test('download table as csv file', async () => {
     // navigate back to table
     await page.goBack();
@@ -215,7 +215,7 @@ test.describe('E2E Test Suite', () => {
     // assert the view url
     expect(page.url()).toBe(baseURL + derivedURL + 'viewedit/new');
     // input view name and discription
-    await page.fill(pageobject.viewnametextbox, 'View_' + randomString);
+    await page.fill(pageobject.viewnametextbox, 'NewView_' + randomString);
     await page.fill(pageobject.viewdiscriptiontext, 'view for table');
     // click on dropdown and select option
     await page.click(pageobject.viewpatterndropdown);
@@ -236,7 +236,8 @@ test.describe('E2E Test Suite', () => {
     await functions.drag_And_Drop(pageobject.cardSource, pageobject.newcolumn);
     // click on next button
     await page.click(pageobject.nextoption);
-    await page.click(pageobject.nextprimary);
+    // click on next button
+    await functions.submit();
     // click on rows per page dropdown
     await page.click(pageobject.rowsperpage);
     await page.keyboard.press('Enter');
@@ -254,7 +255,7 @@ test.describe('E2E Test Suite', () => {
     //click on create new view
     await page.click(pageobject.createnewview);
     // input view name and discription
-    await page.fill(pageobject.viewnametextbox, 'NewView_' + randomString);
+    await page.fill(pageobject.viewnametextbox, 'View2_' + randomString);
     await page.fill(pageobject.viewdiscriptiontext, 'view for table');
     // click on dropdown and select option
     await page.click(pageobject.viewpatterndropdown);
@@ -302,6 +303,111 @@ test.describe('E2E Test Suite', () => {
     await page.keyboard.press('Enter');
     // click on finish button
     await page.click(pageobject.finishprimary);
+  });
+
+  // Add edit link in list view
+  test('Add edit link in list view', async () => {
+    // visit view 
+    await functions.views();
+    // click on newly created view link
+    await page.click(pageobject.newviewlink);
+    // click on edit link
+    await page.click(pageobject.editviewlink);
+    // submit the page
+    await functions.submit();
+    // click on add column button on page
+    await page.click(pageobject.addcolumnbutton);
+    //drag and drop the action view link
+    await functions.drag_And_Drop(pageobject.htmlCodeSource, pageobject.newcolumn);
+    // click to view link dropdown
+    await page.click(pageobject.viewtolinkdropdown);
+    await page.keyboard.press('ArrowDown');
+    await page.keyboard.press('Enter');
+    // add lable for link
+    await functions.fill_Text(pageobject.lebelforfield, 'Edit');
+    await page.click(pageobject.viewtolinkdropdown);
+    // click next button
+    await page.click(pageobject.nextoption);
+    // click next button again
+    await functions.submit();
+    //submit the page
+    await functions.submit();
+    // click finish button
+    await page.click(pageobject.finishbuttonprimary);
+    // click to new view link again
+    await page.click(pageobject.newviewlink);
+    // check visibility for edit butoon for row
+    await expect(page.locator(pageobject.editfieldlink)).toBeVisible();
+    // click on edit button
+    await page.click(pageobject.editfieldlink);
+    // add text on input box and save
+    await functions.fill_Text(pageobject.inputbox1, 'India');
+    await page.click(pageobject.saveprimarybutton);
+  });
+
+   // Add link to create new row in table
+   test('Add link to create new row in table', async () => {
+    // visit view
+    await functions.views();
+    // click on new view link
+    await page.click(pageobject.newviewlink);
+    // click on edit link
+    await page.click(pageobject.editviewlink);
+    // submit the page
+    await functions.submit();
+    // click on next page
+    await page.click(pageobject.nextoption);
+    // seslet view to create from dropdown
+    await page.click(pageobject.viewtocreate);
+    await page.keyboard.press('ArrowDown');
+    await page.keyboard.press('Enter');
+    // add lable for view to create
+    await functions.fill_Text(pageobject.labeltocreate, 'Add person');
+    // submit the page
+    await functions.submit();
+    await functions.submit();
+    await page.click(pageobject.finishbuttonprimary);
+    await page.click(pageobject.newviewlink);
+    await expect(page.locator(pageobject.addpersonlink)).toBeVisible();
+    await page.click(pageobject.addpersonlink);
+    await page.click(pageobject.saveprimarybutton);
+    await functions.views();
+    await page.click(pageobject.newviewlink);
+   });
+
+   // create view with show view pattern
+  test('create view with show view pattern', async () => {
+    await functions.views();
+    // assert the view edit url
+    expect(page.url()).toBe(baseURL + derivedURL + 'viewedit');
+    //assert the visibility of create new view
+    await expect(page.locator(pageobject.createnewview)).toBeVisible();
+    //click on create new view
+    await page.click(pageobject.createnewview);
+    // assert the view url
+    expect(page.url()).toBe(baseURL + derivedURL + 'viewedit/new');
+    // input view name and discription
+    await page.fill(pageobject.viewnametextbox, 'showView_' + randomString);
+    await page.fill(pageobject.viewdiscriptiontext, 'view for table');
+    // click on dropdown and select option
+    await page.click(pageobject.viewpatterndropdown);
+    // click down aero to change options
+    await page.keyboard.press('ArrowDown'); 
+    await page.keyboard.press('ArrowDown');
+    await page.keyboard.press('Enter');
+    await page.click(pageobject.viewtabledropdown);
+    await page.keyboard.press('Enter');
+    // click on view minimum role dropdown
+    await page.click(pageobject.viewminimumroledropdown);
+    await page.keyboard.press('Enter');
+    // submit the page
+    await functions.submit();
+    
+
+    // click on next button
+    await page.click(pageobject.nextoption);
+    // click on new view link
+    await page.click(pageobject.newviewlink);
   });
 
   //clear all tables
