@@ -174,8 +174,24 @@ class PageLocators {
     this.viewtabledropdown = '#inputtable_name';
     this.viewminimumroledropdown = '#inputmin_role';
     this.addcolumnbutton = '#builder-main-canvas > div:nth-child(1) > button';
-    
-
+    this.createfromcsvupload = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div:nth-child(2) > a.btn.btn-secondary.me-3.mt-1';
+    this.csvtablenametextbox = '#inputname';
+    this.choosefilebutton = '#inputfile';
+    this.createcsvbutton = '#page-inner-content > div:nth-child(2) > div.card.mt-4.shadow > div > form > div:nth-child(4) > div > button';
+    this.createviewfromtable = '#table-views > div > a';
+    this.newviewfromtable = '#table-views > div > div > table > tbody > tr > td:nth-child(1) > a';
+    this.idfromcsvtable = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(4) > td:nth-child(1)';
+    this.csvidintegertype = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(4) > td:nth-child(2)';
+    this.csvfullnamefield = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(3) > td:nth-child(1)';
+    this.csvnamestringtype = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(3) > td:nth-child(2)';
+    this.csvDOBfield = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(2) > td:nth-child(1)';
+    this.csvDobdatetype = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(2) > td:nth-child(2)';
+    this.csvaddressfield = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(1) > td:nth-child(1)';
+    this.csvaddressstringtype = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(1) > td:nth-child(2)';
+    this.Fullnameshow = '#builder-main-canvas > div:nth-child(1) > div > div > div:nth-child(3) > div.split-col.col-sm-2.text-end.align-items-undefined > div > div > div > div';
+    this.fullnameuser = '#builder-main-canvas > div:nth-child(1) > div > div > div:nth-child(3) > div.split-col.col-sm-10.text-start.align-items-undefined > div > div > div > div';
+    this.nameontarget = '#builder-main-canvas > div:nth-child(1) > div > div > div.selected-node.d-inline-block > div';
+    this.textstyle = '#saltcorn-builder > div.row > div.col-sm-auto.builder-sidebar > div > div.settings-panel.card.mt-1 > div.card-body.p-2 > table > tbody > tr:nth-child(5) > td:nth-child(2) > select';
   } 
 }
 

@@ -2,8 +2,8 @@ const { test, expect } = require('@playwright/test');
 const { baseURL, derivedURL } = require('../pageobject/base_url.js');
 const PageFunctions = require('../pageobject/function.js');
 const PageObject = require('../pageobject/locators.js');
-const customAssert = require('../pageobject/utils');
-const Logger = require('../pageobject/logger');
+const customAssert = require('../pageobject/utils.js');
+const Logger = require('../pageobject/logger.js');
 
 let storageState = 'storageState.json';
 
@@ -309,7 +309,7 @@ test.describe('E2E Test Suite', () => {
   });
 
   // Assert the presence of "Events" tab
-  test('Validate "Events" tabs', async () => {
+  test('Validate "Events" tabs', async ({browser}) => {
     functions = new PageFunctions(page);
     // Navigate to setting
     await functions.navigate_To_Settings();
@@ -337,4 +337,5 @@ test.describe('E2E Test Suite', () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'eventlog');
     });
   });
+
 });

@@ -2,6 +2,8 @@ const { test, expect } = require('@playwright/test');
 const { baseURL, derivedURL } = require('../pageobject/base_url.js');
 const PageFunctions = require('../pageobject/function.js');
 const PageObject = require('../pageobject/locators.js');
+const customAssert = require('../pageobject/utils.js');
+const Logger = require('../pageobject/logger.js');
 
 let storageState = 'storageState.json';
 
@@ -12,9 +14,14 @@ test.describe('E2E Test Suite', () => {
   let page;
 
   test.beforeAll(async ({ browser }) => {
+    // Initialize the log file
+    Logger.initialize();
     // Create a new context and page for all tests
     context = await browser.newContext();
     page = await context.newPage();
+
+    // Maximize the screen
+    await page.setViewportSize({ width: 1350, height: 1080 });
     
     functions = new PageFunctions(page);
     pageobject = new PageObject(page);

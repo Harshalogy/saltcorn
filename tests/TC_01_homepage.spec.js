@@ -2,8 +2,8 @@ const { test, expect } = require('@playwright/test');
 const { baseURL, derivedURL } = require('../pageobject/base_url.js');
 const PageFunctions = require('../pageobject/function.js');
 const PageObject = require('../pageobject/locators.js');
-const customAssert = require('../pageobject/utils');
-const Logger = require('../pageobject/logger');
+const customAssert = require('../pageobject/utils.js');
+const Logger = require('../pageobject/logger.js');
 
 let storageState = 'storageState.json';
 
@@ -54,12 +54,8 @@ test.describe('E2E Test Suite', () => {
     await functions.fill_Text(pageobject.textlocator, 'Testing');
 
     // Check Text settings
-    await customAssert('Text settings should be visible', async () => {
-      await expect(page.getByText('Text settings')).toBeVisible();
-    });
-    await customAssert('Text to display should be visible', async () => {
-      await expect(page.getByText('Text to display')).toBeVisible();
-    });
+    await customAssert('Text settings should be visible', async () => await expect(page.getByText('Text settings')).toBeVisible());
+    await customAssert('Text to display should be visible', async () => await expect(page.getByText('Text to display')).toBeVisible());
   });
 
   // check buttons visibility
@@ -68,42 +64,27 @@ test.describe('E2E Test Suite', () => {
     await functions.fill_Text(pageobject.textlocator, 'Testing');
 
     // Check delete button
-    await customAssert('delete button should be visible', async () => {
-      const deleteButton = await page.locator(pageobject.deletebutton);
-      await expect(deleteButton).toBeVisible();
-    });
-
+    await customAssert('delete button should be visible', async () => await expect(await page.locator(pageobject.deletebutton)).toBeVisible());
     // Check clone button
-    await customAssert('clone button should be visible', async () => {
-      const cloneButton = await page.locator(pageobject.clonebutton);
-      await expect(cloneButton).toBeVisible();
-    });
+    await customAssert('clone button should be visible', async () => await expect(await page.locator(pageobject.clonebutton)).toBeVisible());
   });
 
   // Check text and HTML box content
   test('Check text and HTML box content', async () => {
-    await customAssert('hello world should have text texting', async () => {
-      const heloworld = page.locator(pageobject.textlocator);
-      await expect(heloworld).toHaveText('Testing');
-    });
+    await customAssert('hello world should have text texting', async () => await expect(page.locator(pageobject.textlocator)).toHaveText('Testing'));
     // drag and drop the html code source
     await functions.drag_And_Drop(pageobject.htmlCodeSource, pageobject.target);
     await functions.fill_Text(pageobject.htmltextlocator, '<h3>Hello Sumit</h3>');
 
     // validate that html code source is visible
-    await customAssert('HTML box should be visible', async () => {
-      const htmlbox = page.locator(pageobject.htmltextlocator);
-      await expect(htmlbox).toBeVisible();
-    });
+    await customAssert('HTML box should be visible', async () => await expect(page.locator(pageobject.htmltextlocator)).toBeVisible());
   });
 
   //Check image setting
   test('Check image settings', async () => {
     // drag and drop the image source
     await functions.drag_And_Drop(pageobject.imageSource, pageobject.target);
-    await customAssert('image settings should be visible', async () => {
-      await expect(page.getByText('Image settings')).toBeVisible();
-    });
+    await customAssert('image settings should be visible', async () => await expect(page.getByText('Image settings')).toBeVisible());
   });
 
   //Check card setting
@@ -275,7 +256,7 @@ test.describe('E2E Test Suite', () => {
   });
 
   // Check clear all function
-  test('Navigate to setting page and clear all changes', async () => {
+  test('Navigate to setting page and clear all changes', async ({browser}) => {
     functions = new PageFunctions(page);
     // Navigate to setting
     await functions.navigate_To_Settings();
@@ -294,4 +275,5 @@ test.describe('E2E Test Suite', () => {
       await expect(title).toHaveText(pageobject.expectedtoastermsg);
     });
   });
+
 });

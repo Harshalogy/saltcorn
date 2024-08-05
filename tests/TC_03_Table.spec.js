@@ -2,6 +2,9 @@ const { test, expect } = require('@playwright/test');
 const { baseURL, derivedURL } = require('../pageobject/base_url.js');
 const PageFunctions = require('../pageobject/function.js');
 const PageObject = require('../pageobject/locators.js');
+const customAssert = require('../pageobject/utils.js');
+const Logger = require('../pageobject/logger.js');
+const fs = require('fs');
 
 let storageState = 'storageState.json';
 
@@ -13,12 +16,14 @@ test.describe('E2E Test Suite', () => {
   let randomString;
 
   test.beforeAll(async ({ browser }) => {
+    // Initialize the log file
+    Logger.initialize();
     // Create a new context and page for all tests
     context = await browser.newContext();
     page = await context.newPage();
 
     // Maximize the screen
-    await page.setViewportSize({ width: 1350, height: 1080 });
+    await page.setViewportSize({ width: 1350, height: 720 });
 
     functions = new PageFunctions(page);
     pageobject = new PageObject(page);
@@ -38,27 +43,36 @@ test.describe('E2E Test Suite', () => {
   test('Click table button and verify URL', async () => {
     //click table button
     await functions.click_table();
-    expect(page.url()).toBe(baseURL + derivedURL + 'table');
+    await customAssert('Page url should be https://e2etest.saltcorn.co/table ', async () => {
+      expect(page.url()).toBe(baseURL + derivedURL + 'table');
+    });
   });
 
   // Check the "Create table" function
   test('Check the "Create table" Function', async () => {
-
-    await expect(page.locator(pageobject.createtablebutton)).toBeVisible();
-
-    // Click the "Create table" button
-    await page.click(pageobject.createtablebutton);
+    await customAssert('Create table button should be visible and working', async () => {
+      await expect(page.locator(pageobject.createtablebutton)).toBeVisible();
+      // Click the "Create table" button
+      await page.click(pageobject.createtablebutton);
+    });
     // Enter Table name
     await functions.fill_Text(pageobject.tableNameTextlocator, 'My_Table' + randomString);
-
-    await expect(page.locator(pageobject.createButtonLocator)).toBeVisible();
-    // click on Create button
-    await page.click(pageobject.createButtonLocator);
-    await expect(page.locator(pageobject.FieldsLocator)).toBeVisible();
+    await customAssert('Create button should be visible and working', async () => {
+      await expect(page.locator(pageobject.createButtonLocator)).toBeVisible();
+      // click on Create button
+      await page.click(pageobject.createButtonLocator);
+    });
+    await customAssert('fields for table should be visible ', async () => {
+      await expect(page.locator(pageobject.FieldsLocator)).toBeVisible();
+    });
     // check visibility of id field already exist
-    await expect(page.locator(pageobject.idfieldlocator)).toBeVisible();
+    await customAssert('Id field for table should be already exist ', async () => {
+      await expect(page.locator(pageobject.idfieldlocator)).toBeVisible();
+    });
     // check id field is iteger type
-    await expect(page.locator(pageobject.idtypelocator)).toBeVisible();
+    await customAssert('Id field should be integer type ', async () => {
+      await expect(page.locator(pageobject.idtypelocator)).toBeVisible();
+    });
   });
 
   // Add Full name field in the table
@@ -89,15 +103,25 @@ test.describe('E2E Test Suite', () => {
     await functions.submit();
 
     // check visibility of full name field added
-    await expect(page.locator(pageobject.fullnamefieldlocator)).toBeVisible();
+    await customAssert('Full Name field should be visible on fields ', async () => {
+      await expect(page.locator(pageobject.fullnamefieldlocator)).toBeVisible();
+    });
     // check required tag for full name field
-    await expect(page.locator(pageobject.fullnamerequiredtaglocator)).toBeVisible();
+    await customAssert('Full name field should should have required tag ', async () => {
+      await expect(page.locator(pageobject.fullnamerequiredtaglocator)).toBeVisible();
+    });
     // check full name field type is string
-    await expect(page.locator(pageobject.fullnametypelocator)).toBeVisible();
+    await customAssert('Full Name field should be string type ', async () => {
+      await expect(page.locator(pageobject.fullnametypelocator)).toBeVisible();
+    });
     // check variable name for full name field is visible
-    await expect(page.locator(pageobject.fullnamevariablelocator)).toBeVisible();
+    await customAssert('Variable name for full name should be full_name and visible ', async () => {
+      await expect(page.locator(pageobject.fullnamevariablelocator)).toBeVisible();
+    });
     // check delete button for full name field is visible
-    await expect(page.locator(pageobject.fullnamedeletebutton)).toBeVisible();
+    await customAssert('Delete button for full name field should be exist ', async () => {
+      await expect(page.locator(pageobject.fullnamedeletebutton)).toBeVisible();
+    });
   });
 
   // Add Date of birth field in the table
@@ -116,15 +140,21 @@ test.describe('E2E Test Suite', () => {
     // click on next button again
     await functions.submit();
     // check visibility of Date of birth field added
-    await expect(page.locator(pageobject.dobfieldlocator)).toBeVisible();
+    await customAssert('DOB field for table should be visible ', async () => {
+      await expect(page.locator(pageobject.dobfieldlocator)).toBeVisible();
+    });
     // check DOB field type is Date
-    await expect(page.locator(pageobject.datetypelocator)).toBeVisible();
+    await customAssert('DOB field should have Date type ', async () => {
+      await expect(page.locator(pageobject.datetypelocator)).toBeVisible();
+    });
     // check varable name for dob field is visible
-    await expect(page.locator(pageobject.datetypelocator)).toBeVisible();
-    // check DOB field type is Date
-    await expect(page.locator(pageobject.datevariablelocator)).toBeVisible();
+    await customAssert('Variable name for DOB field should be date_of_birth ', async () => {
+      await expect(page.locator(pageobject.datevariablelocator)).toBeVisible();
+    });
     // check delete button for DOB field is visible
-    await expect(page.locator(pageobject.deletedobbutton)).toBeVisible();
+    await customAssert('Delete button for DOB field should be exist ', async () => {
+      await expect(page.locator(pageobject.deletedobbutton)).toBeVisible();
+    });
   });
 
   // Add Address field in the table
@@ -149,24 +179,33 @@ test.describe('E2E Test Suite', () => {
     // click on finish button
     await functions.submit();
     // check visibility of Address field added
-    await expect(page.locator(pageobject.addressfieldlocator)).toBeVisible();
+    await customAssert('Address field should be visible', async () => {
+      await expect(page.locator(pageobject.addressfieldlocator)).toBeVisible();
+    });
     // check address field type is string
-    await expect(page.locator(pageobject.addresstypelocator)).toBeVisible();
+    await customAssert('Address field type should be string', async () => {
+      await expect(page.locator(pageobject.addresstypelocator)).toBeVisible();
+    });
     // check variable name for address field is visible
-    await expect(page.locator(pageobject.addressvariablelocator)).toBeVisible();
+    await customAssert('variable name for Address field should be adress and visible ', async () => {
+      await expect(page.locator(pageobject.addressvariablelocator)).toBeVisible();
+    });
     // check delete button for address field is visible
-    await expect(page.locator(pageobject.deleteaddressbutton)).toBeVisible();
+    await customAssert('Delete button for Address field should be visible ', async () => {
+      await expect(page.locator(pageobject.deleteaddressbutton)).toBeVisible();
+    });
   });
 
   // Add Row and value in the table
-  test('Add row and inser value in the coulmns', async () => {
+  test('Add row and insert value in the coulmns', async () => {
     // Generate a random string
     const randomString = PageFunctions.generate_Random_String(5);
     //Click on edit link
     await page.click(pageobject.EditlinkLocator);
     //Click on add row button
-    await expect(page.locator(pageobject.addrowlocator)).toBeVisible();
-
+    await customAssert('Add row button on table should be visible ', async () => {
+      await expect(page.locator(pageobject.addrowlocator)).toBeVisible();
+    });
     await page.waitForTimeout(4000);
     // click on add row button
     await page.click(pageobject.addrowlocator);
@@ -177,9 +216,10 @@ test.describe('E2E Test Suite', () => {
     // click on tab cell to activate it
     await page.click(pageobject.tab2locator);
     // Check if the calendar is visible
-    const calendarVisible = await page.isVisible(pageobject.calendarlocator);
-    // Assert that the calendar is visible
-    expect(calendarVisible).toBe(true);
+    await customAssert('Calander should be open after clicking on date column ', async () => {
+      const calendarVisible = await page.isVisible(pageobject.calendarlocator);
+      expect(calendarVisible).toBe(true);
+    });
     // enter year value in cell
     await page.fill(pageobject.yearlocator, '1990')
     // select month in calendar
@@ -197,23 +237,60 @@ test.describe('E2E Test Suite', () => {
 
   //download table as csv
   test('download table as csv file', async () => {
-    // navigate back to table
-    await page.goBack();
-    //Click on download link
-    await page.click(pageobject.downloadlinklocator);
+    // Click table button
+    await functions.click_table();
+    await page.click(pageobject.Defaultusertable);
+
+    // Wait for the download event and click the download link
+    const [download] = await Promise.all([
+      page.waitForEvent('download'),
+      page.click(pageobject.downloadlinklocator)
+    ]);
+
+    // Get the path of the downloaded file
+    const downloadPath = await download.path();
+
+    // Verify the downloaded file
+    if (downloadPath) {
+      console.log('File downloaded to:', downloadPath);
+
+      // Check if the file exists
+      if (fs.existsSync(downloadPath)) {
+        console.log('File exists:', downloadPath);
+
+        // Optionally, read the file content
+        const fileContent = fs.readFileSync(downloadPath, 'utf8');
+        console.log('File content:', fileContent);
+
+        // Assert the file content (adjust based on your expected content)
+        await customAssert('File content should be correct', async () => {
+          expect(fileContent).toContain('id,full_name,date_of_birth,address'); // Adjust this line based on the actual expected content
+        });
+      } else {
+        throw new Error('Downloaded file not found.');
+      }
+    } else {
+      throw new Error('Download event not triggered.');
+    }
   });
 
   // create view with list view pattern
   test('create view with list view pattern', async () => {
     await functions.views();
     // assert the view edit url
-    expect(page.url()).toBe(baseURL + derivedURL + 'viewedit');
+    await customAssert('page url should be https://e2etest.saltcorn.co/viewedit  ', async () => {
+      expect(page.url()).toBe(baseURL + derivedURL + 'viewedit');
+    });
     //assert the visibility of create new view
-    await expect(page.locator(pageobject.createnewview)).toBeVisible();
-    //click on create new view
-    await page.click(pageobject.createnewview);
+    await customAssert('Create new view button should be visible and working', async () => {
+      await expect(page.locator(pageobject.createnewview)).toBeVisible();
+      //click on create new view
+      await page.click(pageobject.createnewview);
+    });
     // assert the view url
-    expect(page.url()).toBe(baseURL + derivedURL + 'viewedit/new');
+    await customAssert('page url should be https://e2etest.saltcorn.co/viewedit/new  ', async () => {
+      expect(page.url()).toBe(baseURL + derivedURL + 'viewedit/new');
+    });
     // input view name and discription
     await page.fill(pageobject.viewnametextbox, 'NewView_' + randomString);
     await page.fill(pageobject.viewdiscriptiontext, 'view for table');
@@ -222,7 +299,9 @@ test.describe('E2E Test Suite', () => {
     //await page.keyboard.press('ArrowDown'); // click down aero to change options
     await page.keyboard.press('Enter');
     // validate the table name in table dropdown
-    await expect(page.locator('#inputtable_name')).toHaveText(`My_Table${randomString}users`);
+    await customAssert('Table Name should be same as we created earlier', async () => {
+      await expect(page.locator('#inputtable_name')).toHaveText(`My_Table${randomString}users`);
+    });
     await page.click(pageobject.viewtabledropdown);
     await page.keyboard.press('Enter');
     // click on view minimum role dropdown
@@ -244,16 +323,20 @@ test.describe('E2E Test Suite', () => {
     // click on new view link
     await page.click(pageobject.newviewlink);
     // assert the visibility of delete button
-    await expect(page.locator(pageobject.deleteviewbutton)).toBeVisible();
+    await customAssert('Delete view button should be visible  ', async () => {
+      await expect(page.locator(pageobject.deleteviewbutton)).toBeVisible();
+    });
   });
 
   // create new view with edit view pattern
   test('create new view with edit view pattern', async () => {
     await functions.views();
     //assert the visibility of create new view
-    await expect(page.locator(pageobject.createnewview)).toBeVisible();
-    //click on create new view
-    await page.click(pageobject.createnewview);
+    await customAssert('Create new view button should be visible and working', async () => {
+      await expect(page.locator(pageobject.createnewview)).toBeVisible();
+      //click on create new view
+      await page.click(pageobject.createnewview);
+    });
     // input view name and discription
     await page.fill(pageobject.viewnametextbox, 'View2_' + randomString);
     await page.fill(pageobject.viewdiscriptiontext, 'view for table');
@@ -294,6 +377,7 @@ test.describe('E2E Test Suite', () => {
     // delete the button
     await page.click(pageobject.deletebutton);
     // click on next page
+    await page.waitForTimeout(4000);
     await page.click(pageobject.nextoption);
     // click to see destination type
     await page.click(pageobject.destinationtype);
@@ -337,16 +421,18 @@ test.describe('E2E Test Suite', () => {
     // click to new view link again
     await page.click(pageobject.newviewlink);
     // check visibility for edit butoon for row
-    await expect(page.locator(pageobject.editfieldlink)).toBeVisible();
-    // click on edit button
-    await page.click(pageobject.editfieldlink);
+    await customAssert('Edit field link should be visible', async () => {
+      await expect(page.locator(pageobject.editfieldlink)).toBeVisible();
+      // click on edit button
+      await page.click(pageobject.editfieldlink);
+    });
     // add text on input box and save
-    await functions.fill_Text(pageobject.inputbox1, 'India');
+    //await functions.fill_Text(pageobject.inputbox1, 'India');
     await page.click(pageobject.saveprimarybutton);
   });
 
-   // Add link to create new row in table
-   test('Add link to create new row in table', async () => {
+  // Add link to create new row in table
+  test('Add link to create new row in table', async () => {
     // visit view
     await functions.views();
     // click on new view link
@@ -363,38 +449,54 @@ test.describe('E2E Test Suite', () => {
     await page.keyboard.press('Enter');
     // add lable for view to create
     await functions.fill_Text(pageobject.labeltocreate, 'Add person');
-    // submit the page
+    // click on next button
     await functions.submit();
+    // click on next button again
     await functions.submit();
+    // click on finish button
     await page.click(pageobject.finishbuttonprimary);
+    // click on new view link
     await page.click(pageobject.newviewlink);
-    await expect(page.locator(pageobject.addpersonlink)).toBeVisible();
-    await page.click(pageobject.addpersonlink);
+    // assert the visibility of add person link
+    await customAssert('Add person link should be visible and working', async () => {
+      await expect(page.locator(pageobject.addpersonlink)).toBeVisible();
+      // click on add person link
+      await page.click(pageobject.addpersonlink);
+    });
+    // click on save button
     await page.click(pageobject.saveprimarybutton);
+    // go to view again and click to see new view link
     await functions.views();
     await page.click(pageobject.newviewlink);
-   });
+  });
 
-   // create view with show view pattern
+  // create view with show view pattern
   test('create view with show view pattern', async () => {
     await functions.views();
     // assert the view edit url
-    expect(page.url()).toBe(baseURL + derivedURL + 'viewedit');
+    await customAssert('page url should be https://e2etest.saltcorn.co/viewedit  ', async () => {
+      expect(page.url()).toBe(baseURL + derivedURL + 'viewedit');
+    });
     //assert the visibility of create new view
-    await expect(page.locator(pageobject.createnewview)).toBeVisible();
-    //click on create new view
-    await page.click(pageobject.createnewview);
+    await customAssert('Create new view button should be visible', async () => {
+      await expect(page.locator(pageobject.createnewview)).toBeVisible();
+      //click on create new view
+      await page.click(pageobject.createnewview);
+    });
     // assert the view url
-    expect(page.url()).toBe(baseURL + derivedURL + 'viewedit/new');
+    await customAssert('page url should be https://e2etest.saltcorn.co/viewedit/new  ', async () => {
+      expect(page.url()).toBe(baseURL + derivedURL + 'viewedit/new');
+    });
     // input view name and discription
     await page.fill(pageobject.viewnametextbox, 'showView_' + randomString);
     await page.fill(pageobject.viewdiscriptiontext, 'view for table');
     // click on dropdown and select option
     await page.click(pageobject.viewpatterndropdown);
-    // click down aero to change options
-    await page.keyboard.press('ArrowDown'); 
+    // click down aero to change options to show
+    await page.keyboard.press('ArrowDown');
     await page.keyboard.press('ArrowDown');
     await page.keyboard.press('Enter');
+    // click on view table drop down
     await page.click(pageobject.viewtabledropdown);
     await page.keyboard.press('Enter');
     // click on view minimum role dropdown
@@ -402,16 +504,74 @@ test.describe('E2E Test Suite', () => {
     await page.keyboard.press('Enter');
     // submit the page
     await functions.submit();
-    
+    await page.click(pageobject.Fullnameshow);
+    await page.click(pageobject.deletebutton);
 
+    await functions.drag_And_Drop(pageobject.fullnameuser, pageobject.target);
+    await page.click(pageobject.nameontarget);
+    await page.click(pageobject.textstyle);
+    await page.keyboard.press('ArrowDown');
+    await page.keyboard.press('Enter');
     // click on next button
     await page.click(pageobject.nextoption);
     // click on new view link
     await page.click(pageobject.newviewlink);
   });
 
+  test('Add table by uploading csv file', async () => {
+    //click table button
+    await functions.click_table();
+    //Click on Create from CSV upload link
+    await page.click(pageobject.createfromcsvupload);
+    // click on choose file button
+    await page.click(pageobject.choosefilebutton);
+    // Wait for the file input element to be available
+    const fileInput = await page.waitForSelector('input[type="file"]');
+    // Set the file input to the desired file
+    const filePath = 'Csv_file_to_uplaod/People1.csv'; // Replace with the correct path to your CSV file
+    await fileInput.setInputFiles(filePath);
+    // fill table name on text box
+    await functions.fill_Text(pageobject.csvtablenametextbox, 'csv_Table' + randomString);
+    // Click on create button
+    await page.click(pageobject.createcsvbutton);
+    // Click on create view from table
+    await page.click(pageobject.createviewfromtable);
+    // input view name and discription
+    await page.fill(pageobject.viewnametextbox, 'csvView_' + randomString);
+    await page.fill(pageobject.viewdiscriptiontext, 'view for csv table');
+    // submit the page
+    await functions.submit();
+    // click on next button
+    await page.click(pageobject.nextoption);
+    // click on next button
+    await functions.submit();
+    await page.click(pageobject.finishbuttonprimary);
+    // id field should be integer type and visible
+    await customAssert('Assert id field is integer type and visible', async () => {
+      await expect(page.locator(pageobject.idfromcsvtable)).toBeVisible();
+      await expect(page.locator(pageobject.csvidintegertype)).toBeVisible();
+    });
+    // Full Name field should be string type and visible
+    await customAssert('Assert Full name field is straing type and visible', async () => {
+      await expect(page.locator(pageobject.csvfullnamefield)).toBeVisible();
+      await expect(page.locator(pageobject.csvnamestringtype)).toBeVisible();
+    });
+    // DOB field should be Date type and visible
+    await customAssert('Assert DOB field is Date type and visible', async () => {
+      await expect(page.locator(pageobject.csvDOBfield)).toBeVisible();
+      await expect(page.locator(pageobject.csvDobdatetype)).toBeVisible();
+    });
+    // Adress field should be string type and visible
+    await customAssert('Assert address field is string type and visible', async () => {
+      await expect(page.locator(pageobject.csvaddressfield)).toBeVisible();
+      await expect(page.locator(pageobject.csvaddressstringtype)).toBeVisible();
+    });
+
+    // click on new view link
+    await page.click(pageobject.newviewfromtable);
+  });
   //clear all tables
-  test('Navigate to setting page and clear all changes', async () => {
+  test('Navigate to setting page and clear all changes', async ({browser}) => {
     functions = new PageFunctions(page);
     await functions.SALTCORN();
     await functions.navigate_To_Settings();
@@ -419,18 +579,5 @@ test.describe('E2E Test Suite', () => {
     await functions.about_application_to_system();
     await functions.clear_All();
   });
-
-  // Add table by uploading csv file
-  // test('Add table by uploading csv file', async () => {
-  //   //Click on upload csv link
-  //   await page.click(pageobject.uploadcsvlinklocator);
-  //   // Wait for the file input element to be available
-  //   const fileInput = await page.waitForSelector('input[type="file"]');
-  //   // Set the file input to the desired file
-  //   const filePath = 'Downloads/My_Table12hjJ.csv'; // Replace with the correct path to your CSV file
-  //   await fileInput.setInputFiles(filePath);
-  //   // Optionally, you can wait for some element to confirm the file upload was successful
-  //   await page.waitForSelector('#some-confirmation-element'); // Replace with an appropriate selector
-  // });
 
 });
