@@ -44,7 +44,7 @@ test.describe('E2E Test Suite', () => {
     //click table button
     await functions.click_table();
     // assert the table url
-    await customAssert('page url should be https://e2etest.saltcorn.co/table', async () => {
+    await customAssert('page url should be /table', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'table');
     });
   });
@@ -108,7 +108,7 @@ test.describe('E2E Test Suite', () => {
   test('Verify "Views" section and "Create new view" button', async () => {
     await functions.views();
     // assert the view edit url
-    await customAssert('page url should be https://e2etest.saltcorn.co/viewtable', async () => {
+    await customAssert('page url should be /viewtable', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'viewedit');
     });
     //assert the visibility of create new view
@@ -118,7 +118,7 @@ test.describe('E2E Test Suite', () => {
     //click on create new view
     await page.click(pageobject.createnewview);
     // assert the view url
-    await customAssert('page url should be https://e2etest.saltcorn.co/viewedit/new', async () => {
+    await customAssert('page url should be /viewedit/new', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'viewedit/new');
     });
   });
@@ -131,36 +131,36 @@ test.describe('E2E Test Suite', () => {
     // Navigate to about applications
     await functions.navigate_To_about_application();
     // assert the about application url
-    await customAssert('page url should be https://e2etest.saltcorn.co/admin', async () => {
+    await customAssert('page url should be /admin', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'admin');
     });
     // validate each tab of about application and assert url
     await functions.about_application_to_site_identity();
-    await customAssert('page url should be https://e2etest.saltcorn.co/admin', async () => {
+    await customAssert('page url should be /admin', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'admin');
     });
     await functions.about_application_to_backup();
-    await customAssert('page url should be https://e2etest.saltcorn.co/admin/backup', async () => {
+    await customAssert('page url should be /admin/backup', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'admin' + derivedURL + 'backup');
     });
     await functions.about_application_to_email();
-    await customAssert('page url should be https://e2etest.saltcorn.co/admin/email', async () => {
+    await customAssert('page url should be /admin/email', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'admin' + derivedURL + 'email');
     });
     await functions.about_application_to_system();
-    await customAssert('page url should be https://e2etest.saltcorn.co/admin/system', async () => {
+    await customAssert('page url should be /admin/system', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'admin' + derivedURL + 'system');
     });
     await functions.about_application_to_mobile_app();
-    await customAssert('page url should be https://e2etest.saltcorn.co/admin/build-mobile-app', async () => {
+    await customAssert('page url should be /admin/build-mobile-app', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'admin' + derivedURL + 'build-mobile-app');
     });
     await functions.about_application_to_development();
-    await customAssert('page url should be https://e2etest.saltcorn.co/admin/dev', async () => {
+    await customAssert('page url should be /admin/dev', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'admin' + derivedURL + 'dev');
     });
     await functions.about_application_to_notification();
-    await customAssert('page url should be https://e2etest.saltcorn.co/admin/notifications', async () => {
+    await customAssert('page url should be /admin/notifications', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'admin' + derivedURL + 'notifications');
     });
   });
@@ -172,28 +172,28 @@ test.describe('E2E Test Suite', () => {
     // Navigate to Module
     await functions.navigate_To_module();
     // Assert the module URL
-    await customAssert('page url should be https://e2etest.saltcorn.co/plugins', async () => {
+    await customAssert('page url should be /plugins', async () => {
       expect(page.url()).toBe(baseURL + derivedURL + 'plugins');
     });
     // Validate each tab of module and assert URL
     await functions.navigate_To_All_modules();
-    await customAssert('page url should be https://e2etest.saltcorn.co/plugins?set=all', async () => {
+    await customAssert('page url should be /plugins?set=all', async () => {
       expect(page.url()).toBe(baseURL + derivedURL + 'plugins?set=all');
     });
     await functions.navigate_modules_To_modules();
-    await customAssert('page url should be https://e2etest.saltcorn.co/plugins?set=modules', async () => {
+    await customAssert('page url should be /plugins?set=modules', async () => {
       expect(page.url()).toBe(baseURL + derivedURL + 'plugins?set=modules');
     });
     await functions.navigate_modules_To_packs();
-    await customAssert('page url should be https://e2etest.saltcorn.co/plugins?set=packs', async () => {
+    await customAssert('page url should be /plugins?set=packs', async () => {
       expect(page.url()).toBe(baseURL + derivedURL + 'plugins?set=packs');
     });
     await functions.navigate_modules_To_themes();
-    await customAssert('page url should be https://e2etest.saltcorn.co/plugins?set=themes', async () => {
+    await customAssert('page url should be /plugins?set=themes', async () => {
       expect(page.url()).toBe(baseURL + derivedURL + 'plugins?set=themes');
     });
     await functions.navigate_modules_To_Installed();
-    await customAssert('page url should be https://e2etest.saltcorn.co/plugins?set=installed', async () => {
+    await customAssert('page url should be /plugins?set=installed', async () => {
       expect(page.url()).toBe(baseURL + derivedURL + 'plugins?set=installed');
     });
   });
@@ -206,32 +206,32 @@ test.describe('E2E Test Suite', () => {
     // Navigate to Users and Security
     await functions.navigate_To_Users_And_Security();
     // assert the user and security url
-    await customAssert('page url should be https://e2etest.saltcorn.co/useradmin', async () => {
+    await customAssert('page url should be /useradmin', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'useradmin');
     });
     // validate each tab of users and security and assert urls
     await functions.Users_And_Security_to_Users();
-    await customAssert('page url should be https://e2etest.saltcorn.co/useradmin', async () => {
+    await customAssert('page url should be /useradmin', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'useradmin');
     });
     await functions.Users_And_Security_to_Roles();
-    await customAssert('page url should be https://e2etest.saltcorn.co/roleadmin', async () => {
+    await customAssert('page url should be /roleadmin', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'roleadmin');
     });
     await functions.Users_And_Security_to_Login_and_Signup();
-    await customAssert('page url should be https://e2etest.saltcorn.co/useradmin/settings', async () => {
+    await customAssert('page url should be /useradmin/settings', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'useradmin' + derivedURL + 'settings');
     });
     await functions.Users_And_Security_to_Table_access();
-    await customAssert('page url should be https://e2etest.saltcorn.co/useradmin/table-access', async () => {
+    await customAssert('page url should be /useradmin/table-access', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'useradmin' + derivedURL + 'table-access');
     });
     await functions.Users_And_Security_to_HTTP();
-    await customAssert('page url should be https://e2etest.saltcorn.co/useradmin/http', async () => {
+    await customAssert('page url should be /useradmin/http', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'useradmin' + derivedURL + 'http');
     });
     await functions.Users_And_Security_to_Permissions();
-    await customAssert('page url should be https://e2etest.saltcorn.co/useradmin/permissions', async () => {
+    await customAssert('page url should be /useradmin/permissions', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'useradmin' + derivedURL + 'permissions');
     });
   });
@@ -244,40 +244,40 @@ test.describe('E2E Test Suite', () => {
     // Navigate to Site Structure
     await functions.navigate_To_Site_Structure();
     // assert the site structure url
-    await customAssert('page url should be https://e2etest.saltcorn.co/menu', async () => {
+    await customAssert('page url should be /menu', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'menu');
     });
     // validate each tab of  site structure and assert urls
     await functions.Site_Structure_to_Menu();
-    await customAssert('page url should be https://e2etest.saltcorn.co/menu', async () => {
+    await customAssert('page url should be /menu', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'menu');
     });
     await functions.Site_Structure_to_Search();
-    await customAssert('page url should be https://e2etest.saltcorn.co/search/config', async () => {
+    await customAssert('page url should be /search/config', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'search' + derivedURL + 'config');
     });
     await functions.Site_Structure_to_Library();
-    await customAssert('page url should be https://e2etest.saltcorn.co/list', async () => {
+    await customAssert('page url should be /list', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'library' + derivedURL + 'list');
     });
     await functions.Site_Structure_to_Languages();
-    await customAssert('page url should be https://e2etest.saltcorn.co/site-structure/localizer', async () => {
+    await customAssert('page url should be /site-structure/localizer', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'site-structure' + derivedURL + 'localizer');
     });
     await functions.Site_Structure_to_Page_groups();
-    await customAssert('page url should be https://e2etest.saltcorn.co/page_group/settings', async () => {
+    await customAssert('page url should be /page_group/settings', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'page_group' + derivedURL + 'settings');
     });
     await functions.Site_Structure_to_Tags();
-    await customAssert('page url should be https://e2etest.saltcorn.co/tag', async () => {
+    await customAssert('page url should be /tag', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'tag');
     });
     await functions.Site_Structure_to_Diagram();
-    await customAssert('page url should be https://e2etest.saltcorn.co/diagram', async () => {
+    await customAssert('page url should be /diagram', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'diagram');
     });
     await functions.Site_Structure_to_Registry_editor();
-    await customAssert('page url should be https://e2etest.saltcorn.co/registry-editor', async () => {
+    await customAssert('page url should be /registry-editor', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'registry-editor');
     });
   });
@@ -290,20 +290,20 @@ test.describe('E2E Test Suite', () => {
     // Navigate to Files
     await functions.navigate_To_File();
     // assert the files url
-    await customAssert('page url should be https://e2etest.saltcorn.co/files', async () => {
+    await customAssert('page url should be /files', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'files');
     });
     // validate each tab of files and assert urls
     await functions.Files_to_Files();
-    await customAssert('page url should be https://e2etest.saltcorn.co/files', async () => {
+    await customAssert('page url should be /files', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'files');
     });
     await functions.Files_to_Storage();
-    await customAssert('page url should be https://e2etest.saltcorn.co/files/storage', async () => {
+    await customAssert('page url should be /files/storage', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'files' + derivedURL +'storage');
     });
     await functions.Files_to_Settings();
-    await customAssert('page url should be https://e2etest.saltcorn.co/files/settings', async () => {
+    await customAssert('page url should be /files/settings', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'files' + derivedURL +'settings');
     });
   });
@@ -316,24 +316,24 @@ test.describe('E2E Test Suite', () => {
     /// Navigate to Events
     await functions.navigate_To_Events();
      // assert the events url
-     await customAssert('page url should be https://e2etest.saltcorn.co/actions', async () => {
+     await customAssert('page url should be /actions', async () => {
      expect(page.url()).toBe(baseURL + derivedURL + 'actions');
      });
     // validate each tab of events and assert urls
     await functions.Events_to_Triggers();
-    await customAssert('page url should be https://e2etest.saltcorn.co/actions', async () => {
+    await customAssert('page url should be /actions', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'actions');
     });
     await functions.Events_to_Custom();
-    await customAssert('page url should be https://e2etest.saltcorn.co/eventlog/custom', async () => {
+    await customAssert('page url should be /eventlog/custom', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'eventlog' + derivedURL +'custom');
     });
     await functions.Events_to_Log_settings();
-    await customAssert('page url should be https://e2etest.saltcorn.co/eventlog/settings', async () => {
+    await customAssert('page url should be /eventlog/settings', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'eventlog' + derivedURL +'settings');
     });
     await functions.Events_to_Event_log();
-    await customAssert('page url should be https://e2etest.saltcorn.co/eventlog', async () => {
+    await customAssert('page url should be /eventlog', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'eventlog');
     });
   });

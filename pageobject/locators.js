@@ -77,6 +77,7 @@ class PageLocators {
     this.viewtolinkdropdown = '#saltcorn-builder > div.row > div.col-sm-auto.builder-sidebar > div > div.settings-panel.card.mt-1 > div.card-body.p-2 > div > table.w-100 > tbody > tr:nth-child(1) > td > div > div > div.css-1hwfws3 > div.css-1uccc91-singleValue';
     this.lebelforfield = '#saltcorn-builder > div.row > div.col-sm-auto.builder-sidebar > div > div.settings-panel.card.mt-1 > div.card-body.p-2 > div > table.w-100 > tbody > tr:nth-child(3) > td > div > input';
     this.editfieldlink = '#page-inner-content > div:nth-child(2) > div.d-inline > div > table > tbody > tr > td:nth-child(5) > a';
+    this.showfieldlink = '#page-inner-content > div:nth-child(2) > div.d-inline > div > table > tbody > tr > td:nth-child(6) > a';
     this.lineBreakSource = '#saltcorn-builder > div.row > div.col-sm-auto.left-builder-col.builder-left-shrunk > div.componets-and-library-accordion.toolbox-card > div.card.mt-1 > div:nth-child(2) > div:nth-child(1) > div';
     this.htmlCodeSource = '#saltcorn-builder > div.row > div.col-sm-auto.left-builder-col.builder-left-shrunk > div.componets-and-library-accordion.toolbox-card > div.card.mt-1 > div:nth-child(2) > div:nth-child(2)';
     this.cardSource = '#saltcorn-builder > div.row > div.col-sm-auto.left-builder-col.builder-left-shrunk > div.componets-and-library-accordion.toolbox-card > div.card.mt-1 > div:nth-child(3) > div:nth-child(1)';
@@ -192,6 +193,17 @@ class PageLocators {
     this.fullnameuser = '#builder-main-canvas > div:nth-child(1) > div > div > div:nth-child(3) > div.split-col.col-sm-10.text-start.align-items-undefined > div > div > div > div';
     this.nameontarget = '#builder-main-canvas > div:nth-child(1) > div > div > div.selected-node.d-inline-block > div';
     this.textstyle = '#saltcorn-builder > div.row > div.col-sm-auto.builder-sidebar > div > div.settings-panel.card.mt-1 > div.card-body.p-2 > table > tbody > tr:nth-child(5) > td:nth-child(2) > select';
+    this.createuserlink = '#page-inner-content > div:nth-child(2) > div.card.mt-4.shadow > div > a';
+    this.inputdob = '#inputdob';
+    this.inputemail = '#inputemail';
+    this.inputrole_id = '#inputrole_id';
+    this.inputrnd_password = '#inputrnd_password';
+    this.inputpassword = '#inputpassword';
+    this.createuserbutton = '#page-inner-content > div:nth-child(2) > div.card.mt-4.shadow > div > form > div:nth-child(7) > div > button';
+    this.searchbar ='#page-inner-content > div:nth-child(2) > div.card.mt-4.shadow > div > div.row.mb-3 > div > input';
+    this.dropdownMenuButton = '#dropdownMenuButton26';
+    this.deleteuser = '#content > div.dropdown-menu.dropdown-menu-end.show > a:nth-child(11)';
+    this.newuser = '#page-inner-content > div:nth-child(2) > div.card.mt-4.shadow > div > div.table-responsive > table > tbody > tr:nth-child(4) > td:nth-child(2) > a';
   } 
 }
 

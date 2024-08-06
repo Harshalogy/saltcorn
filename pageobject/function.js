@@ -292,6 +292,41 @@ class PageFunctions {
     }, selector, value);
   }
 
+  async Validate_each_tab_of_about_applications() {
+    const tabs = [
+      'Site identity',
+      'Backup',
+      'Email',
+      'System',
+      'Mobile app',
+      'Development',
+      'Notifications'
+    ];
+
+    // Check if each tab is visible and has the correct text
+    for (const tab of tabs) {
+      const tabLocator = this.page.locator(`ul.nav.nav-pills.plugin-section a.nav-link:has-text("${tab}")`);
+      await expect(tabLocator).toBeVisible();
+      await expect(tabLocator).toHaveText(tab);
+      await (tabLocator).click();
+    }
+  }
+
+  // Helper function to wait for an element to be visible and then click it
+  async waitForVisibleAndClick(selector, description) {
+    await customAssert(description, async () => {
+        const elements = await page.locator(selector).elementHandles();
+        if (elements.length === 0) {
+            throw new Error('No elements found for selector: ' + selector);
+        }
+        const lastElement = elements[elements.length - 1];
+        await lastElement.scrollIntoViewIfNeeded();
+        await expect(lastElement).toBeVisible();
+        await lastElement.click();
+    });
+}
+
+
 }
 
 module.exports = PageFunctions;

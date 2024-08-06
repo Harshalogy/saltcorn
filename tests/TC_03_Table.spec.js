@@ -43,7 +43,7 @@ test.describe('E2E Test Suite', () => {
   test('Click table button and verify URL', async () => {
     //click table button
     await functions.click_table();
-    await customAssert('Page url should be https://e2etest.saltcorn.co/table ', async () => {
+    await customAssert('Page url should be /table ', async () => {
       expect(page.url()).toBe(baseURL + derivedURL + 'table');
     });
   });
@@ -278,7 +278,7 @@ test.describe('E2E Test Suite', () => {
   test('create view with list view pattern', async () => {
     await functions.views();
     // assert the view edit url
-    await customAssert('page url should be https://e2etest.saltcorn.co/viewedit  ', async () => {
+    await customAssert('page url should be /viewedit  ', async () => {
       expect(page.url()).toBe(baseURL + derivedURL + 'viewedit');
     });
     //assert the visibility of create new view
@@ -288,7 +288,7 @@ test.describe('E2E Test Suite', () => {
       await page.click(pageobject.createnewview);
     });
     // assert the view url
-    await customAssert('page url should be https://e2etest.saltcorn.co/viewedit/new  ', async () => {
+    await customAssert('page url should be /viewedit/new  ', async () => {
       expect(page.url()).toBe(baseURL + derivedURL + 'viewedit/new');
     });
     // input view name and discription
@@ -331,12 +331,8 @@ test.describe('E2E Test Suite', () => {
   // create new view with edit view pattern
   test('create new view with edit view pattern', async () => {
     await functions.views();
-    //assert the visibility of create new view
-    await customAssert('Create new view button should be visible and working', async () => {
-      await expect(page.locator(pageobject.createnewview)).toBeVisible();
-      //click on create new view
-      await page.click(pageobject.createnewview);
-    });
+    //click on create new view
+    await page.click(pageobject.createnewview);
     // input view name and discription
     await page.fill(pageobject.viewnametextbox, 'View2_' + randomString);
     await page.fill(pageobject.viewdiscriptiontext, 'view for table');
@@ -358,7 +354,6 @@ test.describe('E2E Test Suite', () => {
     await functions.fill_Text(pageobject.textlocator, 'I said..');
     // click on delete button
     await page.click(pageobject.deletebutton);
-
     // select inputbox and delete
     await page.click(pageobject.inputbox2);
     await page.click(pageobject.deletebutton);
@@ -379,12 +374,6 @@ test.describe('E2E Test Suite', () => {
     // click on next page
     await page.waitForTimeout(4000);
     await page.click(pageobject.nextoption);
-    // click to see destination type
-    await page.click(pageobject.destinationtype);
-    await page.keyboard.press('Enter');
-    // click to see destination view
-    await page.click(pageobject.destinationview);
-    await page.keyboard.press('Enter');
     // click on finish button
     await page.click(pageobject.finishprimary);
   });
@@ -426,8 +415,6 @@ test.describe('E2E Test Suite', () => {
       // click on edit button
       await page.click(pageobject.editfieldlink);
     });
-    // add text on input box and save
-    //await functions.fill_Text(pageobject.inputbox1, 'India');
     await page.click(pageobject.saveprimarybutton);
   });
 
@@ -473,20 +460,8 @@ test.describe('E2E Test Suite', () => {
   // create view with show view pattern
   test('create view with show view pattern', async () => {
     await functions.views();
-    // assert the view edit url
-    await customAssert('page url should be https://e2etest.saltcorn.co/viewedit  ', async () => {
-      expect(page.url()).toBe(baseURL + derivedURL + 'viewedit');
-    });
-    //assert the visibility of create new view
-    await customAssert('Create new view button should be visible', async () => {
-      await expect(page.locator(pageobject.createnewview)).toBeVisible();
-      //click on create new view
-      await page.click(pageobject.createnewview);
-    });
-    // assert the view url
-    await customAssert('page url should be https://e2etest.saltcorn.co/viewedit/new  ', async () => {
-      expect(page.url()).toBe(baseURL + derivedURL + 'viewedit/new');
-    });
+    //click on create new view
+    await page.click(pageobject.createnewview);
     // input view name and discription
     await page.fill(pageobject.viewnametextbox, 'showView_' + randomString);
     await page.fill(pageobject.viewdiscriptiontext, 'view for table');
@@ -504,11 +479,14 @@ test.describe('E2E Test Suite', () => {
     await page.keyboard.press('Enter');
     // submit the page
     await functions.submit();
+    // select full name lable
     await page.click(pageobject.Fullnameshow);
+    // delete lable for full name
     await page.click(pageobject.deletebutton);
-
+    // drag full name on target
     await functions.drag_And_Drop(pageobject.fullnameuser, pageobject.target);
     await page.click(pageobject.nameontarget);
+    // select text style as heading1 for full name
     await page.click(pageobject.textstyle);
     await page.keyboard.press('ArrowDown');
     await page.keyboard.press('Enter');
@@ -518,13 +496,49 @@ test.describe('E2E Test Suite', () => {
     await page.click(pageobject.newviewlink);
   });
 
+  // add show link in list view
+  test('Add show link in list view by by connecting show view', async () => {
+    await functions.views();
+    await page.click(pageobject.newviewlink);
+    await page.click(pageobject.editviewlink);
+    // submit the page
+    await functions.submit();
+    // click on add column button on page
+    await page.click(pageobject.addcolumnbutton);
+    //drag and drop the viewlink locator
+    await functions.drag_And_Drop(pageobject.htmlCodeSource, pageobject.newcolumn);
+    // select view to show from dropdown
+    await page.click(pageobject.viewtolinkdropdown);
+    await page.keyboard.press('ArrowDown');
+    await page.keyboard.press('Enter');
+    await page.keyboard.press('ArrowDown');
+    await page.keyboard.press('Enter');
+    // add lable for link
+    await functions.fill_Text(pageobject.lebelforfield, 'Show');
+    // click on next button
+    await page.click(pageobject.nextoption);
+    // click next button again
+    await functions.submit();
+    //submit the page
+    await functions.submit();
+    // click finish button
+    await page.click(pageobject.finishbuttonprimary);
+    // click to new view link again
+    await page.click(pageobject.newviewlink);
+    // check that show link is visible and working
+    await customAssert('Assert show link is visible and working', async () => {
+      await expect(page.locator(pageobject.showfieldlink)).toBeVisible();
+      await page.click(pageobject.showfieldlink);
+    });
+  });
+
+  // Add tgable by uplaoding csv
   test('Add table by uploading csv file', async () => {
     //click table button
     await functions.click_table();
     //Click on Create from CSV upload link
     await page.click(pageobject.createfromcsvupload);
-    // click on choose file button
-    await page.click(pageobject.choosefilebutton);
+    // await page.click(pageobject.choosefilebutton);
     // Wait for the file input element to be available
     const fileInput = await page.waitForSelector('input[type="file"]');
     // Set the file input to the desired file
@@ -566,12 +580,12 @@ test.describe('E2E Test Suite', () => {
       await expect(page.locator(pageobject.csvaddressfield)).toBeVisible();
       await expect(page.locator(pageobject.csvaddressstringtype)).toBeVisible();
     });
-
     // click on new view link
     await page.click(pageobject.newviewfromtable);
   });
+
   //clear all tables
-  test('Navigate to setting page and clear all changes', async ({browser}) => {
+  test('Navigate to setting page and clear all changes', async ({ browser }) => {
     functions = new PageFunctions(page);
     await functions.SALTCORN();
     await functions.navigate_To_Settings();
@@ -579,5 +593,4 @@ test.describe('E2E Test Suite', () => {
     await functions.about_application_to_system();
     await functions.clear_All();
   });
-
 });
