@@ -60,13 +60,12 @@ test.describe('E2E Test Suite', () => {
 
   // check buttons visibility
   test('Check buttons visibility and text', async () => {
-    //await functions.drag_And_Drop(pageobject.textSource, pageobject.target);
-    await functions.fill_Text(pageobject.textlocator, 'Testing');
-
     // Check delete button
     await customAssert('delete button should be visible', async () => await expect(await page.locator(pageobject.deletebutton)).toBeVisible());
+    await expect(page.locator(pageobject.deletebutton)).toHaveText('Delete');
     // Check clone button
     await customAssert('clone button should be visible', async () => await expect(await page.locator(pageobject.clonebutton)).toBeVisible());
+    await expect(page.locator(pageobject.clonebutton)).toHaveText('Clone');
   });
 
   // Check text and HTML box content
@@ -126,15 +125,19 @@ test.describe('E2E Test Suite', () => {
     await functions.drag_And_Drop(pageobject.SearchLocator, pageobject.target);
 
     // validate that check box should be checked
-    await customAssert('dropdown check box should be checked', async () => {
+    await customAssert('dropdown check box should not be checked', async () => {
       const hasDropdownCheckbox = await page.locator(pageobject.hasdropdowncheckbox);
       await expect(hasDropdownCheckbox).not.toBeChecked();
     });
 
-    // validate that check box should not be checked
-    await customAssert('show state badge and auto focus check box should be checked', async () => {
+    // validate that show current state badge check box should not be checked
+    await customAssert('show current state badge check box should not be checked', async () => {
       const showStateBadgesCheckbox = await page.locator(pageobject.statebadgecheckbox);
       await expect(showStateBadgesCheckbox).not.toBeChecked();
+    });
+
+    // validate that autofocus check box should not be checked
+    await customAssert('auto focus check box should not be checked', async () => {
       const autofocusCheckbox = await page.locator(pageobject.Autofocuscheckbox);
       await expect(autofocusCheckbox).not.toBeChecked();
     });
@@ -161,19 +164,19 @@ test.describe('E2E Test Suite', () => {
     });
 
     // container flex setting should be visible
-    await customAssert('container flex settings should be visible', async () => {
+    await customAssert('container flex properties should be visible', async () => {
       const flexPropertiesSection = await page.locator(pageobject.containerflexsetting);
       await expect(flexPropertiesSection).toBeVisible();
     });
 
     // container content link should be visible
-    await customAssert('container content should be visible', async () => {
+    await customAssert('container contents should be visible', async () => {
       const containerLinkSection = await page.locator(pageobject.containercontentlink);
       await expect(containerLinkSection).toBeVisible();
     });
 
     // container custom class should be visible
-    await customAssert('container content class should be visible', async () => {
+    await customAssert('container custom class/CSS should be visible', async () => {
       const customClassCSSSection = await page.locator(pageobject.containercustomclass);
       await expect(customClassCSSSection).toBeVisible();
     });
@@ -256,17 +259,17 @@ test.describe('E2E Test Suite', () => {
   });
 
   // Check clear all function
-  test('Navigate to setting page and clear all changes', async ({browser}) => {
+  test('Navigate to setting page and clear all changes', async ({ browser }) => {
     functions = new PageFunctions(page);
     // Navigate to setting
     await functions.navigate_To_Settings();
     // navigate to about application
-    await functions.navigate_To_about_application();
+    // await functions.navigate_To_about_application();
+    await page.click(pageobject.aboutApplicationLink);
     // nevigate to system
     await functions.about_application_to_system();
     // clear all data
     await functions.clear_All();
-
     // Verify toaster message that clear all deleted all the changes
     await customAssert('toaster message for clear all should be visible with cleared content names', async () => {
       await functions.wait_For_Toaster_Message();
