@@ -4,6 +4,7 @@ const PageFunctions = require('../pageobject/function.js');
 const PageObject = require('../pageobject/locators.js');
 const customAssert = require('../pageobject/utils.js');
 const Logger = require('../pageobject/logger.js');
+const { TIMEOUT } = require('dns');
 
 let storageState = 'storageState.json';
 
@@ -143,7 +144,7 @@ test.describe('E2E Test Suite', () => {
     });
     // assert the about application url
     await customAssert('page url should be /admin', async () => {
-    expect(page.url()).toBe(baseURL + derivedURL + 'admin');
+    expect(page.url()).toBe(baseURL + derivedURL + 'admin',{TIMEOUT:10000});
     });
     // validate each tab of about application and assert url
     await functions.about_application_to_site_identity();
