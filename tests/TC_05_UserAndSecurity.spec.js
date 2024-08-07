@@ -133,6 +133,7 @@ test.describe('E2E Test Suite', () => {
     // Assert the each element of "Users and Security" tab
     test('Validate "Users and Security" tabs', async () => {
         functions = new PageFunctions(page);
+        await functions.SALTCORN();
         // Navigate to setting
         await functions.navigate_To_Settings();
         // Navigate to Users and Security
