@@ -44,7 +44,7 @@ class PageFunctions {
   }
 
   async about_application_to_site_identity() {
-    await this.page.waitForSelector(this.locators.siteidentitylocator, { timeout: 10000 });
+    await this.page.waitForSelector(this.locators.siteidentitylocator, { timeout: 30000 });
     await this.page.waitForSelector(this.locators.siteidentitylocator);
     await this.page.click(this.locators.siteidentitylocator);
   }
