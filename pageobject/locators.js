@@ -136,7 +136,7 @@ class PageLocators {
     this.discoverbutton='#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div:nth-child(2) > a:nth-child(3)';
     this.HomeTableText='';
     this.Home_new_page_button='#page-inner-content > div:nth-child(2) > div.row.row-cols-1.row-cols-md-3.g-4.g-4.mb-3 > div:nth-child(3) > div > div.card-footer > div > a';
-    this.setidentitylocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(1) > a';
+    this.siteidentitylocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(1) > a';
     this.backuplocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(2) > a';
     this.emaillocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(3) > a';
     this.systemSettingsLink = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > ul > li:nth-child(4) > a';

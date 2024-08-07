@@ -55,6 +55,7 @@ test.describe('E2E Test Suite', () => {
         //  Create user button should be visible and working
         await customAssert('Create user button is visible and working', async () => {
             await expect(page.locator(pageobject.createuserlink)).toBeVisible();
+            await expect(page.locator(pageobject.createuserlink)).toHaveText('Create user');
             await page.click(pageobject.createuserlink);
         });
         // assert the page url for new user
@@ -89,7 +90,6 @@ test.describe('E2E Test Suite', () => {
         });
     });
 
-
     // Delete new user from users tab
     test('Delete new user from users tabs', async () => {
         // Wait for and click the last dropdown menu button
@@ -111,7 +111,7 @@ test.describe('E2E Test Suite', () => {
             const deleteButton = page.locator('#content > div.dropdown-menu.dropdown-menu-end.show > a:nth-child(11)');
 
             await deleteButton.waitFor({ state: 'visible', timeout: 10000 });
-            await expect(deleteButton).toBeVisible().click();
+            await expect(deleteButton).toBeVisible();
 
             await deleteButton.scrollIntoViewIfNeeded();
 
@@ -130,41 +130,62 @@ test.describe('E2E Test Suite', () => {
         });
     });
 
-    // Assert the presence of "Users and Security" tab
+    // Assert the each element of "Users and Security" tab
     test('Validate "Users and Security" tabs', async () => {
         functions = new PageFunctions(page);
         // Navigate to setting
         await functions.navigate_To_Settings();
         // Navigate to Users and Security
         await functions.navigate_To_Users_And_Security();
+        await customAssert('Assert the lable of Users and security setting', async () => {
+        await expect(page.locator(pageobject.UsersAndSecurity)).toHaveText('Users and security');
+        });
         // assert the user and security url
         await customAssert('page url should be /useradmin', async () => {
-            expect(page.url()).toBe(baseURL + derivedURL + 'useradmin');
+        expect(page.url()).toBe(baseURL + derivedURL + 'useradmin');
         });
         // validate each tab of users and security and assert urls
         await functions.Users_And_Security_to_Users();
+        await customAssert('Assert the lable of Users tab', async () => {
+        await expect(page.locator(pageobject.userslocator)).toHaveText('Users');
+        });
         await customAssert('page url should be /useradmin', async () => {
-            expect(page.url()).toBe(baseURL + derivedURL + 'useradmin');
+        expect(page.url()).toBe(baseURL + derivedURL + 'useradmin');
         });
         await functions.Users_And_Security_to_Roles();
+        await customAssert('Assert the lable of Roles tab', async () => {
+        await expect(page.locator(pageobject.roleslocator)).toHaveText('Roles');
+        });
         await customAssert('page url should be /roleadmin', async () => {
-            expect(page.url()).toBe(baseURL + derivedURL + 'roleadmin');
+        expect(page.url()).toBe(baseURL + derivedURL + 'roleadmin');
         });
         await functions.Users_And_Security_to_Login_and_Signup();
+        await customAssert('Assert the lable of Login and Signup tab', async () => {
+        await expect(page.locator(pageobject.loginandsignup)).toHaveText('Login and Signup');
+        });
         await customAssert('page url should be /useradmin/settings', async () => {
-            expect(page.url()).toBe(baseURL + derivedURL + 'useradmin' + derivedURL + 'settings');
+        expect(page.url()).toBe(baseURL + derivedURL + 'useradmin' + derivedURL + 'settings');
         });
         await functions.Users_And_Security_to_Table_access();
+        await customAssert('Assert the lable of Table access tab', async () => {
+        await expect(page.locator(pageobject.tableaccess)).toHaveText('Table access');
+        });
         await customAssert('page url should be /useradmin/table-access', async () => {
-            expect(page.url()).toBe(baseURL + derivedURL + 'useradmin' + derivedURL + 'table-access');
+        expect(page.url()).toBe(baseURL + derivedURL + 'useradmin' + derivedURL + 'table-access');
         });
         await functions.Users_And_Security_to_HTTP();
+        await customAssert('Assert the lable of HTTP tab', async () => {
+        await expect(page.locator(pageobject.httplocator)).toHaveText('HTTP');
+        });
         await customAssert('page url should be /useradmin/http', async () => {
-            expect(page.url()).toBe(baseURL + derivedURL + 'useradmin' + derivedURL + 'http');
+        expect(page.url()).toBe(baseURL + derivedURL + 'useradmin' + derivedURL + 'http');
         });
         await functions.Users_And_Security_to_Permissions();
-        await customAssert('page url should be /useradmin/permissions', async () => {
-            expect(page.url()).toBe(baseURL + derivedURL + 'useradmin' + derivedURL + 'permissions');
+        await customAssert('Assert the lable of Permissions tab', async () => {
+        await expect(page.locator(pageobject.permissionslocator)).toHaveText('Permissions');
         });
-    });
+        await customAssert('page url should be /useradmin/permissions', async () => {
+        expect(page.url()).toBe(baseURL + derivedURL + 'useradmin' + derivedURL + 'permissions');
+        });
+      });
 });

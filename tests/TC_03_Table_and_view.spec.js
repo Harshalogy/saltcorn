@@ -52,6 +52,8 @@ test.describe('E2E Test Suite', () => {
   test('Check the "Create table" Function', async () => {
     await customAssert('Create table button should be visible and working', async () => {
       await expect(page.locator(pageobject.createtablebutton)).toBeVisible();
+      // Assert label of Create table button
+      await expect(page.locator(pageobject.createtablebutton)).toHaveText('Create table');
       // Click the "Create table" button
       await page.click(pageobject.createtablebutton);
     });
@@ -59,6 +61,8 @@ test.describe('E2E Test Suite', () => {
     await functions.fill_Text(pageobject.tableNameTextlocator, 'My_Table' + randomString);
     await customAssert('Create button should be visible and working', async () => {
       await expect(page.locator(pageobject.createButtonLocator)).toBeVisible();
+      // Assert label of create button
+      await expect(page.locator(pageobject.createButtonLocator)).toHaveText('Create');
       // click on Create button
       await page.click(pageobject.createButtonLocator);
     });
@@ -68,10 +72,14 @@ test.describe('E2E Test Suite', () => {
     // check visibility of id field already exist
     await customAssert('Id field for table should be already exist ', async () => {
       await expect(page.locator(pageobject.idfieldlocator)).toBeVisible();
+      // Assert the lable of ID field
+      await expect(page.locator(pageobject.idfieldlocator)).toHaveText('ID');
     });
     // check id field is iteger type
     await customAssert('Id field should be integer type ', async () => {
       await expect(page.locator(pageobject.idtypelocator)).toBeVisible();
+      // Assert the label of variable type of id
+      await expect(page.locator(pageobject.idtypelocator)).toHaveText('Integer');
     });
   });
 
@@ -90,7 +98,6 @@ test.describe('E2E Test Suite', () => {
     await page.check(pageobject.RequiredcheckboxLocator);
     //Click on next button
     await functions.submit();
-
     //Fill the min length for field
     await functions.fill_Text(pageobject.minlengthlocator, '5');
     //Fill the max length for field
@@ -101,22 +108,29 @@ test.describe('E2E Test Suite', () => {
     await functions.submit();
     // click on finish button
     await functions.submit();
-
     // check visibility of full name field added
     await customAssert('Full Name field should be visible on fields ', async () => {
       await expect(page.locator(pageobject.fullnamefieldlocator)).toBeVisible();
+      // Assert the label of Full name field 
+      await expect(page.locator(pageobject.fullnamefieldlocator)).toHaveText('Full Name');
     });
     // check required tag for full name field
     await customAssert('Full name field should should have required tag ', async () => {
       await expect(page.locator(pageobject.fullnamerequiredtaglocator)).toBeVisible();
+      // Assert the requierd tag text
+      await expect(page.locator(pageobject.fullnamerequiredtaglocator)).toHaveText('Required');
     });
     // check full name field type is string
     await customAssert('Full Name field should be string type ', async () => {
       await expect(page.locator(pageobject.fullnametypelocator)).toBeVisible();
+      // Assert the Variable type for Full name field
+      await expect(page.locator(pageobject.fullnametypelocator)).toHaveText('String');
     });
     // check variable name for full name field is visible
     await customAssert('Variable name for full name should be full_name and visible ', async () => {
       await expect(page.locator(pageobject.fullnamevariablelocator)).toBeVisible();
+      // Assert the variable name for Full name
+      await expect(page.locator(pageobject.fullnamevariablelocator)).toHaveText('full_name');
     });
     // check delete button for full name field is visible
     await customAssert('Delete button for full name field should be exist ', async () => {
@@ -142,14 +156,20 @@ test.describe('E2E Test Suite', () => {
     // check visibility of Date of birth field added
     await customAssert('DOB field for table should be visible ', async () => {
       await expect(page.locator(pageobject.dobfieldlocator)).toBeVisible();
+      // Assert the lable of Date of birth field
+      await expect(page.locator(pageobject.dobfieldlocator)).toHaveText('Date Of Birth');
     });
     // check DOB field type is Date
     await customAssert('DOB field should have Date type ', async () => {
       await expect(page.locator(pageobject.datetypelocator)).toBeVisible();
+      // Assert the variable type for DOB field
+      await expect(page.locator(pageobject.datetypelocator)).toHaveText('Date');
     });
     // check varable name for dob field is visible
     await customAssert('Variable name for DOB field should be date_of_birth ', async () => {
       await expect(page.locator(pageobject.datevariablelocator)).toBeVisible();
+      // Assert the variable name for Date of birth field
+      await expect(page.locator(pageobject.datevariablelocator)).toHaveText('date_of_birth');
     });
     // check delete button for DOB field is visible
     await customAssert('Delete button for DOB field should be exist ', async () => {
@@ -181,14 +201,20 @@ test.describe('E2E Test Suite', () => {
     // check visibility of Address field added
     await customAssert('Address field should be visible', async () => {
       await expect(page.locator(pageobject.addressfieldlocator)).toBeVisible();
+      // Assert the label for Address field
+      await expect(page.locator(pageobject.addressfieldlocator)).toHaveText('Address');
     });
     // check address field type is string
     await customAssert('Address field type should be string', async () => {
       await expect(page.locator(pageobject.addresstypelocator)).toBeVisible();
+      // Assert the variable type for Address field
+      await expect(page.locator(pageobject.addresstypelocator)).toHaveText('String');
     });
     // check variable name for address field is visible
     await customAssert('variable name for Address field should be adress and visible ', async () => {
       await expect(page.locator(pageobject.addressvariablelocator)).toBeVisible();
+      // Assert the variable name for address field
+      await expect(page.locator(pageobject.addressvariablelocator)).toHaveText('address');
     });
     // check delete button for address field is visible
     await customAssert('Delete button for Address field should be visible ', async () => {
@@ -205,6 +231,8 @@ test.describe('E2E Test Suite', () => {
     //Click on add row button
     await customAssert('Add row button on table should be visible ', async () => {
       await expect(page.locator(pageobject.addrowlocator)).toBeVisible();
+      // Assert the lable for add row button
+      await expect(page.locator(pageobject.addrowlocator)).toHaveText('Add row');
     });
     await page.waitForTimeout(4000);
     // click on add row button
@@ -264,7 +292,8 @@ test.describe('E2E Test Suite', () => {
 
         // Assert the file content (adjust based on your expected content)
         await customAssert('File content should be correct', async () => {
-          expect(fileContent).toContain('id,full_name,date_of_birth,address'); // Adjust this line based on the actual expected content
+          // Assert the content on table : id,full_name,Date_of_birth,address
+          expect(fileContent).toContain('id,full_name,date_of_birth,address'); 
         });
       } else {
         throw new Error('Downloaded file not found.');
@@ -284,6 +313,8 @@ test.describe('E2E Test Suite', () => {
     //assert the visibility of create new view
     await customAssert('Create new view button should be visible and working', async () => {
       await expect(page.locator(pageobject.createnewview)).toBeVisible();
+      // Assert the lable for create view button
+      await expect(page.locator(pageobject.createnewview)).toHaveText('Create view');
       //click on create new view
       await page.click(pageobject.createnewview);
     });
@@ -296,7 +327,7 @@ test.describe('E2E Test Suite', () => {
     await page.fill(pageobject.viewdiscriptiontext, 'view for table');
     // click on dropdown and select option
     await page.click(pageobject.viewpatterndropdown);
-    //await page.keyboard.press('ArrowDown'); // click down aero to change options
+    // click enter from keyboard
     await page.keyboard.press('Enter');
     // validate the table name in table dropdown
     await customAssert('Table Name should be same as we created earlier', async () => {
@@ -325,6 +356,8 @@ test.describe('E2E Test Suite', () => {
     // assert the visibility of delete button
     await customAssert('Delete view button should be visible  ', async () => {
       await expect(page.locator(pageobject.deleteviewbutton)).toBeVisible();
+      // Assert the lable for delete button
+      await expect(page.locator(pageobject.deleteviewbutton)).toHaveText('Delete');
     });
   });
 
@@ -412,6 +445,8 @@ test.describe('E2E Test Suite', () => {
     // check visibility for edit butoon for row
     await customAssert('Edit field link should be visible', async () => {
       await expect(page.locator(pageobject.editfieldlink)).toBeVisible();
+      // assert the lable for edit link
+      await expect(page.locator(pageobject.editfieldlink)).toHaveText('Edit');
       // click on edit button
       await page.click(pageobject.editfieldlink);
     });
@@ -447,6 +482,8 @@ test.describe('E2E Test Suite', () => {
     // assert the visibility of add person link
     await customAssert('Add person link should be visible and working', async () => {
       await expect(page.locator(pageobject.addpersonlink)).toBeVisible();
+      // assert the lable for add person link
+      await expect(page.locator(pageobject.addpersonlink)).toHaveText('Add person');
       // click on add person link
       await page.click(pageobject.addpersonlink);
     });
@@ -528,6 +565,8 @@ test.describe('E2E Test Suite', () => {
     // check that show link is visible and working
     await customAssert('Assert show link is visible and working', async () => {
       await expect(page.locator(pageobject.showfieldlink)).toBeVisible();
+      // assert the lable for show link
+      await expect(page.locator(pageobject.showfieldlink)).toHaveText('Show');
       await page.click(pageobject.showfieldlink);
     });
   });
@@ -538,7 +577,7 @@ test.describe('E2E Test Suite', () => {
     await functions.click_table();
     //Click on Create from CSV upload link
     await page.click(pageobject.createfromcsvupload);
-    // await page.click(pageobject.choosefilebutton);
+
     // Wait for the file input element to be available
     const fileInput = await page.waitForSelector('input[type="file"]');
     // Set the file input to the desired file
@@ -560,25 +599,45 @@ test.describe('E2E Test Suite', () => {
     // click on next button
     await functions.submit();
     await page.click(pageobject.finishbuttonprimary);
-    // id field should be integer type and visible
-    await customAssert('Assert id field is integer type and visible', async () => {
+    // id field should be visible
+    await customAssert('Assert id field is visible', async () => {
       await expect(page.locator(pageobject.idfromcsvtable)).toBeVisible();
+      await expect(page.locator(pageobject.idfromcsvtable)).toHaveText('ID');
+    });
+    // id field variable type should be integer
+    await customAssert('Assert id field type is integer', async () => {
       await expect(page.locator(pageobject.csvidintegertype)).toBeVisible();
+      await expect(page.locator(pageobject.csvidintegertype)).toHaveText('Integer');
     });
-    // Full Name field should be string type and visible
-    await customAssert('Assert Full name field is straing type and visible', async () => {
+    // Full Name field should be visible
+    await customAssert('Assert Full name field is visible', async () => {
       await expect(page.locator(pageobject.csvfullnamefield)).toBeVisible();
+      await expect(page.locator(pageobject.csvfullnamefield)).toHaveText('Full name');
+    });
+    // Full name field type should be string
+    await customAssert('Assert Full name field is string type and visible', async () => {
       await expect(page.locator(pageobject.csvnamestringtype)).toBeVisible();
+      await expect(page.locator(pageobject.csvnamestringtype)).toHaveText('String');
     });
-    // DOB field should be Date type and visible
-    await customAssert('Assert DOB field is Date type and visible', async () => {
+    // DOB field should be visible
+    await customAssert('Assert DOB field is visible', async () => {
       await expect(page.locator(pageobject.csvDOBfield)).toBeVisible();
-      await expect(page.locator(pageobject.csvDobdatetype)).toBeVisible();
+      await expect(page.locator(pageobject.csvDOBfield)).toHaveText('Date of birth');
     });
-    // Adress field should be string type and visible
+    // DOB field type should be Date
+    await customAssert('Assert DOB field is Date type and visible', async () => {
+      await expect(page.locator(pageobject.csvDobdatetype)).toBeVisible();
+      await expect(page.locator(pageobject.csvDobdatetype)).toHaveText('Date');
+    });
+    // Adress field should be visible
     await customAssert('Assert address field is string type and visible', async () => {
       await expect(page.locator(pageobject.csvaddressfield)).toBeVisible();
+      await expect(page.locator(pageobject.csvaddressfield)).toHaveText('Address');
+    });
+    // Address field type should be String
+    await customAssert('Assert address field is string type and visible', async () => {
       await expect(page.locator(pageobject.csvaddressstringtype)).toBeVisible();
+      await expect(page.locator(pageobject.csvaddressstringtype)).toHaveText('String');
     });
     // click on new view link
     await page.click(pageobject.newviewfromtable);
@@ -589,7 +648,8 @@ test.describe('E2E Test Suite', () => {
     functions = new PageFunctions(page);
     await functions.SALTCORN();
     await functions.navigate_To_Settings();
-    await functions.navigate_To_about_application();
+    await page.click(pageobject.aboutApplicationLink);
+    //await functions.navigate_To_about_application();
     await functions.about_application_to_system();
     await functions.clear_All();
   });
