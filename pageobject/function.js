@@ -45,7 +45,8 @@ class PageFunctions {
   }
 
   async about_application_to_site_identity() {
-    await this.page.waitForTimeout(1000);
+    await this.page.waitForTimeout(3000);
+    await this.page.screenshot({ path: 'screenshot-before-wait.png' });
     await this.page.waitForSelector(this.locators.siteidentitylocator, { timeout: 50000 });
     await this.page.click(this.locators.siteidentitylocator, { force: true });
   }
