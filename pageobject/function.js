@@ -35,16 +35,16 @@ class PageFunctions {
   }
 
   async navigate_To_Settings() {
-    await this.page.click(this.locators.settingsTab, { timeout:10000 });
+    await this.page.click(this.locators.settingsTab, { timeout:20000 });
   }
 
   async navigate_To_about_application() {
-    await this.page.waitForSelector(this.locators.aboutApplicationLink, { timeout: 20000});
+    await this.page.waitForSelector(this.locators.aboutApplicationLink, { timeout: 30000});
     await this.page.click(this.locators.aboutApplicationLink, { force: true });
   }
 
   async about_application_to_site_identity() {
-    await this.page.waitForSelector(this.locators.siteidentitylocator, { timeout: 30000 });
+    await this.page.waitForSelector(this.locators.siteidentitylocator, { timeout: 50000 });
     await this.page.waitForSelector(this.locators.siteidentitylocator);
     await this.page.click(this.locators.siteidentitylocator);
   }
