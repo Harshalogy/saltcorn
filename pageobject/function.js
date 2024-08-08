@@ -35,7 +35,8 @@ class PageFunctions {
   }
 
   async navigate_To_Settings() {
-    await this.page.click(this.locators.settingsTab, { timeout:20000 });
+    await this.page.waitForSelector(this.locators.settingsTab, { timeout:20000 });
+    await this.page.click(this.locators.settingsTab, { force: true });
   }
 
   async navigate_To_about_application() {
@@ -44,9 +45,9 @@ class PageFunctions {
   }
 
   async about_application_to_site_identity() {
+    await this.page.waitForTimeout(1000);
     await this.page.waitForSelector(this.locators.siteidentitylocator, { timeout: 50000 });
-    await this.page.waitForSelector(this.locators.siteidentitylocator);
-    await this.page.click(this.locators.siteidentitylocator);
+    await this.page.click(this.locators.siteidentitylocator, { force: true });
   }
 
   async about_application_to_backup() {
