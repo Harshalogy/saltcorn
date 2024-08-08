@@ -138,13 +138,14 @@ test.describe('E2E Test Suite', () => {
     // Navigate to setting
     await functions.navigate_To_Settings();
     // Navigate to about applications
-    await functions.navigate_To_about_application();
+    //await functions.navigate_To_about_application();
+    await page.click(pageobject.aboutApplicationLink);
     await customAssert('Assert the lable of About application setting', async () => {
     await expect(page.locator(pageobject.aboutApplicationLink)).toHaveText('About application');
     });
     // assert the about application url
     await customAssert('page url should be /admin', async () => {
-    expect(page.url()).toBe(baseURL + derivedURL + 'admin');
+    expect(page.url()).toBe(baseURL + derivedURL + 'admin', { TIMEOUT:20000 });
     });
     // validate each tab of about application and assert url
     await functions.about_application_to_site_identity();
