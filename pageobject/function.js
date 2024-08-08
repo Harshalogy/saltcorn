@@ -329,6 +329,19 @@ class PageFunctions {
     });
 }
 
+async clickDeleteButton() {
+  // Listen for the confirmation dialog
+  this.page.on('dialog', async dialog => {
+    console.log(`Dialog message: ${dialog.message()}`);
+    await dialog.accept(); // Accept the dialog
+  });
+
+  // Ensure the dropdown is visible
+  await this.page.waitForSelector(this.locators.userdropdown, { state: 'visible' });
+
+  // Click on the specific button within the dropdown
+  await this.page.click(this.locators.deleteuser, { force: true });
+}
 
 }
 

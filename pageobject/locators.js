@@ -202,8 +202,9 @@ class PageLocators {
     this.createuserbutton = '#page-inner-content > div:nth-child(2) > div.card.mt-4.shadow > div > form > div:nth-child(7) > div > button';
     this.searchbar ='#page-inner-content > div:nth-child(2) > div.card.mt-4.shadow > div > div.row.mb-3 > div > input';
     this.dropdownMenuButton = '#dropdownMenuButton26';
-    this.deleteuser = '#content > div.dropdown-menu.dropdown-menu-end.show > a:nth-child(11)';
     this.newuser = '#page-inner-content > div:nth-child(2) > div.card.mt-4.shadow > div > div.table-responsive > table > tbody > tr:nth-child(4) > td:nth-child(2) > a';
+    this.userdropdown = '#content > div.dropdown-menu.dropdown-menu-end.show';
+    this.deleteuser = '#content > div.dropdown-menu.dropdown-menu-end.show > a:nth-child(11)';
   } 
 }
 
