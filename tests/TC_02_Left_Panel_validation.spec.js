@@ -138,7 +138,6 @@ test.describe('E2E Test Suite', () => {
     // Navigate to setting
     await functions.navigate_To_Settings();
     // Navigate to about applications
-    //await functions.navigate_To_about_application();
     await page.click(pageobject.aboutApplicationLink);
     await customAssert('Assert the lable of About application setting', async () => {
     await expect(page.locator(pageobject.aboutApplicationLink)).toHaveText('About application');

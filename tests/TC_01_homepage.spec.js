@@ -70,7 +70,7 @@ test.describe('E2E Test Suite', () => {
 
   // Check text and HTML box content
   test('Check text and HTML box content', async () => {
-    await customAssert('hello world should have text texting', async () => await expect(page.locator(pageobject.textlocator)).toHaveText('Testing'));
+    await customAssert('hello world should have text testing', async () => await expect(page.locator(pageobject.textlocator)).toHaveText('Testing'));
     // drag and drop the html code source
     await functions.drag_And_Drop(pageobject.htmlCodeSource, pageobject.target);
     await functions.fill_Text(pageobject.htmltextlocator, '<h3>Hello Sumit</h3>');

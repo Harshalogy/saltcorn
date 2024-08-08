@@ -343,7 +343,7 @@ test.describe('E2E Test Suite', () => {
     // click on add column button on page
     await page.click(pageobject.addcolumnbutton);
     //drag and drop the action locator
-    await functions.drag_And_Drop(pageobject.cardSource, pageobject.newcolumn);
+    await functions.drag_And_Drop(pageobject.ActionLocator, pageobject.newcolumn);
     // click on next button
     await page.click(pageobject.nextoption);
     // click on next button
@@ -400,7 +400,7 @@ test.describe('E2E Test Suite', () => {
     // click on save button
     await page.click(pageobject.saveactionbutton);
     // add new action button on page
-    await functions.drag_And_Drop(pageobject.cardSource, pageobject.target);
+    await functions.drag_And_Drop(pageobject.ActionLocator, pageobject.target);
     await page.click(pageobject.ActionDropdown);
     // delete the button
     await page.click(pageobject.deletebutton);
@@ -424,7 +424,7 @@ test.describe('E2E Test Suite', () => {
     // click on add column button on page
     await page.click(pageobject.addcolumnbutton);
     //drag and drop the action view link
-    await functions.drag_And_Drop(pageobject.htmlCodeSource, pageobject.newcolumn);
+    await functions.drag_And_Drop(pageobject.viewlinksource, pageobject.newcolumn);
     // click to view link dropdown
     await page.click(pageobject.viewtolinkdropdown);
     await page.keyboard.press('ArrowDown');
@@ -543,7 +543,7 @@ test.describe('E2E Test Suite', () => {
     // click on add column button on page
     await page.click(pageobject.addcolumnbutton);
     //drag and drop the viewlink locator
-    await functions.drag_And_Drop(pageobject.htmlCodeSource, pageobject.newcolumn);
+    await functions.drag_And_Drop(pageobject.viewlinksource, pageobject.newcolumn);
     // select view to show from dropdown
     await page.click(pageobject.viewtolinkdropdown);
     await page.keyboard.press('ArrowDown');
