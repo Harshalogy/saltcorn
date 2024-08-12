@@ -43,10 +43,11 @@ test.describe('E2E Test Suite', () => {
     // Create a new user
     test('Create new user by visiting "Users and Security" tabs', async () => {
         functions = new PageFunctions(page);
+        await functions.SALTCORN();
         // Navigate to setting
         await functions.navigate_To_Settings();
         // Navigate to Users and Security
-        await functions.navigate_To_Users_And_Security();
+        await page.click(pageobject.UsersAndSecurity);
         // assert the user and security url
         await customAssert('page url should be /useradmin', async () => {
             expect(page.url()).toBe(baseURL + derivedURL + 'useradmin');
@@ -81,10 +82,12 @@ test.describe('E2E Test Suite', () => {
     // Search new user on users tab
     test('Search new user from Users tabs', async () => {
         functions = new PageFunctions(page);
+        await functions.SALTCORN();
         // Navigate to setting
         await functions.navigate_To_Settings();
         // Navigate to Users and Security
-        await functions.navigate_To_Users_And_Security();
+        await page.click(pageobject.UsersAndSecurity);
+        //await functions.navigate_To_Users_And_Security();
         // search with username as created earlier
         await functions.fill_Text(pageobject.searchbar, randomString);
         await page.keyboard.press('Enter');
@@ -96,10 +99,11 @@ test.describe('E2E Test Suite', () => {
 
     // Delete new user from users tab
     test('Delete new user from users tabs', async () => {
+        await functions.SALTCORN();
         // Navigate to setting
         await functions.navigate_To_Settings();
         // Navigate to Users and Security
-        await functions.navigate_To_Users_And_Security();
+        await page.click(pageobject.UsersAndSecurity);
         // search with username as created earlier
         await functions.fill_Text(pageobject.searchbar, randomString);
         // Wait for and click the last dropdown menu button

@@ -196,12 +196,13 @@ test.describe('E2E Test Suite', () => {
   
   test('Validate "Module" tabs', async () => {
     functions = new PageFunctions(page);
+    await functions.SALTCORN();
     // Navigate to setting
     await functions.navigate_To_Settings();
     // Navigate to Module
     await functions.navigate_To_module();
     await customAssert('Assert the lable of Modules setting', async () => {
-    await expect(page.locator(pageobject.Modulesettngsidebar)).toHaveText('Modules');
+    await expect(page.locator(pageobject.Modulesettingsidebar)).toHaveText('Modules');
     });
     // Assert the module URL
     await customAssert('page url should be /plugins', async () => {
@@ -248,6 +249,7 @@ test.describe('E2E Test Suite', () => {
   // Assert the presence of "Users and Security" tab
   test('Validate "Users and Security" tabs', async () => {
     functions = new PageFunctions(page);
+    await functions.SALTCORN();
     // Navigate to setting
     await functions.navigate_To_Settings();
     // Navigate to Users and Security
@@ -307,6 +309,7 @@ test.describe('E2E Test Suite', () => {
   // Assert the presence of "Site Structure" tab
   test('Validate "Site Structure" tabs', async () => {
     functions = new PageFunctions(page);
+    await functions.SALTCORN();
     // Navigate to setting
     await functions.navigate_To_Settings();
     // Navigate to Site Structure
@@ -380,6 +383,7 @@ test.describe('E2E Test Suite', () => {
   // Assert the presence of "Files" tab
   test('Validate "Files" tabs', async () => {
     functions = new PageFunctions(page);
+    await functions.SALTCORN();
     // Navigate to setting
     await functions.navigate_To_Settings();
     // Navigate to Files
@@ -418,9 +422,10 @@ test.describe('E2E Test Suite', () => {
   // Assert the presence of "Events" tab
   test('Validate "Events" tabs', async ({browser}) => {
     functions = new PageFunctions(page);
+    await functions.SALTCORN();
     // Navigate to setting
     await functions.navigate_To_Settings();
-    /// Navigate to Events
+    // Navigate to Events
     await functions.navigate_To_Events();
     await customAssert('Assert the lable of Events setting', async () => {
     await expect(page.locator(pageobject.Events)).toHaveText('Events');

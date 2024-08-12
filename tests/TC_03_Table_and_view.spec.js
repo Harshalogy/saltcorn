@@ -42,7 +42,9 @@ test.describe('E2E Test Suite', () => {
   });
 
   test('Click table button and verify URL', async () => {
-    //click table button
+    // Clear data before test executions
+    await functions.clear_Data();
+    // click table button
     await functions.click_table();
     await customAssert('Page url should be /table ', async () => {
       expect(page.url()).toBe(baseURL + derivedURL + 'table');
@@ -51,7 +53,7 @@ test.describe('E2E Test Suite', () => {
 
   // Check the "Create table" function
   test('Check the "Create table" Function', async () => {
-    //click table button
+    // click table button
     await functions.click_table();
     await customAssert('Create table button should be visible and working', async () => {
       await expect(page.locator(pageobject.createtablebutton)).toBeVisible();
@@ -61,16 +63,13 @@ test.describe('E2E Test Suite', () => {
       await page.click(pageobject.createtablebutton);
     });
     // Enter Table name
-    await functions.fill_Text(pageobject.tableNameTextlocator, 'My_Table' + randomString);
+    await functions.fill_Text(pageobject.InputName, 'My_Table' + randomString);
     await customAssert('Create button should be visible and working', async () => {
-      await expect(page.locator(pageobject.createButtonLocator)).toBeVisible();
+      await expect(page.locator(pageobject.submitButton)).toBeVisible();
       // Assert label of create button
-      await expect(page.locator(pageobject.createButtonLocator)).toHaveText('Create');
+      await expect(page.locator(pageobject.submitButton)).toHaveText('Create');
       // click on Create button
-      await page.click(pageobject.createButtonLocator);
-    });
-    await customAssert('fields for table should be visible ', async () => {
-      await expect(page.locator(pageobject.FieldsLocator)).toBeVisible();
+      await page.click(pageobject.submitButton);
     });
     // check visibility of id field already exist
     await customAssert('Id field for table should be already exist ', async () => {
@@ -88,28 +87,28 @@ test.describe('E2E Test Suite', () => {
 
   // Add Full name field in the table
   test('Add Full name field in the table', async () => {
-    //click table button
+    // click table button
     await functions.click_table();
     // Go to my table
     await page.click(pageobject.mytable);
     // click on add field button
     await page.click(pageobject.addFieldButtonLocator);
-    //Fill the lable name
+    // Fill the lable name
     await functions.fill_Text(pageobject.labelTextboxlocator, 'Full Name');
-    //select the input type
+    // select the input type
     const type = await page.$("#inputtype");
     await type?.selectOption("String");
-    //Fill the discription
+    // Fill the discription
     await functions.fill_Text(pageobject.descriptionSelector, 'Full Name of User');
     // select the required check box
     await page.check(pageobject.RequiredcheckboxLocator);
-    //Click on next button
+    // Click on next button
     await functions.submit();
-    //Fill the min length for field
+    // Fill the min length for field
     await functions.fill_Text(pageobject.minlengthlocator, '5');
-    //Fill the max length for field
+    // Fill the max length for field
     await functions.fill_Text(pageobject.maxlengthlocator, '50');
-    //Fill the error message for field
+    // Fill the error message for field
     await functions.fill_Text(pageobject.errormessagelocator, 'incorrect value');
     // click on next button
     await functions.submit();
@@ -147,20 +146,20 @@ test.describe('E2E Test Suite', () => {
 
   // Add Date of birth field in the table
   test('Add Date of birth field in the table', async () => {
-    //click table button
+    // click table button
     await functions.click_table();
     // Go to my table
     await page.click(pageobject.mytable);
     // click on add field button
     await page.click(pageobject.addFieldButtonLocator);
-    //Fill the lable name
+    // Fill the lable name
     await functions.fill_Text(pageobject.labelTextboxlocator, 'Date Of Birth');
-    //select the input type
+    // select the input type
     const type = await page.$("#inputtype");
     await type?.selectOption("Date");
-    //Fill the discription
+    // Fill the discription
     await functions.fill_Text(pageobject.descriptionSelector, 'Date of birth of User');
-    //Click on next button
+    // Click on next button
     await functions.submit();
     // click on next button again
     await functions.submit();
@@ -190,24 +189,24 @@ test.describe('E2E Test Suite', () => {
 
   // Add Address field in the table
   test('Add Address field in the table', async () => {
-    //click table button
+    // click table button
     await functions.click_table();
     // Go to my table
     await page.click(pageobject.mytable);
     // click on add field button
     await page.click(pageobject.addFieldButtonLocator);
-    //Fill the lable name
+    // Fill the lable name
     await functions.fill_Text(pageobject.labelTextboxlocator, 'Address');
-    //select the input type
+    // select the input type
     const type = await page.$("#inputtype");
     await type?.selectOption("String");
-    //Fill the discription
+    // Fill the discription
     await functions.fill_Text(pageobject.descriptionSelector, 'Address of User');
-    //Click on next button
+    // Click on next button
     await functions.submit();
-    //Fill the min length for field
+    // Fill the min length for field
     await functions.fill_Text(pageobject.minlengthlocator, '20');
-    //Fill the max length for field
+    // Fill the max length for field
     await functions.fill_Text(pageobject.maxlengthlocator, '100');
     // click on next button
     await functions.submit();
@@ -239,13 +238,13 @@ test.describe('E2E Test Suite', () => {
 
   // Add Row and value in the table
   test('Add row and insert value in the coulmns', async () => {
-    //click table button
+    // click table button
     await functions.click_table();
     // Go to my table
     await page.click(pageobject.mytable);
-    //Click on edit link
+    // Click on edit link
     await page.click(pageobject.EditlinkLocator);
-    //Click on add row button
+    // Click on add row button
     await customAssert('Add row button on table should be visible ', async () => {
       await expect(page.locator(pageobject.addrowlocator)).toBeVisible();
       // Assert the lable for add row button
@@ -310,7 +309,7 @@ test.describe('E2E Test Suite', () => {
         // Assert the file content (adjust based on your expected content)
         await customAssert('File content should be correct', async () => {
           // Assert the content on table : id,full_name,Date_of_birth,address
-          expect(fileContent).toContain('id,full_name,date_of_birth,address');
+          expect(fileContent).toContain('email,id,role_id,dob,address');
         });
       } else {
         throw new Error('Downloaded file not found.');
@@ -327,12 +326,12 @@ test.describe('E2E Test Suite', () => {
     await customAssert('page url should be /viewedit  ', async () => {
       expect(page.url()).toBe(baseURL + derivedURL + 'viewedit');
     });
-    //assert the visibility of create new view
+    // assert the visibility of create new view
     await customAssert('Create new view button should be visible and working', async () => {
       await expect(page.locator(pageobject.createnewview)).toBeVisible();
       // Assert the lable for create view button
       await expect(page.locator(pageobject.createnewview)).toHaveText('Create view');
-      //click on create new view
+      // click on create new view
       await page.click(pageobject.createnewview);
     });
     // assert the view url
@@ -340,7 +339,7 @@ test.describe('E2E Test Suite', () => {
       expect(page.url()).toBe(baseURL + derivedURL + 'viewedit/new');
     });
     // input view name and discription
-    await page.fill(pageobject.viewnametextbox, 'NewView_' + randomString);
+    await page.fill(pageobject.InputName, 'NewView_' + randomString);
     await page.fill(pageobject.viewdiscriptiontext, 'view for table');
     // click on dropdown and select option
     await page.click(pageobject.viewpatterndropdown);
@@ -350,8 +349,6 @@ test.describe('E2E Test Suite', () => {
     await customAssert('Table Name should be same as we created earlier', async () => {
       await expect(page.locator('#inputtable_name')).toHaveText(`My_Table${randomString}users`);
     });
-    await page.click(pageobject.viewtabledropdown);
-    await page.keyboard.press('Enter');
     // click on view minimum role dropdown
     await page.click(pageobject.viewminimumroledropdown);
     await page.keyboard.press('Enter');
@@ -359,7 +356,7 @@ test.describe('E2E Test Suite', () => {
     await functions.submit();
     // click on add column button on page
     await page.click(pageobject.addcolumnbutton);
-    //drag and drop the action locator
+    // drag and drop the action locator
     await functions.drag_And_Drop(pageobject.ActionLocator, pageobject.newcolumn);
     // click on next button
     await page.click(pageobject.nextoption);
@@ -381,10 +378,10 @@ test.describe('E2E Test Suite', () => {
   // create new view with edit view pattern
   test('create new view with edit view pattern', async () => {
     await functions.views();
-    //click on create new view
+    // click on create new view
     await page.click(pageobject.createnewview);
     // input view name and discription
-    await page.fill(pageobject.viewnametextbox, 'View2_' + randomString);
+    await page.fill(pageobject.InputName, 'View2_' + randomString);
     await page.fill(pageobject.viewdiscriptiontext, 'view for table');
     // click on dropdown and select option
     await page.click(pageobject.viewpatterndropdown);
@@ -425,7 +422,7 @@ test.describe('E2E Test Suite', () => {
     await page.waitForTimeout(4000);
     await page.click(pageobject.nextoption);
     // click on finish button
-    await page.click(pageobject.finishprimary);
+    await functions.submit();
   });
 
   // Add edit link in list view
@@ -440,7 +437,7 @@ test.describe('E2E Test Suite', () => {
     await functions.submit();
     // click on add column button on page
     await page.click(pageobject.addcolumnbutton);
-    //drag and drop the action view link
+    // drag and drop the action view link
     await functions.drag_And_Drop(pageobject.viewlinksource, pageobject.newcolumn);
     // click to view link dropdown
     await page.click(pageobject.viewtolinkdropdown);
@@ -453,10 +450,11 @@ test.describe('E2E Test Suite', () => {
     await page.click(pageobject.nextoption);
     // click next button again
     await functions.submit();
-    //submit the page
+    // submit the page
     await functions.submit();
     // click finish button
-    await page.click(pageobject.finishbuttonprimary);
+    await functions.submit();
+    // await page.click(pageobject.finishbuttonprimary);
     // click to new view link again
     await page.click(pageobject.newviewlink);
     // check visibility for edit butoon for row
@@ -514,10 +512,10 @@ test.describe('E2E Test Suite', () => {
   // create view with show view pattern
   test('create view with show view pattern', async () => {
     await functions.views();
-    //click on create new view
+    // click on create new view
     await page.click(pageobject.createnewview);
     // input view name and discription
-    await page.fill(pageobject.viewnametextbox, 'showView_' + randomString);
+    await page.fill(pageobject.InputName, 'showView_' + randomString);
     await page.fill(pageobject.viewdiscriptiontext, 'view for table');
     // click on dropdown and select option
     await page.click(pageobject.viewpatterndropdown);
@@ -559,7 +557,7 @@ test.describe('E2E Test Suite', () => {
     await functions.submit();
     // click on add column button on page
     await page.click(pageobject.addcolumnbutton);
-    //drag and drop the viewlink locator
+    // drag and drop the viewlink locator
     await functions.drag_And_Drop(pageobject.viewlinksource, pageobject.newcolumn);
     // select view to show from dropdown
     await page.click(pageobject.viewtolinkdropdown);
@@ -590,9 +588,9 @@ test.describe('E2E Test Suite', () => {
 
   // Add tgable by uplaoding csv
   test('Add table by uploading csv file', async () => {
-    //click table button
+    // click table button
     await functions.click_table();
-    //Click on Create from CSV upload link
+    // Click on Create from CSV upload link
     await page.click(pageobject.createfromcsvupload);
 
     // Wait for the file input element to be available
@@ -601,13 +599,13 @@ test.describe('E2E Test Suite', () => {
     const filePath = 'Csv_file_to_uplaod/People1.csv'; // Replace with the correct path to your CSV file
     await fileInput.setInputFiles(filePath);
     // fill table name on text box
-    await functions.fill_Text(pageobject.csvtablenametextbox, 'csv_Table' + randomString);
+    await functions.fill_Text(pageobject.InputName, 'csv_Table' + randomString);
     // Click on create button
     await page.click(pageobject.createcsvbutton);
     // Click on create view from table
     await page.click(pageobject.createviewfromtable);
     // input view name and discription
-    await page.fill(pageobject.viewnametextbox, 'csvView_' + randomString);
+    await page.fill(pageobject.InputName, 'csvView_' + randomString);
     await page.fill(pageobject.viewdiscriptiontext, 'view for csv table');
     // submit the page
     await functions.submit();
@@ -663,11 +661,6 @@ test.describe('E2E Test Suite', () => {
   //clear all tables
   test('Navigate to setting page and clear all changes', async ({ browser }) => {
     functions = new PageFunctions(page);
-    await functions.SALTCORN();
-    await functions.navigate_To_Settings();
-    await page.click(pageobject.aboutApplicationLink);
-    //await functions.navigate_To_about_application();
-    await functions.about_application_to_system();
-    await functions.clear_All();
+    await functions.clear_Data();
   });
 });

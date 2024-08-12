@@ -22,7 +22,7 @@ class PageFunctions {
     await this.page.click(this.locators.newPage_sidebar);
     await this.page.waitForSelector(this.locators.newPageButton);
     await this.page.click(this.locators.newPageButton);
-    await this.page.fill(this.locators.newPageNameInput, pageName);
+    await this.page.fill(this.locators.InputName, pageName);
     await this.page.click(this.locators.submitButton);
   }
 
@@ -187,8 +187,8 @@ class PageFunctions {
   }
 
   async navigate_To_module() {
-    await this.page.waitForSelector(this.locators.Modulesettngsidebar);
-    await this.page.click(this.locators.Modulesettngsidebar);
+    await this.page.waitForSelector(this.locators.Modulesettingsidebar);
+    await this.page.click(this.locators.Modulesettingsidebar);
   }
 
   async navigate_To_All_modules() {
@@ -217,8 +217,8 @@ class PageFunctions {
   }  
 
   async navigate_To_Users_And_Security() {
-    await this.page.waitForSelector(this.locators.UsersAndSecurity);
-    await this.page.click(this.locators.UsersAndSecurity);
+    await this.page.waitForSelector(this.locators.UsersAndSecurity, { timeout: 25000 });
+    await this.page.click(this.locators.UsersAndSecurity, { force:true });
   }
 
   async navigate_To_Site_Structure() {
@@ -341,6 +341,14 @@ async clickDeleteButton() {
 
   // Click on the specific button within the dropdown
   await this.page.click(this.locators.deleteuser, { force: true });
+}
+
+async clear_Data() {
+    await this.SALTCORN();
+    await this.navigate_To_Settings();
+    await this.page.click(this.locators.aboutApplicationLink);
+    await this.about_application_to_system();
+    await this.clear_All();
 }
 
 }
