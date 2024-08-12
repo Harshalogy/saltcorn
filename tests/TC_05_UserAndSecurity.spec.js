@@ -6,42 +6,39 @@ const customAssert = require('../pageobject/utils.js');
 const Logger = require('../pageobject/logger.js');
 
 test.describe('E2E Test Suite', () => {
-    let functions;
-    let pageobject;
-    let context;
-    let page;
-    let randomString;
+  let functions;
+  let pageobject;
+  let context;
+  let page;
+  let randomString;
 
-    test.beforeAll(async ({ browser }) => {
-        // Initialize the log file
-        Logger.initialize();
+  test.beforeAll(async ({ browser }) => {
+    // Initialize the log file
+    Logger.initialize();
+    // Create a new context and page for all tests
+    context = await browser.newContext();
+    page = await context.newPage();
 
-        // Generate a random string for all tests
-        randomString = PageFunctions.generate_Random_String(5);
-    });
+    // Maximize the screen
+    await page.setViewportSize({ width: 1350, height: 720 });
 
-    test.beforeEach(async ({ browser }) => {
-        // Create a new context and page for each test
-        context = await browser.newContext();
-        page = await context.newPage();
-    
-        // Maximize the screen
-        await page.setViewportSize({ width: 1350, height: 1080 });
-    
-        functions = new PageFunctions(page);
-        pageobject = new PageObject(page);
-    
-        // Navigate to base URL and perform login
-        await functions.navigate_To_Base_URL(baseURL, derivedURL);
-        await functions.login('myproject19july@mailinator.com', 'myproject19july');
-        await functions.submit();
-      });
-    
-      test.afterEach(async () => {
-        // Close the page and context after each test
-        await page.close();
-        await context.close();
-      });
+    functions = new PageFunctions(page);
+    pageobject = new PageObject(page);
+
+    // Generate a random string for all tests
+    randomString = PageFunctions.generate_Random_String(5);
+
+    // Navigate to base URL and perform login
+    await functions.navigate_To_Base_URL(baseURL, derivedURL);
+    await functions.login('myproject19july@mailinator.com', 'myproject19july');
+    await functions.submit();
+  });
+
+  test.afterAll(async () => {
+    // Close the page and context after each test
+    await page.close();
+    await context.close();
+  });
 
     // Create a new user
     test('Create new user by visiting "Users and Security" tabs', async () => {

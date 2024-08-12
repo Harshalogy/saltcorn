@@ -149,7 +149,8 @@ class PageLocators {
     this.packslocator = 'a[href="/plugins?set=packs"]';
     this.themeslocator = 'a[href="/plugins?set=themes"]';
     this.Installedlocator = 'a[href="/plugins?set=installed"]';
-    this.userslocator = 'a[href="/useradmin"]';
+    this.userslocator = '//a[contains(@class, "nav-link active") and contains(text(), "Users")]';
+    //'a[href="/useradmin"]';
     this.roleslocator = 'a[href="/roleadmin"]';
     this.loginandsignup = 'a[href="/useradmin/settings"]';
     this.tableaccess = 'a[href="/useradmin/table-access"]';

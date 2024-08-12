@@ -15,29 +15,28 @@ test.describe('E2E Test Suite', () => {
   test.beforeAll(async ({ browser }) => {
     // Initialize the log file
     Logger.initialize();
-  });
-
-  test.beforeEach(async ({ browser }) => {
-    // Create a new context and page for each test
+    // Create a new context and page for all tests
     context = await browser.newContext();
     page = await context.newPage();
 
-    // Assign a value to randomString here
-    randomString = PageFunctions.generate_Random_String(10);
-
     // Maximize the screen
-    await page.setViewportSize({ width: 1350, height: 1080 });
-    
+    await page.setViewportSize({ width: 1350, height: 720 });
+
     functions = new PageFunctions(page);
     pageobject = new PageObject(page);
-    
+
     // Navigate to base URL and perform login
     await functions.navigate_To_Base_URL(baseURL, derivedURL);
     await functions.login('myproject19july@mailinator.com', 'myproject19july');
     await functions.submit();
   });
 
-  test.afterEach(async () => {
+  test.beforeEach(async ({ browser }) => {
+    // Assign a value to randomString here
+    randomString = PageFunctions.generate_Random_String(10);
+  });
+
+  test.afterAll(async () => {
     // Close the page and context after each test
     await page.close();
     await context.close();
