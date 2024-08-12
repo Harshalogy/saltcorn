@@ -35,7 +35,7 @@ test.describe('E2E Test Suite', () => {
   });
 
   test.afterAll(async () => {
-    // Close the page and context after each test
+    // Close the page and context after all test
     await page.close();
     await context.close();
   });
