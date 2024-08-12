@@ -47,7 +47,7 @@ test.describe('E2E Test Suite', () => {
         // Navigate to setting
         await functions.navigate_To_Settings();
         // Navigate to Users and Security
-        await page.click(pageobject.UsersAndSecurity);
+        await functions.navigate_To_Users_And_Security();
         // assert the user and security url
         await customAssert('page url should be /useradmin', async () => {
             expect(page.url()).toBe(baseURL + derivedURL + 'useradmin');
@@ -86,8 +86,7 @@ test.describe('E2E Test Suite', () => {
         // Navigate to setting
         await functions.navigate_To_Settings();
         // Navigate to Users and Security
-        await page.click(pageobject.UsersAndSecurity);
-        //await functions.navigate_To_Users_And_Security();
+        await functions.navigate_To_Users_And_Security();
         // search with username as created earlier
         await functions.fill_Text(pageobject.searchbar, randomString);
         await page.keyboard.press('Enter');
@@ -103,7 +102,7 @@ test.describe('E2E Test Suite', () => {
         // Navigate to setting
         await functions.navigate_To_Settings();
         // Navigate to Users and Security
-        await page.click(pageobject.UsersAndSecurity);
+        await functions.navigate_To_Users_And_Security();
         // search with username as created earlier
         await functions.fill_Text(pageobject.searchbar, randomString);
         // Wait for and click the last dropdown menu button

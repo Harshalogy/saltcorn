@@ -217,6 +217,7 @@ class PageFunctions {
   }  
 
   async navigate_To_Users_And_Security() {
+    await this.page.waitForTimeout(10000);
     await this.page.waitForSelector(this.locators.UsersAndSecurity, { timeout: 25000 });
     await this.page.click(this.locators.UsersAndSecurity, { force:true });
   }
