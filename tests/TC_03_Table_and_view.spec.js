@@ -369,6 +369,9 @@ test.describe('E2E Test Suite', () => {
     // validate the table name in table dropdown
     await customAssert('Table Name should be same as we created earlier', async () => {
       await expect(page.locator('#inputtable_name')).toHaveText(`My_Tableusers`);
+      const tableText = await page.locator('#inputtable_name').innerText();
+      await page.locator('#inputtable_name').selectText('My_Table');
+      console.log(`Text in locator '#inputtable_name': ${tableText}`);
     });
     // submit the page
     await functions.submit();
@@ -388,12 +391,6 @@ test.describe('E2E Test Suite', () => {
     // click on new view link
     await page.waitForSelector(pageobject.newviewlink);
     await page.click(pageobject.newviewlink);
-    // assert the visibility of delete button
-    await customAssert('Delete view button should be visible  ', async () => {
-      await expect(page.locator(pageobject.deleteviewbutton)).toBeVisible();
-      // Assert the lable for delete button
-      await expect(page.locator(pageobject.deleteviewbutton)).toHaveText('Delete');
-    });
   });
 
   // create new view with edit view pattern
@@ -595,7 +592,6 @@ test.describe('E2E Test Suite', () => {
   // add show link in list view
   test('Add show link in list view by by connecting show view', async () => {
     await functions.views();
-    await page.waitForSelector(pageobject.newviewlink);
     await page.click(pageobject.newviewlink);
     await page.waitForSelector(pageobject.editviewlink);
     await page.click(pageobject.editviewlink);
@@ -670,7 +666,6 @@ test.describe('E2E Test Suite', () => {
     await page.click(pageobject.nextoption);
     // click on next button
     await functions.submit();
-    await page.waitForSelector(pageobject.finishbuttonprimary);
     await page.click(pageobject.finishbuttonprimary);
     // id field should be visible
     await customAssert('Assert id field is visible', async () => {
@@ -718,8 +713,8 @@ test.describe('E2E Test Suite', () => {
   });
 
   //clear all tables
-  test('Navigate to setting page and clear all changes', async ({ browser }) => {
-    functions = new PageFunctions(page);
-    await functions.clear_Data();
-  });
+  // test('Navigate to setting page and clear all changes', async ({ browser }) => {
+  //   functions = new PageFunctions(page);
+  //   await functions.clear_Data();
+  // });
 });

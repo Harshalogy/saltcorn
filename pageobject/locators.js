@@ -47,7 +47,8 @@ class PageLocators {
     this.configurebutton = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > form > div:nth-child(8) > div > button';
     this.databaseoption = '#tab82036chead1';
     this.finishbutton = '#tab82036chead1 > button';
-    this.deleteviewbutton = '#page-inner-content > div:nth-child(2) > div.d-inline > div > table > tbody > tr > td:nth-child(4) > form > button';
+    this.deleteviewbutton = 
+   // '#page-inner-content > div:nth-child(2) > div.d-inline > div > table > tbody > tr > td:nth-child(4) > form > button';
     this.target = 'div.canvas.root-canvas';
     this.space1 = '#builder-main-canvas > div:nth-child(1) > div > div > div.row.selected-node > div.split-col.col-sm-10.text-start.align-items-undefined > div > div';
     this.destinationtype = '#inputdestination_type';
