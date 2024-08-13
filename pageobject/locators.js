@@ -156,8 +156,10 @@ class PageLocators {
     this.csvDobdatetype = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(2) > td:nth-child(2)';
     this.csvaddressfield = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(1) > td:nth-child(1)';
     this.csvaddressstringtype = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(1) > td:nth-child(2)';
-    this.Fullnameshow = '#builder-main-canvas > div:nth-child(1) > div > div > div:nth-child(3) > div.split-col.col-sm-2.text-end.align-items-undefined > div > div > div > div';
-    this.fullnameuser = '#builder-main-canvas > div:nth-child(1) > div > div > div:nth-child(3) > div.split-col.col-sm-10.text-start.align-items-undefined > div > div > div > div';
+    this.Fullnameshow = 'div.d-inline:has-text("Full name")';
+    //'#builder-main-canvas > div:nth-child(1) > div > div > div:nth-child(3) > div.split-col.col-sm-2.text-end.align-items-undefined > div > div > div > div';
+    this.fullnameuser = 'div.d-inline:has-text("First Name")';
+    //'#builder-main-canvas > div:nth-child(1) > div > div > div:nth-child(3) > div.split-col.col-sm-10.text-start.align-items-undefined > div > div > div > div';
     this.textstyle = '.form-control form-select';
     this.createuserlink = 'a[href="/useradmin/new"]';
     this.inputdob = '#inputdob';
@@ -169,8 +171,9 @@ class PageLocators {
     this.searchbar = 'input[placeholder="🔍 Search"]';
     this.userdropdown = '#content > div.dropdown-menu.dropdown-menu-end.show';
     this.deleteuser = '#content > div.dropdown-menu.dropdown-menu-end.show > a:nth-child(11)';
-    this.mytable = 'xpath=/html/body/div/div/div/div[1]/div[2]/div[1]/div/div[1]/table/tbody/tr[1]/td[1]/a';
+    
 
+    this.mytable = 'a:has-text("My_Table")';
     this.saveactionbutton = '//button[text()="Save"]';
     this.EditlinkLocator = 'a:has(i.fas.fa-2x.fa-edit)';
     this.downloadlinklocator = 'a:has(i.fas.fa-2x.fa-download)';

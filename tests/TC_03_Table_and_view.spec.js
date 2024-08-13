@@ -63,7 +63,7 @@ test.describe('E2E Test Suite', () => {
       await page.click(pageobject.createtablebutton);
     });
     // Enter Table name
-    await functions.fill_Text(pageobject.InputName, 'My_Table' + randomString);
+    await functions.fill_Text(pageobject.InputName, 'My_Table');
     await customAssert('Create button should be visible and working', async () => {
       await expect(page.locator(pageobject.submitButton)).toBeVisible();
       // Assert label of create button
@@ -250,13 +250,15 @@ test.describe('E2E Test Suite', () => {
       // Assert the lable for add row button
       await expect(page.locator(pageobject.addrowlocator)).toHaveText('Add row');
     });
-    await page.waitForTimeout(4000);
+    await page.waitForTimeout(10000);
     // click on add row button
+    await page.waitForSelector(pageobject.addrowlocator);
     await page.click(pageobject.addrowlocator);
     // click on tab cell to activate it
+    await page.waitForSelector(pageobject.tab1locater);
     await page.click(pageobject.tab1locater);
     // enter value in cell
-    await page.keyboard.type('Saltcorn ' + randomString);
+    await page.keyboard.type('First Name');
     // click on tab cell to activate it
     await page.click(pageobject.tab2locator);
     // Check if the calendar is visible
@@ -343,7 +345,7 @@ test.describe('E2E Test Suite', () => {
     await page.fill(pageobject.viewdiscriptiontext, 'view for table');
     // validate the table name in table dropdown
     await customAssert('Table Name should be same as we created earlier', async () => {
-      await expect(page.locator('#inputtable_name')).toHaveText(`My_Table${randomString}users`);
+      await expect(page.locator('#inputtable_name')).toHaveText(`My_Tableusers`);
     });
     // submit the page
     await functions.submit();
@@ -510,8 +512,10 @@ test.describe('E2E Test Suite', () => {
     // submit the page
     await functions.submit();
     // select full name lable
+    await page.waitForSelector(pageobject.Fullnameshow);
     await page.click(pageobject.Fullnameshow);
     // delete lable for full name
+    await page.waitForSelector(pageobject.deletebutton);
     await page.click(pageobject.deletebutton);
     // drag full name on target
     await functions.drag_And_Drop(pageobject.fullnameuser, pageobject.target);
@@ -545,6 +549,7 @@ test.describe('E2E Test Suite', () => {
     await page.keyboard.press('ArrowDown');
     await page.keyboard.press('Enter');
     // add lable for link
+    await page.waitForSelector(pageobject.lebelforfield);
     await functions.fill_Text(pageobject.lebelforfield, 'Show');
     // click on next button
     await page.click(pageobject.nextoption);
