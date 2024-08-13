@@ -31,7 +31,7 @@ class PageFunctions {
   }
 
   async fill_Text(selector, text) {
-    await this.page.fill(selector, text);
+    await this.page.fill(selector, text,{timeout:20000});
   }
 
   async navigate_To_Settings() {
@@ -351,6 +351,8 @@ async clear_Data() {
     await this.about_application_to_system();
     await this.clear_All();
 }
+
+
 
 }
 

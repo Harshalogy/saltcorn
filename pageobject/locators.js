@@ -5,7 +5,7 @@ class PageLocators {
     this.subdomainInput = 'input[name="subdomain"]';
     this.submitButton = 'button[type="submit"]';
     this.successMessage = '#page-inner-content > section.page-section.pt-2 > div > div > div:nth-child(1)';
-    this.newApplicationLink = '#page-inner-content > section.page-section.pt-2 > div > div > div.my-3 > a';
+    // this.newApplicationLink = '#page-inner-content > section.page-section.pt-2 > div > div > div.my-3 > a';
     this.emailInput = 'input[type="email"]';
     this.passwordInput = 'input[type="password"]';
     this.textSource = 'div.wrap-builder-elem[title="Text"]';
@@ -16,7 +16,6 @@ class PageLocators {
     this.viewtocreate = '#inputview_to_create';
     this.labeltocreate = '#inputcreate_view_label';
     this.fielddropdown = '#saltcorn-builder > div.row > div.col-sm-auto.builder-sidebar > div > div.settings-panel.card.mt-1 > div.card-body.p-2 > table > tbody > tr:nth-child(1) > td:nth-child(2) > select';
-    this.saveactionbutton = '#builder-main-canvas > div:nth-child(1) > div > div > button'
     this.InputName = '#inputname';
     this.FieldsLocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody';
     this.addFieldButtonLocator = 'a.btn.btn-primary.add-field.mt-2:has-text("Add field")';
@@ -29,52 +28,31 @@ class PageLocators {
     this.maxlengthlocator = '//input[@id="inputmax_length"]';
     this.regularexpressionlocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > form > div:nth-child(4) > div:nth-child(2) > input';
     this.errormessagelocator = '//input[@id="inputre_invalid_error"]';
-    this.EditlinkLocator = '#page-inner-content > div:nth-child(2) > div:nth-child(3) > div > div > div:nth-child(2) > a';
-    this.downloadlinklocator = '#page-inner-content > div:nth-child(2) > div:nth-child(3) > div > div > div:nth-child(3) > a';
-    this.uploadcsvlinklocator = '#page-inner-content > div:nth-child(2) > div:nth-child(3) > div > div > div:nth-child(4) > form > label';
-    this.addrowlocator = '#page-inner-content > div:nth-child(2) > nav > ol > li.ms-auto > div > button';
     this.tab1locater = 'div.tabulator-cell[tabulator-field="full_name"]';
     this.tab2locator = 'div.tabulator-cell[tabulator-field="date_of_birth"]';
     this.tab3locator = 'div.tabulator-cell[tabulator-field="address"]';
     this.idfieldlocator = '//td[text()="ID"]';
     this.idtypelocator = '//td[text()="Integer"]';
-    this.fullnamefieldlocator = '//td[text()="Full Name"]';
     this.fullnametypelocator = '//td[text()="String"]';
     this.fullnamerequiredtaglocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(1) > td:nth-child(4) > span';
-    this.fullnamevariablelocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(1) > td:nth-child(6) > code';
     this.fullnamedeletebutton = '//i[@class="fas fa-trash-alt"]';
-    this.dobfieldlocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(1) > td:nth-child(1)';
-    this.datetypelocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(1) > td:nth-child(2)';
-    this.datevariablelocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(1) > td:nth-child(6) > code';
     this.deletedobbutton = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(1) > td:nth-child(7) > form > button > i';    
-    this.addressfieldlocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(1) > td:nth-child(1)';
     this.addresstypelocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(1) > td:nth-child(2)';
-    this.addressvariablelocator = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(1) > td:nth-child(6) > code';
     this.deleteaddressbutton = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(1) > td:nth-child(7) > form > button > i';
-    this.calendarlocator = '#page-top > div.flatpickr-calendar.hasTime.animate.open.arrowTop.arrowLeft'
-    this.yearlocator = '#page-top > div.flatpickr-calendar.hasTime.animate.open.arrowTop.arrowLeft > div.flatpickr-months > div > div > div > input';
-    this.monthlocator = '#page-top > div.flatpickr-calendar.hasTime.animate.open.arrowTop.arrowLeft > div.flatpickr-months > div > div > select';
     this.datelocator = '#page-top > div.flatpickr-calendar.hasTime.animate.open.arrowTop.arrowLeft > div.flatpickr-innerContainer > div > div.flatpickr-days > div > span:nth-child(3)';
-    this.nextoption = '#saltcorn-builder > div.row > div.col-sm-auto.builder-sidebar > div > button.btn.btn-sm.btn-primary.builder-save';
-    this.finishprimary = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > form > div:nth-child(12) > div > button.btn.btn-primary';
     this.nextprimary = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > form > div:nth-child(8) > div > button.btn.btn-primary';
-    this.finishbuttonprimary = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > form > div:nth-child(11) > div > button.btn.btn-primary';
     this.addpersonlink = '#page-inner-content > div:nth-child(2) > div.d-inline > a';
     this.rowsperpage = '#input_rows_per_page';
     this.layoutoption = '#tab82036chead0';
     this.configurebutton = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > form > div:nth-child(8) > div > button';
     this.databaseoption = '#tab82036chead1';
     this.finishbutton = '#tab82036chead1 > button';
-    this.newviewlink = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr > td:nth-child(1) > a';
-    this.editviewlink = '#page-inner-content > div:nth-child(2) > div.card.p-1.mt-1.mb-3.d-print-none.admin-edit-bar > div > a.ms-2';
     this.deleteviewbutton = '#page-inner-content > div:nth-child(2) > div.d-inline > div > table > tbody > tr > td:nth-child(4) > form > button';
     this.target = 'div.canvas.root-canvas';
     this.space1 = '#builder-main-canvas > div:nth-child(1) > div > div > div.row.selected-node > div.split-col.col-sm-10.text-start.align-items-undefined > div > div';
     this.destinationtype = '#inputdestination_type';
     this.destinationview = '#inputview_when_done';
     this.newcolumn = '#builder-main-canvas > div:nth-child(1) > div > div > div.selected-node.d-flex.w-100.list-column-outer > div.flex-50.list-col-contents > div';
-    this.viewtolinkdropdown = '#saltcorn-builder > div.row > div.col-sm-auto.builder-sidebar > div > div.settings-panel.card.mt-1 > div.card-body.p-2 > div > table.w-100 > tbody > tr:nth-child(1) > td > div > div > div.css-1hwfws3 > div.css-1uccc91-singleValue';
-    this.lebelforfield = '#saltcorn-builder > div.row > div.col-sm-auto.builder-sidebar > div > div.settings-panel.card.mt-1 > div.card-body.p-2 > div > table.w-100 > tbody > tr:nth-child(3) > td > div > input';
     this.editfieldlink = '#page-inner-content > div:nth-child(2) > div.d-inline > div > table > tbody > tr > td:nth-child(5) > a';
     this.showfieldlink = '#page-inner-content > div:nth-child(2) > div.d-inline > div > table > tbody > tr > td:nth-child(6) > a';
     this.lineBreakSource = '#saltcorn-builder > div.row > div.col-sm-auto.left-builder-col.builder-left-shrunk > div.componets-and-library-accordion.toolbox-card > div.card.mt-1 > div:nth-child(2) > div:nth-child(1) > div';
@@ -114,8 +92,6 @@ class PageLocators {
     this.containerflexsetting = '//div[contains(@class, "bg-secondary") and contains(text(), "Flex properties")]';
     this.containercontentlink = '//div[contains(@class, "bg-secondary") and contains(text(), "Container link")]';
     this.containercustomclass = '//div[contains(@class, "bg-secondary") and contains(text(), "Custom class/CSS")]';
-    this.ActionLocator= 'div[title="Action button"]';
-    this.ActionDropdown= '#saltcorn-builder > div.row > div.col-sm-auto.builder-sidebar > div > div.settings-panel.card.mt-1 > div.card-body.p-2 > div > table > tbody > tr:nth-child(1) > td:nth-child(2) > select';
     this.ActionLabel= '#saltcorn-builder > div.row > div.col-sm-auto.builder-sidebar > div > div.settings-panel.card.mt-1 > div.card-body.p-2 > div > table > tbody > tr:nth-child(2) > td > input';
     this.ActionStyledropdown= '#saltcorn-builder > div.row > div.col-sm-auto.builder-sidebar > div > div.settings-panel.card.mt-1 > div.card-body.p-2 > div > table > tbody > tr:nth-child(3) > td:nth-child(2) > select';
     this.Actionsizedropdown= '#saltcorn-builder > div.row > div.col-sm-auto.builder-sidebar > div > div.settings-panel.card.mt-1 > div.card-body.p-2 > div > table > tbody > tr:nth-child(4) > td:nth-child(2) > select';
@@ -172,15 +148,9 @@ class PageLocators {
     this.viewpatterndropdown = '#inputviewtemplate';
     this.viewtabledropdown = '#inputtable_name';
     this.viewminimumroledropdown = '#inputmin_role';
-    this.addcolumnbutton = '#builder-main-canvas > div:nth-child(1) > button';
-    this.createfromcsvupload = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div:nth-child(2) > a.btn.btn-secondary.me-3.mt-1';
     this.choosefilebutton = '#inputfile';
-    this.createcsvbutton = '#page-inner-content > div:nth-child(2) > div.card.mt-4.shadow > div > form > div:nth-child(4) > div > button';
     this.createviewfromtable = '#table-views > div > a';
     this.newviewfromtable = '#table-views > div > div > table > tbody > tr > td:nth-child(1) > a';
-    this.idfromcsvtable = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(4) > td:nth-child(1)';
-    this.csvidintegertype = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(4) > td:nth-child(2)';
-    this.csvfullnamefield = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(3) > td:nth-child(1)';
     this.csvnamestringtype = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(3) > td:nth-child(2)';
     this.csvDOBfield = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(2) > td:nth-child(1)';
     this.csvDobdatetype = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(2) > td:nth-child(2)';
@@ -188,8 +158,7 @@ class PageLocators {
     this.csvaddressstringtype = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(1) > td:nth-child(2)';
     this.Fullnameshow = '#builder-main-canvas > div:nth-child(1) > div > div > div:nth-child(3) > div.split-col.col-sm-2.text-end.align-items-undefined > div > div > div > div';
     this.fullnameuser = '#builder-main-canvas > div:nth-child(1) > div > div > div:nth-child(3) > div.split-col.col-sm-10.text-start.align-items-undefined > div > div > div > div';
-    this.nameontarget = '#builder-main-canvas > div:nth-child(1) > div > div > div.selected-node.d-inline-block > div';
-    this.textstyle = '#saltcorn-builder > div.row > div.col-sm-auto.builder-sidebar > div > div.settings-panel.card.mt-1 > div.card-body.p-2 > table > tbody > tr:nth-child(5) > td:nth-child(2) > select';
+    this.textstyle = '.form-control form-select';
     this.createuserlink = 'a[href="/useradmin/new"]';
     this.inputdob = '#inputdob';
     this.inputemail = '#inputemail';
@@ -201,6 +170,33 @@ class PageLocators {
     this.userdropdown = '#content > div.dropdown-menu.dropdown-menu-end.show';
     this.deleteuser = '#content > div.dropdown-menu.dropdown-menu-end.show > a:nth-child(11)';
     this.mytable = 'xpath=/html/body/div/div/div/div[1]/div[2]/div[1]/div/div[1]/table/tbody/tr[1]/td[1]/a';
+
+    this.saveactionbutton = '//button[text()="Save"]';
+    this.EditlinkLocator = 'a:has(i.fas.fa-2x.fa-edit)';
+    this.downloadlinklocator = 'a:has(i.fas.fa-2x.fa-download)';
+    this.uploadcsvlinklocator = 'label:has-text("Upload CSV")';
+    this.addrowlocator = 'button:has-text("Add row")';
+    this.fieldsourrce = '//div[@title="Field"]';
+    this.addcolumnbutton = 'button:has-text("Add column")';
+    this.createfromcsvupload = '//a[@href="/table/create-from-csv"]';
+    this.ActionLocator = 'div[title="Action button"]';
+    this.viewtolinkdropdown = '//div[contains(@class, "css-1uccc91-singleValue")]';
+    this.lebelforfield = 'input[class*="viewlink-label"]';
+    this.editviewlink = 'a.ms-2 i.fas.fa-edit';
+    this.finishbuttonprimary = '//button[@type="submit" and contains(@class, "btn-primary") and text()="Finish »"]';
+    this.nextoption = 'button:has-text("Next »")';
+    this.finishprimary = '[role="button"][name="Finish »"]';
+    this.calendarlocator = 'div.flatpickr-calendar.hasTime.animate.open.arrowTop.arrowLeft';
+    this.yearlocator = 'input.numInput.cur-year';
+    this.monthlocator = 'select.flatpickr-monthDropdown-months';
+    this.addressvariablelocator = '(//code[text()="address"])[1]';
+    this.DOBvariablelocator = '(//code[text()="date_of_birth"])[1]';
+    this.fullnamevariablelocator = '(//code[text()="full_name"])[1]';
+    this.fullnamefieldlocator = '//td[text()="Full name"]';
+    this.dobfieldlocator = '//td[text()="Date of birth"]';
+    this.addressfieldlocator = '//td[text()="Address"]';
+    this.datetypelocator = '//td[text()="Date"]';
+    this.newviewlink = 'a[href="/view/NewView_List"]';
   } 
 }
 

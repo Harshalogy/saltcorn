@@ -94,7 +94,7 @@ test.describe('E2E Test Suite', () => {
     // click on add field button
     await page.click(pageobject.addFieldButtonLocator);
     // Fill the lable name
-    await functions.fill_Text(pageobject.labelTextboxlocator, 'Full Name');
+    await functions.fill_Text(pageobject.labelTextboxlocator, 'Full name');
     // select the input type
     const type = await page.$("#inputtype");
     await type?.selectOption("String");
@@ -115,10 +115,10 @@ test.describe('E2E Test Suite', () => {
     // click on finish button
     await functions.submit();
     // check visibility of full name field added
-    await customAssert('Full Name field should be visible on fields ', async () => {
+    await customAssert('Full name field should be visible on fields ', async () => {
       await expect(page.locator(pageobject.fullnamefieldlocator)).toBeVisible();
       // Assert the label of Full name field 
-      await expect(page.locator(pageobject.fullnamefieldlocator)).toHaveText('Full Name');
+      await expect(page.locator(pageobject.fullnamefieldlocator)).toHaveText('Full name');
     });
     // check required tag for full name field
     await customAssert('Full name field should should have required tag ', async () => {
@@ -135,7 +135,7 @@ test.describe('E2E Test Suite', () => {
     // check variable name for full name field is visible
     await customAssert('Variable name for full name should be full_name and visible ', async () => {
       await expect(page.locator(pageobject.fullnamevariablelocator)).toBeVisible();
-      // Assert the variable name for Full name
+      // Assert the variable name for full name
       await expect(page.locator(pageobject.fullnamevariablelocator)).toHaveText('full_name');
     });
     // check delete button for full name field is visible
@@ -153,7 +153,7 @@ test.describe('E2E Test Suite', () => {
     // click on add field button
     await page.click(pageobject.addFieldButtonLocator);
     // Fill the lable name
-    await functions.fill_Text(pageobject.labelTextboxlocator, 'Date Of Birth');
+    await functions.fill_Text(pageobject.labelTextboxlocator, 'Date of birth');
     // select the input type
     const type = await page.$("#inputtype");
     await type?.selectOption("Date");
@@ -167,7 +167,7 @@ test.describe('E2E Test Suite', () => {
     await customAssert('DOB field for table should be visible ', async () => {
       await expect(page.locator(pageobject.dobfieldlocator)).toBeVisible();
       // Assert the lable of Date of birth field
-      await expect(page.locator(pageobject.dobfieldlocator)).toHaveText('Date Of Birth');
+      await expect(page.locator(pageobject.dobfieldlocator)).toHaveText('Date of birth');
     });
     // check DOB field type is Date
     await customAssert('DOB field should have Date type ', async () => {
@@ -177,9 +177,9 @@ test.describe('E2E Test Suite', () => {
     });
     // check varable name for dob field is visible
     await customAssert('Variable name for DOB field should be date_of_birth ', async () => {
-      await expect(page.locator(pageobject.datevariablelocator)).toBeVisible();
+      await expect(page.locator(pageobject.DOBvariablelocator)).toBeVisible();
       // Assert the variable name for Date of birth field
-      await expect(page.locator(pageobject.datevariablelocator)).toHaveText('date_of_birth');
+      await expect(page.locator(pageobject.DOBvariablelocator)).toHaveText('date_of_birth');
     });
     // check delete button for DOB field is visible
     await customAssert('Delete button for DOB field should be exist ', async () => {
@@ -339,19 +339,12 @@ test.describe('E2E Test Suite', () => {
       expect(page.url()).toBe(baseURL + derivedURL + 'viewedit/new');
     });
     // input view name and discription
-    await page.fill(pageobject.InputName, 'NewView_' + randomString);
+    await page.fill(pageobject.InputName, 'NewView_List');
     await page.fill(pageobject.viewdiscriptiontext, 'view for table');
-    // click on dropdown and select option
-    await page.click(pageobject.viewpatterndropdown);
-    // click enter from keyboard
-    await page.keyboard.press('Enter');
     // validate the table name in table dropdown
     await customAssert('Table Name should be same as we created earlier', async () => {
       await expect(page.locator('#inputtable_name')).toHaveText(`My_Table${randomString}users`);
     });
-    // click on view minimum role dropdown
-    await page.click(pageobject.viewminimumroledropdown);
-    await page.keyboard.press('Enter');
     // submit the page
     await functions.submit();
     // click on add column button on page
@@ -362,9 +355,8 @@ test.describe('E2E Test Suite', () => {
     await page.click(pageobject.nextoption);
     // click on next button
     await functions.submit();
-    // click on rows per page dropdown
-    await page.click(pageobject.rowsperpage);
-    await page.keyboard.press('Enter');
+    await functions.submit();
+
     // click on new view link
     await page.click(pageobject.newviewlink);
     // assert the visibility of delete button
@@ -388,12 +380,6 @@ test.describe('E2E Test Suite', () => {
     // click down aero to change options to edit
     await page.keyboard.press('ArrowDown');
     await page.keyboard.press('Enter');
-    // click to view table dropdown
-    await page.click(pageobject.viewtabledropdown);
-    await page.keyboard.press('Enter');
-    // click to view minimum role dropdown
-    await page.click(pageobject.viewminimumroledropdown);
-    await page.keyboard.press('Enter');
     // submit the page
     await functions.submit();
     // drag and drop the page source on the page
@@ -405,8 +391,8 @@ test.describe('E2E Test Suite', () => {
     await page.click(pageobject.inputbox2);
     await page.click(pageobject.deletebutton);
     // add new input box in page
-    await page.click(pageobject.lineBreakSource);
-    await functions.drag_And_Drop(pageobject.lineBreakSource, pageobject.target);
+    await page.click(pageobject.fieldsourrce);
+    await functions.drag_And_Drop(pageobject.fieldsourrce, pageobject.target);
     // click on field dropdown for field
     await page.click(pageobject.fielddropdown);
     await page.keyboard.press('ArrowDown');
@@ -415,7 +401,6 @@ test.describe('E2E Test Suite', () => {
     await page.click(pageobject.saveactionbutton);
     // add new action button on page
     await functions.drag_And_Drop(pageobject.ActionLocator, pageobject.target);
-    await page.click(pageobject.ActionDropdown);
     // delete the button
     await page.click(pageobject.deletebutton);
     // click on next page
@@ -454,7 +439,6 @@ test.describe('E2E Test Suite', () => {
     await functions.submit();
     // click finish button
     await functions.submit();
-    // await page.click(pageobject.finishbuttonprimary);
     // click to new view link again
     await page.click(pageobject.newviewlink);
     // check visibility for edit butoon for row
@@ -523,12 +507,6 @@ test.describe('E2E Test Suite', () => {
     await page.keyboard.press('ArrowDown');
     await page.keyboard.press('ArrowDown');
     await page.keyboard.press('Enter');
-    // click on view table drop down
-    await page.click(pageobject.viewtabledropdown);
-    await page.keyboard.press('Enter');
-    // click on view minimum role dropdown
-    await page.click(pageobject.viewminimumroledropdown);
-    await page.keyboard.press('Enter');
     // submit the page
     await functions.submit();
     // select full name lable
@@ -537,9 +515,10 @@ test.describe('E2E Test Suite', () => {
     await page.click(pageobject.deletebutton);
     // drag full name on target
     await functions.drag_And_Drop(pageobject.fullnameuser, pageobject.target);
-    await page.click(pageobject.nameontarget);
     // select text style as heading1 for full name
-    await page.click(pageobject.textstyle);
+    const textstyleLocator = page.locator('.form-control.form-select').nth(2);
+    // Click on the third element
+    await textstyleLocator.click();
     await page.keyboard.press('ArrowDown');
     await page.keyboard.press('Enter');
     // click on next button
@@ -586,7 +565,7 @@ test.describe('E2E Test Suite', () => {
     });
   });
 
-  // Add tgable by uplaoding csv
+  // Add table by uplaoding csv
   test('Add table by uploading csv file', async () => {
     // click table button
     await functions.click_table();
@@ -601,7 +580,8 @@ test.describe('E2E Test Suite', () => {
     // fill table name on text box
     await functions.fill_Text(pageobject.InputName, 'csv_Table' + randomString);
     // Click on create button
-    await page.click(pageobject.createcsvbutton);
+    // await page.click(pageobject.createcsvbutton);
+    await functions.submit();
     // Click on create view from table
     await page.click(pageobject.createviewfromtable);
     // input view name and discription
@@ -616,18 +596,18 @@ test.describe('E2E Test Suite', () => {
     await page.click(pageobject.finishbuttonprimary);
     // id field should be visible
     await customAssert('Assert id field is visible', async () => {
-      await expect(page.locator(pageobject.idfromcsvtable)).toBeVisible();
-      await expect(page.locator(pageobject.idfromcsvtable)).toHaveText('ID');
+      await expect(page.locator(pageobject.idfieldlocator)).toBeVisible();
+      await expect(page.locator(pageobject.idfieldlocator)).toHaveText('ID');
     });
     // id field variable type should be integer
     await customAssert('Assert id field type is integer', async () => {
-      await expect(page.locator(pageobject.csvidintegertype)).toBeVisible();
-      await expect(page.locator(pageobject.csvidintegertype)).toHaveText('Integer');
+      await expect(page.locator(pageobject.idtypelocator)).toBeVisible();
+      await expect(page.locator(pageobject.idtypelocator)).toHaveText('Integer');
     });
     // Full Name field should be visible
     await customAssert('Assert Full name field is visible', async () => {
-      await expect(page.locator(pageobject.csvfullnamefield)).toBeVisible();
-      await expect(page.locator(pageobject.csvfullnamefield)).toHaveText('Full name');
+      await expect(page.locator(pageobject.fullnamefieldlocator)).toBeVisible();
+      await expect(page.locator(pageobject.fullnamefieldlocator)).toHaveText('Full name');
     });
     // Full name field type should be string
     await customAssert('Assert Full name field is string type and visible', async () => {
@@ -636,18 +616,18 @@ test.describe('E2E Test Suite', () => {
     });
     // DOB field should be visible
     await customAssert('Assert DOB field is visible', async () => {
-      await expect(page.locator(pageobject.csvDOBfield)).toBeVisible();
-      await expect(page.locator(pageobject.csvDOBfield)).toHaveText('Date of birth');
+      await expect(page.locator(pageobject.dobfieldlocator)).toBeVisible();
+      await expect(page.locator(pageobject.dobfieldlocator)).toHaveText('Date of birth');
     });
     // DOB field type should be Date
     await customAssert('Assert DOB field is Date type and visible', async () => {
-      await expect(page.locator(pageobject.csvDobdatetype)).toBeVisible();
-      await expect(page.locator(pageobject.csvDobdatetype)).toHaveText('Date');
+      await expect(page.locator(pageobject.datetypelocator)).toBeVisible();
+      await expect(page.locator(pageobject.datetypelocator)).toHaveText('Date');
     });
     // Adress field should be visible
     await customAssert('Assert address field is string type and visible', async () => {
-      await expect(page.locator(pageobject.csvaddressfield)).toBeVisible();
-      await expect(page.locator(pageobject.csvaddressfield)).toHaveText('Address');
+      await expect(page.locator(pageobject.addressfieldlocator)).toBeVisible();
+      await expect(page.locator(pageobject.addressfieldlocator)).toHaveText('Address');
     });
     // Address field type should be String
     await customAssert('Assert address field is string type and visible', async () => {
@@ -659,8 +639,8 @@ test.describe('E2E Test Suite', () => {
   });
 
   //clear all tables
-  test('Navigate to setting page and clear all changes', async ({ browser }) => {
-    functions = new PageFunctions(page);
-    await functions.clear_Data();
-  });
+  // test('Navigate to setting page and clear all changes', async ({ browser }) => {
+  //   functions = new PageFunctions(page);
+  //   await functions.clear_Data();
+  // });
 });
