@@ -425,8 +425,10 @@ test.describe('E2E Test Suite', () => {
     // click on add column button on page
     await page.click(pageobject.addcolumnbutton);
     // drag and drop the action view link
+    await page.waitForSelector(pageobject.viewlinksource);
     await functions.drag_And_Drop(pageobject.viewlinksource, pageobject.newcolumn);
     // click to view link dropdown
+    await page.waitForSelector(pageobject.viewtolinkdropdown);
     await page.click(pageobject.viewtolinkdropdown);
     await page.keyboard.press('ArrowDown');
     await page.keyboard.press('Enter');
@@ -585,7 +587,6 @@ test.describe('E2E Test Suite', () => {
     // fill table name on text box
     await functions.fill_Text(pageobject.InputName, 'csv_Table' + randomString);
     // Click on create button
-    // await page.click(pageobject.createcsvbutton);
     await functions.submit();
     // Click on create view from table
     await page.click(pageobject.createviewfromtable);

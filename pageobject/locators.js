@@ -151,15 +151,6 @@ class PageLocators {
     this.choosefilebutton = '#inputfile';
     this.createviewfromtable = '#table-views > div > a';
     this.newviewfromtable = '#table-views > div > div > table > tbody > tr > td:nth-child(1) > a';
-    this.csvnamestringtype = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(3) > td:nth-child(2)';
-    this.csvDOBfield = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(2) > td:nth-child(1)';
-    this.csvDobdatetype = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(2) > td:nth-child(2)';
-    this.csvaddressfield = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(1) > td:nth-child(1)';
-    this.csvaddressstringtype = '#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(1) > td:nth-child(2)';
-    this.Fullnameshow = 'div.d-inline:has-text("Full name")';
-    //'#builder-main-canvas > div:nth-child(1) > div > div > div:nth-child(3) > div.split-col.col-sm-2.text-end.align-items-undefined > div > div > div > div';
-    this.fullnameuser = 'div.d-inline:has-text("First Name")';
-    //'#builder-main-canvas > div:nth-child(1) > div > div > div:nth-child(3) > div.split-col.col-sm-10.text-start.align-items-undefined > div > div > div > div';
     this.textstyle = '.form-control form-select';
     this.createuserlink = 'a[href="/useradmin/new"]';
     this.inputdob = '#inputdob';
@@ -200,6 +191,11 @@ class PageLocators {
     this.addressfieldlocator = '//td[text()="Address"]';
     this.datetypelocator = '//td[text()="Date"]';
     this.newviewlink = 'a[href="/view/NewView_List"]';
+    this.Fullnameshow = 'div.d-inline:has-text("Full name")';
+    this.fullnameuser = 'div.d-inline:has-text("First Name")';
+    this.csvnamestringtype = '(//td[text()="String"])[2]';
+    this.csvaddressstringtype = '(//td[text()="String"])[1]';
+    
   } 
 }
 
