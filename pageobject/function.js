@@ -10,6 +10,7 @@ class PageFunctions {
   }
 
   async submit() {
+    await this.page.waitForSelector(this.locators.submitButton);
     await this.page.click(this.locators.submitButton);
   }
 
@@ -259,18 +260,22 @@ class PageFunctions {
   }
 
   async Save_Page_Project() {
+    await this.page.waitForSelector(this.locators.saveButton);
     await this.page.click(this.locators.saveButton);
   }
 
   async click_table() {
+    await this.page.waitForSelector(this.locators.click_table);
     await this.page.click(this.locators.click_table)
   }
 
   async SALTCORN() {
+    await this.page.waitForSelector(this.locators.SaltCornButton);
     await this.page.click(this.locators.SaltCornButton)
   }
 
   async views() {
+    await this.page.waitForSelector(this.locators.sidebarviewbutton);
     await this.page.click(this.locators.sidebarviewbutton)
   }
 
@@ -347,6 +352,7 @@ async clickDeleteButton() {
 async clear_Data() {
     await this.SALTCORN();
     await this.navigate_To_Settings();
+    await this.page.waitForSelector(this.locators.aboutApplicationLink);
     await this.page.click(this.locators.aboutApplicationLink);
     await this.about_application_to_system();
     await this.clear_All();
