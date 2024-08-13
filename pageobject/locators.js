@@ -54,8 +54,10 @@ class PageLocators {
     this.destinationtype = '#inputdestination_type';
     this.destinationview = '#inputview_when_done';
     this.newcolumn = '#builder-main-canvas > div:nth-child(1) > div > div > div.selected-node.d-flex.w-100.list-column-outer > div.flex-50.list-col-contents > div';
-    this.editfieldlink = '#page-inner-content > div:nth-child(2) > div.d-inline > div > table > tbody > tr > td:nth-child(5) > a';
-    this.showfieldlink = '#page-inner-content > div:nth-child(2) > div.d-inline > div > table > tbody > tr > td:nth-child(6) > a';
+    this.editfieldlink = '(//a[text()="Edit"])[1]';
+    //'#page-inner-content > div:nth-child(2) > div.d-inline > div > table > tbody > tr > td:nth-child(5) > a';
+    this.showfieldlink = '(//a[text()="Show"])[1]'
+    //'#page-inner-content > div:nth-child(2) > div.d-inline > div > table > tbody > tr > td:nth-child(6) > a';
     this.lineBreakSource = '#saltcorn-builder > div.row > div.col-sm-auto.left-builder-col.builder-left-shrunk > div.componets-and-library-accordion.toolbox-card > div.card.mt-1 > div:nth-child(2) > div:nth-child(1) > div';
     this.htmlCodeSource = 'div[title="HTML code"]';
     this.cardSource = 'div[title="Card"]';
