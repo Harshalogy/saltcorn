@@ -286,7 +286,7 @@ test.describe('E2E Test Suite', () => {
       expect(calendarVisible).toBe(true);
     });
     // enter year value in cell
-    await page.fill(pageobject.yearlocator, '1990')
+    await page.fill(pageobject.yearlocator, '2024')
     // select month in calendar
     await page.selectOption(pageobject.monthlocator, { label: 'June' });
     // Click on the date using the provided selector
@@ -451,7 +451,7 @@ test.describe('E2E Test Suite', () => {
     await page.waitForSelector(pageobject.deletebutton);
     await page.click(pageobject.deletebutton);
     // click on next page
-    await page.waitForTimeout(4000);
+    // await page.waitForTimeout(4000);
     await page.waitForSelector(pageobject.nextoption);
     await page.click(pageobject.nextoption);
     // click on finish button
