@@ -17,7 +17,10 @@ test.describe('E2E Test Suite', () => {
     // Initialize the log file
     Logger.initialize();
     // Create a new context and page for all tests
-    context = await browser.newContext();
+    context = await browser.newContext({
+      ignoreHTTPSErrors: true
+    });
+    
     page = await context.newPage();
 
     // Maximize the screen
@@ -380,7 +383,7 @@ test.describe('E2E Test Suite', () => {
     });
     // submit the page
     await functions.submit();
-    await page.waitForTimeout(25000);
+    await page.waitForTimeout(10000);
     // click on add column button on page
     await page.waitForSelector(pageobject.addcolumnbutton);
     await page.click(pageobject.addcolumnbutton);
@@ -417,7 +420,7 @@ test.describe('E2E Test Suite', () => {
     // submit the page
     await functions.submit();
     // drag and drop the page source on the page
-    await page.waitForTimeout(25000);
+    await page.waitForTimeout(10000);
     await functions.drag_And_Drop(pageobject.textSource, pageobject.target);
     await functions.fill_Text(pageobject.textlocator, 'I said..');
     // click on delete button
@@ -578,7 +581,7 @@ test.describe('E2E Test Suite', () => {
     });
     // submit the page
     await functions.submit();
-    await page.waitForTimeout(25000);
+    await page.waitForTimeout(10000);
     // select full name lable
     await page.waitForSelector(pageobject.Fullnameshow);
     await page.click(pageobject.Fullnameshow);

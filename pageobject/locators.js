@@ -18,7 +18,6 @@ class PageLocators {
     
         
     this.datelocator = 'span.flatpickr-day:has-text("14")';
-    //'#page-top > div.flatpickr-calendar.hasTime.animate.open.arrowTop.arrowLeft > div.flatpickr-innerContainer > div > div.flatpickr-days > div > span:nth-child(3)';
     this.rowsperpage = '#input_rows_per_page';
     this.layoutoption = '#tab82036chead0';
     this.databaseoption = '#tab82036chead1';
