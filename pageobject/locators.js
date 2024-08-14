@@ -189,7 +189,6 @@ class PageLocators {
     this.RequiredcheckboxLocator = "//input[@id='inputrequired' and @type='checkbox']";
     this.labelTextboxlocator = '//input[@id="inputlabel"]';
     this.fullnamerequiredtaglocator = '(//span[@class="badge bg-primary" and text()="Required"])[1]';
-    //'#page-inner-content > div:nth-child(2) > div.card.shadow.mt-0 > div > div > table > tbody > tr:nth-child(1) > td:nth-child(4) > span';
   } 
 }
 

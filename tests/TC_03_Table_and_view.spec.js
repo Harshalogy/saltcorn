@@ -451,7 +451,7 @@ test.describe('E2E Test Suite', () => {
     await page.waitForSelector(pageobject.deletebutton);
     await page.click(pageobject.deletebutton);
     // click on next page
-    await page.waitForTimeout(4000);
+    //await page.waitForTimeout(4000);
     await page.waitForSelector(pageobject.nextoption);
     await page.click(pageobject.nextoption);
     // click on finish button
