@@ -15,7 +15,6 @@ class PageLocators {
     this.saveprimarybutton = '#page-inner-content > div:nth-child(2) > div.d-inline > form > button';
     this.InputName = '#inputname';
     this.addFieldButtonLocator = 'a.btn.btn-primary.add-field.mt-2:has-text("Add field")';
-    
         
     this.datelocator = 'span.flatpickr-day:has-text("14")';
     this.rowsperpage = '#input_rows_per_page';
@@ -62,7 +61,6 @@ class PageLocators {
     this.Yourtabletab = 'a.nav-link.active:has-text("Your tables")';
     this.relationshipdiagram = 'a[href="/table/relationship-diagram"]';
     this.discoverbutton = 'a[href="/table/discover"]';
-    this.HomeTableText='';
     this.Home_new_page_button = 'a:has-text("Create page")';
     this.siteidentitylocator = 'a.nav-link.active:has-text("Site identity")';
     this.backuplocator = 'a[href="/admin/backup"]';
@@ -114,7 +112,6 @@ class PageLocators {
     this.userdropdown = '#content > div.dropdown-menu.dropdown-menu-end.show';
     this.deleteuser = '#content > div.dropdown-menu.dropdown-menu-end.show > a:nth-child(11)';
     
-
     this.mytable = 'a:has-text("My_Table")';
     this.saveactionbutton = '//button[text()="Save"]';
     this.EditlinkLocator = 'a:has(i.fas.fa-2x.fa-edit)';
@@ -241,6 +238,34 @@ class PageLocators {
     this.addpageBtn = 'button.btn.btn-secondary.btn-sm.d-block.mt-2';
     this.notification_in_menu = '#inputnotification_in_menu';
     this.pwa_enabled = '#inputpwa_enabled';
+    this.questionIconLocator = '.fas.fa-question-circle.ms-1';
+    this.modalTitleLocator = '.modal-title:has-text("Help: User roles")';
+    this.closeButtonLocator = '.btn-close[data-bs-dismiss="modal"]';
+    this.addnewrole = 'a:has-text("Add new role")';
+    this.allowSignupCheckbox = '#inputallow_signup';
+    this.loginMenuCheckbox = '#inputlogin_menu';
+    this.allowForgotCheckbox = '#inputallow_forgot';
+    this.newUserFormDropdown = '#inputnew_user_form';
+    this.loginFormDropdown = '#inputlogin_form';
+    this.signupFormDropdown = '#inputsignup_form';
+    this.userSettingsFormDropdown = '#inputuser_settings_form';
+    this.verificationViewDropdown = '#inputverification_view';
+    this.logoutUrlTextbox = '#inputlogout_url';
+    this.signupRoleDropdown = '#inputsignup_role';
+    this.elevateVerifiedDropdown = '#inputelevate_verified';
+    this.emailMaskTextbox = '#inputemail_mask';
+    this.ownershipFieldDropdown = '#inputownership_field_id';
+    this.minRoleReadDropdown = '#inputmin_role_read';
+    this.minRoleWriteDropdown = '#inputmin_role_write';
+    this.cookieDurationTextbox = '#inputcookie_duration';
+    this.cookieDurationRememberTextbox = '#inputcookie_duration_remember';
+    this.publicCacheMaxageTextbox = '#inputpublic_cache_maxage';
+    this.codeMirrorLine = '.CodeMirror-line';
+    this.minRoleUploadSelect = '#inputmin_role_upload';
+    this.minRoleApikeygenSelect = '#inputmin_role_apikeygen';
+    this.minRoleSearchSelect = '#inputmin_role_search';
+    this.idNumberInput = '#inputid';
+    this.roleTextInput = '#inputrole';
   } 
 }
 

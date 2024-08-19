@@ -726,9 +726,9 @@ test.describe('E2E Test Suite', () => {
     await page.click(pageobject.newviewfromtable);
   });
 
-  //clear all tables
-  // test('Navigate to setting page and clear all changes', async ({ browser }) => {
-  //   functions = new PageFunctions(page);
-  //   await functions.clear_Data();
-  // });
+  // clear all tables
+  test('Navigate to setting page and clear all changes', async ({ browser }) => {
+    functions = new PageFunctions(page);
+    await functions.clear_Data();
+  });
 });
