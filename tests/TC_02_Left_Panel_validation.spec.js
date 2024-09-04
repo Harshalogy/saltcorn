@@ -4,7 +4,7 @@ const PageFunctions = require('../pageobject/function.js');
 const PageObject = require('../pageobject/locators.js');
 const customAssert = require('../pageobject/utils.js');
 const Logger = require('../pageobject/logger.js');
-const { TIMEOUT } = require('dns');
+//const { TIMEOUT } = require('dns');
 
 test.describe('E2E Test Suite', () => {
   let functions;

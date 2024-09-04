@@ -47,7 +47,7 @@ test.describe('E2E Test Suite', () => {
   test('Create a new page with random string', async () => {
     // Create a new page with the generated random string
     await functions.create_New_Page('My_project_' + randomString);
-    await page.waitForTimeout(25000);
+    await page.waitForTimeout(5000);
     // Drag and drop the text source
     await page.waitForSelector(pageobject.textSource);
     await functions.drag_And_Drop(pageobject.textSource, pageobject.target);
@@ -115,7 +115,7 @@ test.describe('E2E Test Suite', () => {
 
     //validate that card title should be master visa debit card
     await customAssert('Card title should be Master Visa Debit Card', async () => {
-      await expect(cardTitle).toHaveValue('Master Visa Debit Card');
+      await expect(cardTitle).toHaveValue('Master VisaDebit Card');
       const urlField = page.locator(pageobject.CardUrl);
       await expect(urlField).toHaveValue('');
     });

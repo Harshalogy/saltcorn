@@ -116,7 +116,7 @@ test.describe('E2E Test Suite', () => {
     // submit the page
     await functions.submit();
     // drag and drop the page source on the page
-    await page.waitForTimeout(15000);
+    await page.waitForTimeout(5000);
     await functions.drag_And_Drop(pageobject.textSource, pageobject.target);
     await functions.fill_Text(pageobject.textlocator, 'I said..');
     // click on delete button
@@ -276,7 +276,7 @@ test.describe('E2E Test Suite', () => {
     });
     // submit the page
     await functions.submit();
-    await page.waitForTimeout(15000);
+    await page.waitForTimeout(5000);
     // select full name lable
     await page.waitForSelector(pageobject.Fullnameshow);
     await page.click(pageobject.Fullnameshow);
