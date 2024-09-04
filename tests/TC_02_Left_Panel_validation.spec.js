@@ -452,8 +452,8 @@ test.describe('E2E Test Suite', () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'eventlog' + derivedURL +'custom');
     });
     await functions.Events_to_Log_settings();
-    await customAssert('Assert the lable of Log settings tab', async () => {
-    await expect(page.locator(pageobject.logsettinglocator)).toHaveText('Log settings');
+    await customAssert('Assert the lable of event log settings tab', async () => {
+    await expect(page.locator(pageobject.logsettinglocator)).toHaveText('Settings');
     });
     await customAssert('page url should be /eventlog/settings', async () => {
     expect(page.url()).toBe(baseURL + derivedURL + 'eventlog' + derivedURL +'settings');

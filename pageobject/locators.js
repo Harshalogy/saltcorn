@@ -4,7 +4,7 @@ class PageLocators {
     this.tryItNowLink = 'a[href="https://saltcorn.com/tenant/create"]';
     this.subdomainInput = 'input[name="subdomain"]';
     this.submitButton = 'button[type="submit"]';
-    this.successMessage = '#page-inner-content > section.page-section.pt-2 > div > div > div:nth-child(1)';
+    // this.successMessage = '#page-inner-content > section.page-section.pt-2 > div > div > div:nth-child(1)';
     // this.newApplicationLink = '#page-inner-content > section.page-section.pt-2 > div > div > div.my-3 > a';
     this.emailInput = 'input[type="email"]';
     this.passwordInput = 'input[type="password"]';
@@ -108,7 +108,7 @@ class PageLocators {
     this.inputrnd_password = '#inputrnd_password';
     this.inputpassword = '#inputpassword';
     this.createuserbutton = 'button[type="submit"]:has-text("Create")';
-    this.searchbar = 'input[placeholder="🔍 Search"]';
+    this.searchbar = 'input[type=search]';
     this.userdropdown = '#content > div.dropdown-menu.dropdown-menu-end.show';
     this.deleteuser = '#content > div.dropdown-menu.dropdown-menu-end.show > a:nth-child(11)';
     

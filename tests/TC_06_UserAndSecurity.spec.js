@@ -34,6 +34,8 @@ test.describe('E2E Test Suite', () => {
         await functions.navigate_To_Base_URL(baseURL, derivedURL);
         await functions.login('myproject19july@mailinator.com', 'myproject19july');
         await functions.submit();
+        // Clear data before test executions
+        await functions.clear_Data();
     });
 
     test.afterAll(async () => {
@@ -66,7 +68,7 @@ test.describe('E2E Test Suite', () => {
             expect(page.url()).toBe(baseURL + derivedURL + 'useradmin' + derivedURL + 'new');
         });
         // input DOB for user
-        await functions.fill_Text(pageobject.inputdob, '09-08-1997');
+        // await functions.fill_Text(pageobject.inputdob, '09-08-1997');
         // input email address with random name
         await functions.fill_Text(pageobject.inputemail, randomString + '@mailinator.com');
         // select user role
