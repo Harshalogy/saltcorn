@@ -61,7 +61,7 @@ test.describe('E2E Test Suite', () => {
     });
     // input view name and discription
     await page.fill(pageobject.InputName, 'NewView_List');
-    await page.fill(pageobject.viewdiscriptiontext, 'view for table');
+    await page.fill(pageobject.discriptiontext, 'view for table');
 
     // validate the view pattern in table dropdown
     await customAssert('View Pattern should be list', async () => {
@@ -79,7 +79,7 @@ test.describe('E2E Test Suite', () => {
     });
     // submit the page
     await functions.submit();
-    await page.waitForTimeout(15000);
+    await page.waitForTimeout(5000);
     // click on add column button on page
     await page.waitForSelector(pageobject.addcolumnbutton);
     await page.click(pageobject.addcolumnbutton);
@@ -106,7 +106,7 @@ test.describe('E2E Test Suite', () => {
     await page.click(pageobject.createnewview);
     // input view name and discription
     await page.fill(pageobject.InputName, 'View2_Edit');
-    await page.fill(pageobject.viewdiscriptiontext, 'view for table');
+    await page.fill(pageobject.discriptiontext, 'view for table');
     // validate the view pattern in table dropdown
     await customAssert('View Pattern should be Edit', async () => {
       // select the Edit pattern
@@ -267,7 +267,7 @@ test.describe('E2E Test Suite', () => {
     await page.click(pageobject.createnewview);
     // input view name and discription
     await page.fill(pageobject.InputName, 'showView');
-    await page.fill(pageobject.viewdiscriptiontext, 'view for table');
+    await page.fill(pageobject.discriptiontext, 'view for table');
     // validate the view pattern in table dropdown
     await customAssert('View Pattern should be Show', async () => {
       // select show pattern
@@ -341,7 +341,7 @@ test.describe('E2E Test Suite', () => {
       await expect(page.locator(pageobject.showfieldlink)).toBeVisible();
       // assert the lable for show link
       await expect(page.locator(pageobject.showfieldlink)).toHaveText('Show');
-
+      // Click on show link
       await page.click(pageobject.showfieldlink);
     });
   });

@@ -95,7 +95,7 @@ class PageLocators {
     this.Customlocator = 'a[href="/eventlog/custom"]';
     this.logsettinglocator = 'a[href="/eventlog/settings"]';
     this.Eventloglocator = 'a[href="/eventlog"]';
-    this.viewdiscriptiontext = '#inputdescription';
+    this.discriptiontext = '#inputdescription';
     this.viewtabledropdown = '#inputtable_name';
     this.viewminimumroledropdown = '#inputmin_role';
     this.choosefilebutton = '#inputfile';
@@ -266,6 +266,45 @@ class PageLocators {
     this.minRoleSearchSelect = '#inputmin_role_search';
     this.idNumberInput = '#inputid';
     this.roleTextInput = '#inputrole';
+    this.userNavLink = 'a[data-bs-target="#collapseUser"]';
+    this.userSettingsLink = 'a.collapse-item >> text="User Settings"';
+    this.logout = 'a[href="/auth/logout"]';
+    this.TriggerTitle = 'h5:has-text("Triggers")';
+    this.CreateTriggerBtn = 'a:has-text("Create trigger")';
+    this.actionsAvailable = 'td:has-text("Actions available")';
+    this.eventTypesCell = 'td:has-text("Event types")';
+    this.newtriggertitle = 'h5:text("New trigger")';
+    this.whentrigger = '#inputwhen_trigger';
+    this.inputtableid = '#inputtable_id';
+    this.inputaction = '#inputaction';
+    this.chanelcheckbox = '#inputhasChannel';
+    this.CreateEventbtn = 'a:has-text("Create custom event")';
+    this.eventsSettingsheader = 'h5:has-text("Events and Trigger settings")';
+    this.periodicTimingHeader = 'h5:has-text("Periodic trigger timing (next event)")';
+    this.nextHourlyEventInput = 'input[name="next_hourly_event"]';
+    this.nextDailyEventInput = 'input[name="next_daily_event"]';
+    this.nextWeeklyEventInput = 'input[name="next_weekly_event"]';
+    this.whichEventsShouldBeLogged = 'h5:has-text("Which events should be logged?")';
+    this.insertCheckbox = 'input#inputInsert';
+    this.updateCheckbox = 'input#inputUpdate';
+    this.validateCheckbox = 'input#inputValidate';
+    this.deleteCheckbox = 'input#inputDelete';
+    this.weeklyCheckbox = 'input#inputWeekly';
+    this.dailyCheckbox = 'input#inputDaily';
+    this.hourlyCheckbox = 'input#inputHourly';
+    this.oftenCheckbox = 'input#inputOften';
+    this.apiCallCheckbox = 'input#inputAPI\\ call';
+    this.neverCheckbox = 'input#inputNever';
+    this.pageLoadCheckbox = 'input#inputPageLoad';
+    this.loginCheckbox = 'input#inputLogin';
+    this.loginFailedCheckbox = 'input#inputLoginFailed';
+    this.errorCheckbox = 'input#inputError';
+    this.startupCheckbox = 'input#inputStartup';
+    this.userVerifiedCheckbox = 'input#inputUserVerified';
+    this.eventLogHeading = 'h5:has-text("Event log")';
+    this.whenHeader = 'th:has-text("When")';
+    this.typeHeader = 'th:has-text("Type")';
+    this.channelHeader = 'th:has-text("Channel")';
   } 
 }
 

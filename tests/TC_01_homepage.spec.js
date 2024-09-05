@@ -298,5 +298,4 @@ test.describe('E2E Test Suite', () => {
       await expect(title).toHaveText(pageobject.expectedtoastermsg);
     });
   });
-
 });

@@ -75,7 +75,7 @@ test.describe('E2E Test Suite', () => {
         await page.click(pageobject.Homecreateview);
         // input view name and discription
         await page.fill(pageobject.InputName, 'csvView_list');
-        await page.fill(pageobject.viewdiscriptiontext, 'view for csv table');
+        await page.fill(pageobject.discriptiontext, 'view for csv table');
         // submit the page
         await functions.submit();
         // click on next button

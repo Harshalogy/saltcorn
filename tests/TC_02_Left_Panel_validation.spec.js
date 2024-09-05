@@ -467,4 +467,24 @@ test.describe('E2E Test Suite', () => {
     });
   });
 
+  // Assert the presence of "User" tab
+  test('Validate "User" tabs', async ({ browser }) => {
+    functions = new PageFunctions(page);
+    await functions.SALTCORN();
+    await page.click(pageobject.userNavLink);
+    await customAssert('Assert the lable of User menu', async () => {
+      await expect(page.locator(pageobject.userNavLink)).toHaveText('User');
+    });
+    await page.click(pageobject.userSettingsLink);
+    await customAssert('Assert the lable of User Setting', async () => {
+      await expect(page.locator(pageobject.userSettingsLink)).toHaveText('User Settings');
+    });
+    await customAssert('page url should be /eventlog', async () => {
+      expect(page.url()).toBe(baseURL + derivedURL + 'auth/settings');
+    });
+    await customAssert('Assert the lable of Logout option', async () => {
+      await expect(page.locator(pageobject.logout)).toHaveText('Logout');
+      await page.click(pageobject.logout);
+    });
+  });
 });
