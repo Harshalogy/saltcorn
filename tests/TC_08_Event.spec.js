@@ -93,6 +93,7 @@ test.describe('E2E Test Suite', () => {
         });
         await customAssert('Input name for trigger should be empty', async () => {
             await expect(page.locator(pageobject.InputName)).toHaveValue('');
+            await functions.fill_Text(pageobject.InputName, 'Testing');
         });
         await customAssert('When dropdown should have Insert value', async () => {
             await expect(page.locator(pageobject.whentrigger)).toHaveValue('Insert');
@@ -105,17 +106,151 @@ test.describe('E2E Test Suite', () => {
         });
         await customAssert('Description textbox should be empty', async () => {
             await expect(page.locator(pageobject.discriptiontext)).toHaveValue('');
+            await functions.fill_Text(pageobject.discriptiontext, 'Test');
         });
         await customAssert('Save button should be visible and clickable', async () => {
             await expect(page.locator(pageobject.saveactionbutton)).toHaveText('Save');
+            await page.click(pageobject.saveactionbutton);
+        });
+        await customAssert('control Flow Category should be visible and clickable', async () => {
+            await expect(page.locator(pageobject.controlFlowCategory)).toBeVisible();
+            await page.click(pageobject.controlFlowCategory);
+        });
+        await customAssert('logic Category should be visible and clickable', async () => {
+            await expect(page.locator(pageobject.logicCategory)).toBeVisible();
+            await page.click(pageobject.logicCategory);
+        });
+        await customAssert('math Category should be visible and clickable', async () => {
+            await expect(page.locator(pageobject.mathCategory)).toBeVisible();
+            await page.click(pageobject.mathCategory);
+        });
+        await customAssert('text Category should be visible and clickable', async () => {
+            await expect(page.locator(pageobject.textCategory)).toBeVisible();
+            await page.click(pageobject.textCategory);
+        });
+        await customAssert('rows Category should be visible and clickable', async () => {
+            await expect(page.locator(pageobject.rowsCategory)).toBeVisible();
+            await page.click(pageobject.rowsCategory);
+        });
+        await customAssert('lists Category should be visible and clickable', async () => {
+            await expect(page.locator(pageobject.listsCategory)).toBeVisible();
+            await page.click(pageobject.listsCategory);
+        });
+        await customAssert('actions Category should be visible and clickable', async () => {
+            await expect(page.locator(pageobject.actionsCategory)).toBeVisible();
+            await page.click(pageobject.actionsCategory);
+        });
+        await customAssert('variables Category should be visible and clickable', async () => {
+            await expect(page.locator(pageobject.variablesCategory)).toBeVisible();
+            await page.click(pageobject.variablesCategory);
+        });
+        await customAssert('Save button should be visible and clickable', async () => {
+            await expect(page.locator(pageobject.saveactionbutton)).toHaveText('Save');
+            await page.click(pageobject.saveactionbutton);
+        });
+        await customAssert('test Run Link should be visible and clickable', async () => {
+            await expect(page.locator(pageobject.testRunLink)).toHaveText('Test run');
+            await page.click(pageobject.testRunLink);
+        });
+        await customAssert('success message should be visible', async () => {
+            await expect(page.locator(pageobject.successmessage)).toHaveText('success');
         });
     });
 
+    // Delete Trigger from Event tab
+    test('Delete Trigger from Event tab', async () => {
+        // click the dropdown menu button
+        await customAssert('dropdown menu should be visible', async () => {
+            const elements = await page.locator('[id^="dropdownMenuButton"]');
+            await elements.click();
+        });
+        // Assert the visibility of Delete button 
+        await customAssert('Delete button should be visible and clickable', async () => {
+            await functions.clickDeleteTrigger();
+        });
+    });
+
+    // Create Trigger for info when toast
+    test('Create Trigger for Toast with info', async () => {
+        await customAssert('Click on Create Trigger button', async () => {
+            await page.click(pageobject.CreateTriggerBtn);
+        });
+        await customAssert('Input name for trigger should be empty', async () => {
+            await functions.fill_Text(pageobject.InputName, 'Toast');
+        });
+        await customAssert('When dropdown should have Insert value', async () => {
+            await expect(page.locator(pageobject.whentrigger)).toHaveValue('Insert');
+        });
+        await customAssert('Table dropdown should have value 1', async () => {
+            await expect(page.locator(pageobject.inputtableid).nth(0)).toHaveValue('1');
+        });
+        await customAssert('Action dropdown should have value blocks', async () => {
+            await page.locator(pageobject.inputaction).nth(0).selectOption({ label: 'toast' });
+        });
+        await customAssert('Eenter Description in textbox', async () => {
+            await functions.fill_Text(pageobject.discriptiontext, 'Toast message');
+        });
+        await functions.submit();
+        await customAssert('Action Type should have value blocks', async () => {
+            await page.locator(pageobject.notifyTypeDropdown).selectOption({ label: 'Notify' });
+        });
+        await customAssert('Input name for trigger should be empty', async () => {
+            await expect(page.locator(pageobject.textInput)).toHaveValue('');
+            await functions.fill_Text(pageobject.textInput, 'Triggered successfuly');
+        });
+        await functions.submit();
+        await customAssert('Click on test Run Link', async () => {
+            await page.click(pageobject.testRunLink);
+        });
+        await customAssert('info message should be visible', async () => {
+            await expect(page.locator(pageobject.toastMessage)).toContainText('info');
+        });
+        await customAssert('Toast message should be visible', async () => {
+            await expect(page.locator(pageobject.toastMessage)).toContainText('Triggered successfuly');
+        });
+        await page.click(pageobject.closetoast);
+    });
+
+    // Create Trigger for Error with toast
+    test('Create Trigger for Error with toast', async () => {
+        await customAssert('Click on Create Trigger button', async () => {
+            await page.click(pageobject.CreateTriggerBtn);
+        });
+        await customAssert('Input name for trigger', async () => {
+            await functions.fill_Text(pageobject.InputName, 'Alert');
+        });
+        await customAssert('When dropdown should have value Alert', async () => {
+            await page.locator(pageobject.whentrigger).nth(0).selectOption({ label: 'Error' });
+        });
+        await customAssert('Action dropdown should have value blocks', async () => {
+            await page.locator(pageobject.inputaction).nth(0).selectOption({ label: 'toast' });
+        });
+        await customAssert('Enter Description in textbox', async () => {
+            await functions.fill_Text(pageobject.discriptiontext, 'Toast message');
+        });
+        await functions.submit();
+        await customAssert('Action Type should have value blocks', async () => {
+            await page.locator(pageobject.notifyTypeDropdown).selectOption({ label: 'Error' });
+        });
+        await customAssert('Input name for trigger should be empty', async () => {
+            await functions.fill_Text(pageobject.textInput, 'Triggered alert');
+        });
+        await functions.submit();
+        await customAssert('Click on test Run Link', async () => {
+            await page.click(pageobject.testRunLink);
+        });
+        await customAssert('danger message should be visible', async () => {
+            await expect(page.locator(pageobject.toastMessage)).toContainText('danger');
+        });
+        await customAssert('Triggered alert message should be visible', async () => {
+            await expect(page.locator(pageobject.toastMessage)).toContainText('Triggered alert');
+        });
+        await page.click(pageobject.closetoast);
+    });
 
     // Test for Custom tab and its elements
     test('Verify Custom tab and its elements', async () => {
         await functions.Events_to_Custom();
-
         // Assert the presence of Custom tab and URL
         await customAssert('Custom tab label should be visible', async () => {
             await expect(page.locator(pageobject.Customlocator)).toHaveText('Custom');
@@ -134,12 +269,19 @@ test.describe('E2E Test Suite', () => {
         });
         await customAssert('Input name for Event should be empty', async () => {
             await expect(page.locator(pageobject.InputName)).toHaveValue('');
+            await functions.fill_Text(pageobject.InputName, 'Custom event test');
         });
         await customAssert('Has channel checkbox should not be checked', async () => {
             await expect(page.locator(pageobject.chanelcheckbox)).not.toBeChecked();
+            await page.click(pageobject.chanelcheckbox);
         });
-        await customAssert('Save button for Custom Event should be visible and clickable', async () => {
-            await expect(page.locator(pageobject.saveactionbutton)).toHaveText('Save');
+        await customAssert('Click on Save button for Custom Event', async () => {
+            await page.click(pageobject.saveactionbutton);
+        });
+        await customAssert('Delete button for custom event should be present', async () => {
+            // Increase timeout if needed
+            await expect(page.locator(pageobject.deletefieldbutton)).toBeVisible({ timeout: 10000 });
+            await page.click(pageobject.deletefieldbutton);
         });
     });
 
