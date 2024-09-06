@@ -54,7 +54,7 @@ test.describe('E2E Test Suite', () => {
             await expect(page.locator(pageobject.File)).toHaveText('Files');
         });
         await customAssert('Page URL should be /files', async () => {
-            expect(page.url()).toBe(baseURL + derivedURL + 'files?sortBy=filename');
+            expect(page.url()).toBe(baseURL + derivedURL + 'files');
         });
     });
 
