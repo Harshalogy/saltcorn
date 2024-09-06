@@ -395,7 +395,7 @@ test.describe('E2E Test Suite', () => {
     });
     // assert the files url
     await customAssert('page url should be /files', async () => {
-    expect(page.url()).toBe(baseURL + derivedURL + 'files');
+    expect(page.url()).toBe(baseURL + derivedURL + 'files?sortBy=filename');
     });
     // validate each tab of files and assert urls
     await functions.Files_to_Files();
