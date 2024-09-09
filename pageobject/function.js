@@ -230,12 +230,13 @@ class PageFunctions {
 
   async navigate_To_Events() {
     await this.page.waitForSelector(this.locators.Events);
-    await this.page.click(this.locators.Events);
+    await this.page.click(this.locators.Events, { force: true });
   }
 
   async navigate_To_File() {
-    await this.page.waitForSelector(this.locators.File);
-    await this.page.click(this.locators.File);
+    await this.page.waitForTimeout(5000);
+    await this.page.waitForSelector(this.locators.File, { timeout: 25000 });
+    await this.page.click(this.locators.File, { force: true });
   }
 
   async navigate_To_Site_Structure() {

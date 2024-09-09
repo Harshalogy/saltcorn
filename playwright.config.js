@@ -18,7 +18,7 @@ module.exports = defineConfig({
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
+  retries: 0,  // Disable retries
   /* Opt out of parallel tests on CI. */
   workers: 1, // Set the number of workers to 1
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
@@ -39,7 +39,8 @@ module.exports = defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
-    }
+    },
+
     // ,
 
     // {
