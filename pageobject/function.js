@@ -231,7 +231,7 @@ class PageFunctions {
 
   async navigate_To_Events() {
     await this.page.waitForSelector(this.locators.Events, { timeout: 5000 });
-    await this.page.click(this.locators.Events, { force: true });
+    await this.page.click(this.locators.Events);
   }
 
   async navigate_To_File() {
