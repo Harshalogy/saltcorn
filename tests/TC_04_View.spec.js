@@ -79,7 +79,7 @@ test.describe('E2E Test Suite', () => {
     });
     // submit the page
     await functions.submit();
-    await page.waitForTimeout(5000);
+    await page.waitForTimeout(2000);
     // click on add column button on page
     await page.waitForSelector(pageobject.addcolumnbutton);
     await page.click(pageobject.addcolumnbutton);
@@ -116,7 +116,7 @@ test.describe('E2E Test Suite', () => {
     // submit the page
     await functions.submit();
     // drag and drop the page source on the page
-    await page.waitForTimeout(5000);
+    await page.waitForTimeout(2000);
     // select inputbox and delete
     await page.waitForSelector(pageobject.inputbox2);
     await page.click(pageobject.inputbox2);
@@ -276,7 +276,7 @@ test.describe('E2E Test Suite', () => {
     });
     // submit the page
     await functions.submit();
-    await page.waitForTimeout(5000);
+    await page.waitForTimeout(2000);
     // select full name lable
     await page.waitForSelector(pageobject.Fullnameshow);
     await page.click(pageobject.Fullnameshow);
@@ -354,7 +354,7 @@ test.describe('E2E Test Suite', () => {
     await page.click(pageobject.editviewlink);
     // submit the page
     await functions.submit();
-
+    await page.waitForTimeout(2000);
     await page.click(pageobject.DateTimeUser);
     await customAssert('field view dropdown should be visible', async () => {
       await page.waitForSelector(pageobject.fieldViewdropdown);
@@ -381,7 +381,7 @@ test.describe('E2E Test Suite', () => {
     await page.click(pageobject.editviewlink);
     // submit the page
     await functions.submit();
-
+    await page.waitForTimeout(2000);
     await page.click(pageobject.localDateOption);
     await customAssert('field view dropdown should be visible', async () => {
       await page.waitForSelector(pageobject.fieldViewdropdown);
@@ -408,6 +408,7 @@ test.describe('E2E Test Suite', () => {
     await page.click(pageobject.editviewlink);
     // submit the page
     await functions.submit();
+    await page.waitForTimeout(2000);
     await page.click(pageobject.divYearAgo);
     await customAssert('field view dropdown should be visible', async () => {
       await page.waitForSelector(pageobject.fieldViewdropdown);
@@ -427,32 +428,77 @@ test.describe('E2E Test Suite', () => {
     });
   });
 
-   // Add Flatepicker in Date Field view in Form
-   test('Add Flatepicker in Date Field view in Form', async () => {
+  // Add Flatepicker in Date Field view in Form
+  test('Add Flatepicker in Date Field view in Form', async () => {
     await functions.install_flatpickr();
     await functions.views();
     await page.click(pageobject.view2editlink);
     await page.click(pageobject.editviewlink);
     await functions.submit();
+    await page.waitForTimeout(5000);
     await page.click(pageobject.DatelocatorByName);
     await customAssert('field view dropdown should be visible', async () => {
       await page.waitForSelector(pageobject.fieldViewdropdown);
       await expect(page.locator(pageobject.fieldViewdropdown)).toBeVisible();
       // Select 'flatepickr' from the dropdown
-      await page.waitForTimeout(2000); 
+      await page.waitForTimeout(2000);
       await page.selectOption(pageobject.fieldViewdropdown, { label: 'flatpickr' }); // If using a select dropdown
     });
-     await page.waitForTimeout(5000); 
-     await page.click(pageobject.nextoption);
-     await functions.views();
-     await page.click(pageobject.view2editlink);
-     await page.click(pageobject.DatepickReadonly);
-     // Check if the calendar is visible
-     await customAssert('Calander should be open after clicking on date column ', async () => {
-       const calendarVisible = await page.isVisible(pageobject.calendarlocator);
-       expect(calendarVisible).toBe(true);
-     });
-   });
+    await page.waitForTimeout(2000);
+    await page.click(pageobject.nextoption);
+    await functions.views();
+    await page.click(pageobject.view2editlink);
+    await page.click(pageobject.DatepickReadonly);
+    // Check if the calendar is visible
+    await customAssert('Calander should be open after clicking on date column ', async () => {
+      const calendarVisible = await page.isVisible(pageobject.calendarlocator);
+      expect(calendarVisible).toBe(true);
+    });
+  });
+
+  // Add Bio field with ckeditor module in Form
+  test('Add Bio field with ckeditor module in Form', async () => {
+    await functions.install_ckeditor();
+    // click table button
+    await functions.click_table();
+    // Go to my table
+    await page.waitForSelector(pageobject.mytable);
+    await page.click(pageobject.mytable);
+    // click on add field button
+    await page.waitForSelector(pageobject.addFieldButtonLocator);
+    await page.click(pageobject.addFieldButtonLocator);
+    // Fill the lable name
+    await functions.fill_Text(pageobject.labelTextboxlocator, '');
+    await functions.fill_Text(pageobject.labelTextboxlocator, 'Bio');
+    // select the input type
+    const type = await page.$("#inputtype");
+    await type?.selectOption("HTML");
+    // Fill the discription
+    await functions.fill_Text(pageobject.descriptionSelector, 'Bio of User');
+    // Click on next button
+    await functions.submit();
+    // click on next button again
+    await functions.submit();
+    await functions.views();
+    await page.click(pageobject.configureEditview);
+    // add new column on page
+    await functions.drag_And_Drop(pageobject.columnsElement, pageobject.target);
+    // Add text in first column
+    await functions.drag_And_Drop(pageobject.textSource, pageobject.firstColumn);
+    
+    await functions.drag_And_Drop(pageobject.fieldsourrce, pageobject.secondColumn);
+    await customAssert('field dropdown should be visible', async () => {
+      await page.waitForSelector(pageobject.fielddropdown);
+      await page.click(pageobject.fielddropdown);
+      await page.selectOption(pageobject.fielddropdown, { label: 'Bio' });
+    });
+    await page.click(pageobject.helloWorldElement);
+    await functions.fill_Text(pageobject.textlocator, '');
+    await functions.fill_Text(pageobject.textlocator, 'Bio');
+    await page.selectOption(pageobject.optionBio, { label: 'Bio' });
+    await page.waitForTimeout(2000);
+    await page.click(pageobject.nextoption);
+  });
 
   // create view with ListShowList view pattern
   test('create view with ListshowList view pattern', async () => {

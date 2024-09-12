@@ -15,7 +15,11 @@ class PageLocators {
     this.saveprimarybutton = '#page-inner-content > div:nth-child(2) > div.d-inline > form > button';
     this.InputName = '#inputname';
     this.addFieldButtonLocator = 'a.btn.btn-primary.add-field.mt-2:has-text("Add field")';
-        
+    this.columnsElement = 'div[title="Split into columns"]';
+    this.firstColumn = 'div.row > div.split-col.col-sm-6.text-undefined.align-items-undefined:nth-of-type(1)';
+    this.secondColumn = 'div.row > div.split-col.col-sm-6.text-undefined.align-items-undefined:nth-of-type(2)';
+    this.secondColumnlocator = 'div.row > div.split-col.col-sm-10.text-start.align-items-undefined:nth-of-type(2)';
+
     this.datelocator = 'span.flatpickr-day:has-text("14")';
     this.rowsperpage = '#input_rows_per_page';
     this.layoutoption = '#tab82036chead0';
@@ -113,7 +117,9 @@ class PageLocators {
     this.searchbar = 'input[type=search]';
     this.userdropdown = '#content > div.dropdown-menu.dropdown-menu-end.show';
     this.deleteuser = '#content > div.dropdown-menu.dropdown-menu-end.show > a:nth-child(11)';
-    
+    this.helloWorldElement = 'div.d-inline:has-text("Hello world")';
+    this.optionBio = 'select.form-control.form-select';
+    this.richTextEditor = 'div.cke_editable[aria-label="Rich Text Editor, editor5"]:has-text("")';
     this.mytable = 'a:has-text("My_Table")';
     this.saveactionbutton = '//button[text()="Save"]';
     this.EditlinkLocator = 'a:has(i.fas.fa-2x.fa-edit)';
@@ -141,6 +147,7 @@ class PageLocators {
     this.Fullnameshow = 'div.d-inline:has-text("Full name")';
     this.fullnameuser = 'div.d-inline:has-text("First Name")';
     this.DateTimeUser = 'time[locale-options="%7B%7D"]';
+    this.dateOfBirthElement = 'div.undefined.selected-node.d-inline-block:has-text("[show date_of_birth]")';
     this.localDateOption = 'time[locale-date-options]';
     this.LocalDateFormat = 'time[locale-date-format]';
     this.DateYearsAgo = 'tr:has-text("years ago")';
@@ -380,8 +387,14 @@ class PageLocators {
     this.toastMessage = 'div.toast[role="alert"][aria-live="assertive"]';
     this.closetoast = 'button.btn-close[data-bs-dismiss="toast"]';
     this.configurelistview = 'a[href="/viewedit/config/NewView_List"]';
-    this.addresscolumn = 'div:has-text("Column 0: Address")';
+    this.configureEditview = 'a[href="/viewedit/config/View2_Edit"]';
+    this.addresscolumn = 'div.d-flex.justify-content-between:has-text("Column 0: Address") svg.fa-arrow-down';
+    this.address1column = 'div.d-flex.justify-content-between:has-text("Column 1: Address") svg.fa-arrow-down';
+    this.addressDetails = '(//div[contains(text(), "[as_text address]")])[2]';
+    this.firstDropdownField = 'select.form-control.form-select >> nth=0';
     this.headerlabelInput = 'input.form-control[value="Address"]';
+    this.addressElement = '(//div[contains(@class, "row") and .//div[text()="Address"]])[1]';
+
   }
 }
 
