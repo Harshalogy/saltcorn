@@ -125,7 +125,7 @@ test.describe('E2E Test Suite', () => {
     // add new input box in page
     await page.waitForSelector(pageobject.fieldsourrce);
     await page.click(pageobject.fieldsourrce);
-    await functions.drag_And_Drop(pageobject.fieldsourrce, pageobject.target);
+    await functions.drag_And_Drop(pageobject.fieldsourrce, pageobject.secondrowcolumn);
     // click on field dropdown for field
 
     await customAssert('field dropdown should be visible', async () => {
@@ -548,7 +548,7 @@ test.describe('E2E Test Suite', () => {
 
     // drag and drop the action view link
     await page.waitForSelector(pageobject.viewlinksource);
-    await functions.drag_And_Drop(pageobject.viewlinksource, pageobject.target);
+    await functions.drag_And_Drop(pageobject.viewlinksource, pageobject.fifthrowcolumn);
     // click to view link dropdown
     await customAssert('view to link dropdown should be visible', async () => {
       await page.waitForSelector(pageobject.viewtolinkdropdown);

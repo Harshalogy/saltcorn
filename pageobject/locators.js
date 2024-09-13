@@ -401,6 +401,8 @@ class PageLocators {
     this.searchIconLocator = 'input.rfipsearch__input[placeholder="Search Icons"]';
     this.editIconLocator = 'i.far.fa-edit';
     this.showeditLink = 'a.btn.btn-primary:has(i.far.fa-edit)'
+    this.secondrowcolumn = '.row:nth-of-type(2) .split-col:nth-of-type(2) .canvas';
+    this.fifthrowcolumn = '.row:nth-of-type(5) .split-col:nth-of-type(1) .canvas';
   }
 }
 
