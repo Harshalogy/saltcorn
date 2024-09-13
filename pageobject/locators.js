@@ -202,7 +202,6 @@ class PageLocators {
     this.viewtocreate = '#inputview_to_create';
     this.labeltocreate = '#inputcreate_view_label';
     this.fielddropdown = '(//select[@class="form-control form-select"])[1]'
-    this.fieldViewdropdown = '(//select[@class="form-control form-select"])[2]'
     this.view2editoption = 'text=View2_Edit [Edit] My_Table';
     this.view2showoption = 'text=showView [Show] My_Table';
     this.view2listshow = 'text=ListShowListView [ListShowList] My_Table';
@@ -386,15 +385,22 @@ class PageLocators {
     this.textInput = 'input[name="text"]';
     this.toastMessage = 'div.toast[role="alert"][aria-live="assertive"]';
     this.closetoast = 'button.btn-close[data-bs-dismiss="toast"]';
-    this.configurelistview = 'a[href="/viewedit/config/NewView_List"]';
-    this.configureEditview = 'a[href="/viewedit/config/View2_Edit"]';
     this.addresscolumn = 'div.d-flex.justify-content-between:has-text("Column 0: Address") svg.fa-arrow-down';
     this.address1column = 'div.d-flex.justify-content-between:has-text("Column 1: Address") svg.fa-arrow-down';
     this.addressDetails = '(//div[contains(text(), "[as_text address]")])[2]';
-    this.firstDropdownField = 'select.form-control.form-select >> nth=0';
+    //this.firstDropdownField = 'select.form-control.form-select >> nth=0';
     this.headerlabelInput = 'input.form-control[value="Address"]';
     this.addressElement = '(//div[contains(@class, "row") and .//div[text()="Address"]])[1]';
-
+    this.fieldViewdropdown = '(//select[@class="form-control form-select"])[2]'
+    this.Toolbardropdown = '(//select[@class="form-control form-select"])[3]'
+    this.ckeditorBody = '#inputbio';
+    this.configurelistview = 'a[href="/viewedit/config/NewView_List"]';
+    this.configureEditview = 'a[href="/viewedit/config/View2_Edit"]';
+    this.configureShowview = 'a[href="/viewedit/config/showView"]';
+    this.angleDownIconLocator = 'i.fipicon-angle-down[role="presentation"][aria-label="Open"]';
+    this.searchIconLocator = 'input.rfipsearch__input[placeholder="Search Icons"]';
+    this.editIconLocator = 'i.far.fa-edit';
+    this.showeditLink = 'a.btn.btn-primary:has(i.far.fa-edit)'
   }
 }
 

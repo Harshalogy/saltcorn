@@ -435,13 +435,11 @@ test.describe('E2E Test Suite', () => {
     await page.click(pageobject.view2editlink);
     await page.click(pageobject.editviewlink);
     await functions.submit();
-    await page.waitForTimeout(5000);
+    await page.waitForTimeout(4000);
     await page.click(pageobject.DatelocatorByName);
-    await customAssert('field view dropdown should be visible', async () => {
+    await customAssert('Select Flatpickr in field view dropdown', async () => {
       await page.waitForSelector(pageobject.fieldViewdropdown);
-      await expect(page.locator(pageobject.fieldViewdropdown)).toBeVisible();
       // Select 'flatepickr' from the dropdown
-      await page.waitForTimeout(2000);
       await page.selectOption(pageobject.fieldViewdropdown, { label: 'flatpickr' }); // If using a select dropdown
     });
     await page.waitForTimeout(2000);
@@ -485,12 +483,24 @@ test.describe('E2E Test Suite', () => {
     await functions.drag_And_Drop(pageobject.columnsElement, pageobject.target);
     // Add text in first column
     await functions.drag_And_Drop(pageobject.textSource, pageobject.firstColumn);
-    
+    // await page.waitForTimeout(2000);
     await functions.drag_And_Drop(pageobject.fieldsourrce, pageobject.secondColumn);
-    await customAssert('field dropdown should be visible', async () => {
+    await customAssert('Select Bio from field dropdown', async () => {
       await page.waitForSelector(pageobject.fielddropdown);
-      await page.click(pageobject.fielddropdown);
       await page.selectOption(pageobject.fielddropdown, { label: 'Bio' });
+    });
+    await customAssert('Select ckeditor4 from field view dropdown', async () => {
+      await page.waitForSelector(pageobject.fieldViewdropdown);
+      // Select 'CKEditor4' from the dropdown
+      await page.waitForTimeout(2000);
+      await page.selectOption(pageobject.fieldViewdropdown, { label: 'CKEditor4' }); // If using a select dropdown
+    });
+    await customAssert('Select Reduced from Toolbar dropdown', async () => {
+      await page.waitForSelector(pageobject.Toolbardropdown);
+      await page.click(pageobject.Toolbardropdown);
+      // Select 'Reduced' from the dropdown
+      await page.waitForTimeout(2000);
+      await page.selectOption(pageobject.Toolbardropdown, { label: 'Reduced' }); // If using a select dropdown
     });
     await page.click(pageobject.helloWorldElement);
     await functions.fill_Text(pageobject.textlocator, '');
@@ -498,6 +508,75 @@ test.describe('E2E Test Suite', () => {
     await page.selectOption(pageobject.optionBio, { label: 'Bio' });
     await page.waitForTimeout(2000);
     await page.click(pageobject.nextoption);
+    await functions.views();
+    await page.click(pageobject.newviewlink);
+    await page.click(pageobject.editfieldlink);
+    await page.waitForTimeout(1000);
+    // Wait for the iframe to be available
+    const frame = page.frameLocator('iframe');
+    // Wait for the body inside the iframe to be available
+    await frame.locator('body').waitFor();
+    // Fill the content inside the iframe
+    await frame.locator('body').fill('Rebecca is very sporty\n- Football\n- Tennis');
+    await functions.submit();
+  });
+
+  // Add Bio field and edit link button in show view
+  test('Add Bio field in show view', async () => {
+    await functions.views();
+    await page.click(pageobject.configureShowview);
+    // add new column on page
+    await functions.drag_And_Drop(pageobject.columnsElement, pageobject.target);
+    // Add text in first column
+    await functions.drag_And_Drop(pageobject.textSource, pageobject.firstColumn);
+    // await page.waitForTimeout(2000);
+    await functions.drag_And_Drop(pageobject.fieldsourrce, pageobject.secondColumn);
+    await customAssert('Select Bio from field dropdown', async () => {
+      await page.waitForSelector(pageobject.fielddropdown);
+      await page.selectOption(pageobject.fielddropdown, { label: 'Bio' });
+    });
+    await customAssert('Select ckeditor4 from field view dropdown', async () => {
+      await page.waitForSelector(pageobject.fieldViewdropdown);
+      // Select 'CKEditor4' from the dropdown
+      await page.waitForTimeout(2000);
+      await page.selectOption(pageobject.fieldViewdropdown, { label: 'showAll' }); // If using a select dropdown
+    });
+    await page.click(pageobject.helloWorldElement);
+    await functions.fill_Text(pageobject.textlocator, '');
+    await functions.fill_Text(pageobject.textlocator, 'Bio');
+    await page.waitForTimeout(2000);
+
+    // drag and drop the action view link
+    await page.waitForSelector(pageobject.viewlinksource);
+    await functions.drag_And_Drop(pageobject.viewlinksource, pageobject.target);
+    // click to view link dropdown
+    await customAssert('view to link dropdown should be visible', async () => {
+      await page.waitForSelector(pageobject.viewtolinkdropdown);
+      await expect(page.locator(pageobject.viewtolinkdropdown)).toBeVisible();
+      await page.click(pageobject.viewtolinkdropdown);
+      // Click the view to edit option in the dropdown
+      await page.click(pageobject.view2editoption);
+    });
+    // add lable for link
+    await functions.fill_Text(pageobject.lebelforfield, 'Edit');
+    await page.waitForSelector(pageobject.viewtolinkdropdown);
+    await page.click(pageobject.viewtolinkdropdown);
+    // Action Style dropdown should be visible 
+    await customAssert('Select Primary button in View link style dropdown', async () => {
+      const styleDropdown = page.locator('.form-control.form-select').nth(0);
+      // Open the dropdown and select the "Primary button" option
+      await styleDropdown.selectOption({ label: 'Primary button' });
+    });
+    await page.click(pageobject.angleDownIconLocator);
+    await functions.fill_Text(pageobject.searchIconLocator, 'Edit');
+    await page.click(pageobject.editIconLocator);
+
+    await page.waitForTimeout(2000);
+    await page.click(pageobject.nextoption);
+    await functions.views();
+    await page.click(pageobject.newviewlink);
+    await page.click(pageobject.showfieldlink);
+    await page.click(pageobject.showeditLink);
   });
 
   // create view with ListShowList view pattern
