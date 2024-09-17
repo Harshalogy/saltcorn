@@ -197,6 +197,7 @@ class PageLocators {
     this.tab1locater = 'div.tabulator-cell[tabulator-field="full_name"]';
     this.tab2locator = 'div.tabulator-cell[tabulator-field="date_of_birth"]';
     this.tab3locator = 'div.tabulator-cell[tabulator-field="address"]';
+    this.tab4locator = 'div.tabulator-cell[tabulator-field="status"]';
     this.minlengthlocator = '//input[@id="inputmin_length"]';
     this.maxlengthlocator = '//input[@id="inputmax_length"]';
     this.viewtocreate = '#inputview_to_create';
@@ -403,6 +404,27 @@ class PageLocators {
     this.showeditLink = 'a.btn.btn-primary:has(i.far.fa-edit)'
     this.secondrowcolumn = '.row:nth-of-type(2) .split-col:nth-of-type(2) .canvas';
     this.fifthrowcolumn = '.row:nth-of-type(5) .split-col:nth-of-type(1) .canvas';
+    this.optioninput = 'input[name="options"]';
+    this.column5 = '.d-flex.justify-content-between.h-100 >> text=Column 5';
+    this.headerlabel = 'input.form-control[value=""]';
+    this.showLabel = 'span.selected-node:has-text("Show")';
+    this.arrowUp4 = 'svg[data-icon="arrow-up"].fa-arrow-up:nth-of-type(3)';
+    this.arrowUp5 = 'svg[data-icon="arrow-up"].fa-arrow-up:nth-of-type(4)';
+    this.Filterview = 'a[href="/view/Filter"]';
+    this.statusDropdown = 'select.form-control.form-select#inputstatus[data-fieldname="status"]';
+    this.viewsource = 'div.d-inline-flex.wrap-builder-elem[title="Embed a view"]';
+    this.View2Showdropdown = 'div.css-1uccc91-singleValue';
+    // this.SidePagelink = 'a.nav-link[href="/pageedit"]';
+    this.FilterPage = 'a[href="/page/Filtered_page"]';
+    this.pagestatusdropdown = '//select[@id="inputstatus"]';
+    this.pageinputstatus = 'input[name="status"]';
+    this.configureFilterview = 'a[href="/viewedit/config/Filter"]';
+    this.togglesource = 'div[title="Toggle filter"]';
+    this.inputValueField = 'input.w-100:first-of-type';
+    this.membertoggle = 'button:has-text("Member")';
+    this.Prospecttoggle = 'button:has-text("Prospect")';
+    this.Lapsedtoggle = 'button:has-text("Lapsed")';
+    this.statusfield = 'span:has-text("Status")';
   }
 }
 
