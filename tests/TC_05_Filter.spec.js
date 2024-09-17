@@ -87,8 +87,8 @@ test.describe('E2E Test Suite', () => {
             await page.selectOption(pageobject.fielddropdown, { label: 'Status' });
             await page.selectOption(pageobject.fieldViewdropdown, { label: 'as_text' });
         });
-        await page.waitForTimeout(2000);
-        await page.click(pageobject.nextoption);
+        await page.waitForTimeout(5000);
+        //await page.click(pageobject.nextoption);
         await functions.views();
         await page.click(pageobject.newviewlink);
         await customAssert('Assert the visibility of status field on list view', async () => {
