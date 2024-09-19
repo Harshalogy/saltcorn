@@ -83,7 +83,7 @@ test.describe('E2E Test Suite', () => {
         await customAssert('Add status field in view', async () => {
             await page.click(pageobject.addcolumnbutton);
             await functions.fill_Text(pageobject.headerlabel, 'Status');
-            await functions.drag_And_Drop(pageobject.fieldsourrce, pageobject.newcolumn3);
+            await functions.drag_And_Drop(pageobject.fieldsourrce, pageobject.newcolumn6);
             await page.selectOption(pageobject.fielddropdown, { label: 'Status' });
             await page.selectOption(pageobject.fieldViewdropdown, { label: 'as_text' });
         });
@@ -139,18 +139,19 @@ test.describe('E2E Test Suite', () => {
         await functions.create_New_Page('Filtered_page');
         await page.waitForTimeout(2000);
         await functions.drag_And_Drop(pageobject.viewsource, pageobject.target);
-        await customAssert('Select Filter in view to show dropdown', async () => {
-            await page.click(pageobject.View2Showdropdown);
-            await page.click('text=Filter [Filter on My_Table]');
-        });
-        await functions.drag_And_Drop(pageobject.viewsource, pageobject.target);
         await customAssert('Select NewView_List in view to show dropdown', async () => {
             await page.click(pageobject.View2Showdropdown);
             await page.click('text=NewView_List [List on My_Table]');
         });
+        await functions.drag_And_Drop(pageobject.viewsource, pageobject.target);
+        await customAssert('Select Filter in view to show dropdown', async () => {
+            await page.click(pageobject.View2Showdropdown);
+            await page.click('text=Filter [Filter on My_Table]');
+        });
         await functions.Save_Page_Project();
         await page.click(pageobject.newPage_sidebar);
         await page.click(pageobject.FilterPage);
+        await page.waitForTimeout(2000);
         await customAssert('Select Status dropdown should be present', async () => {
             await expect(page.locator(pageobject.pagestatusdropdown)).toBeVisible();
             await page.click(pageobject.pagestatusdropdown);
@@ -205,5 +206,78 @@ test.describe('E2E Test Suite', () => {
             await expect(page.locator(pageobject.Lapsedtoggle)).toBeVisible();
             await page.click(pageobject.Lapsedtoggle);
         });
+    });
+
+    // Add checkbox and search box in filter view
+    test('Add checkbox and search box in filter view', async () => {
+        await functions.views();
+        await page.click(pageobject.configureFilterview);
+        await page.click(pageobject.target);
+        await page.click(pageobject.deletecontentButton);
+        await functions.drag_And_Drop(pageobject.fieldsourrce, pageobject.target);
+        await customAssert('Select Status in field dropdown', async () => {
+            await page.selectOption(pageobject.fielddropdown, { label: 'Status' });
+        });
+        await customAssert('Select checkbox_group in field view dropdown', async () => {
+            await page.selectOption(pageobject.fieldViewdropdown, { label: 'checkbox_group' });
+        });
+        await page.waitForTimeout(2000);
+        await page.click(pageobject.nextoption);
+        await page.click(pageobject.newPage_sidebar);
+        await page.click(pageobject.FilterPage);
+        await page.click(pageobject.memberCheckbox);
+        await page.click(pageobject.prospectCheckbox);
+        await page.click(pageobject.lapsedCheckbox);
+
+        // Add search box in filter view
+        await functions.views();
+        await page.click(pageobject.configureFilterview);
+        await page.click(pageobject.target);
+        await page.click(pageobject.deletecontentButton);
+        await customAssert('Add search box in view', async () => {
+            await functions.drag_And_Drop(pageobject.SearchLocator, pageobject.target);
+        });
+        // Check the has dropdown for searchbox
+        await page.click(pageobject.hasdropdowncheckbox);
+        await customAssert('Drag checkboxes in search box', async () => {
+            await functions.drag_And_Drop(pageobject.fieldsourrce, pageobject.searchInputGroup);
+        });
+        await customAssert('Select Status in field dropdown', async () => {
+            await page.selectOption(pageobject.fielddropdown, { label: 'Status' });
+        });
+        await page.waitForTimeout(2000);
+        await page.click(pageobject.nextoption);
+        await page.click(pageobject.newPage_sidebar);
+        await page.click(pageobject.FilterPage);
+        await functions.fill_Text(pageobject.searchbar, 'First Name');
+        await page.click(pageobject.dropdownButton);
+        await customAssert('Member checkbox in searchbar dropdown should be visible', async () => {
+            await expect(page.locator(pageobject.memberDDCheckbox)).toBeVisible();
+            await page.click(pageobject.memberDDCheckbox);
+        })
+    });
+
+    // Create new page for fixed status
+    test('Create new page for Fixed state', async () => {
+        await functions.create_New_Page('Fixed_state');
+        await page.waitForTimeout(2000);
+        await functions.drag_And_Drop(pageobject.viewsource, pageobject.target);
+        await customAssert('Select NewView_List in view to show dropdown', async () => {
+            await page.click(pageobject.View2Showdropdown);
+            await page.click('text=NewView_List [List on My_Table]');
+        });
+        await customAssert('Select Fixed in state dropdown', async () => {
+            await page.selectOption(pageobject.statedropdown, { label: 'Fixed' });
+        });
+        await customAssert('Select member in status dropdown', async () => {
+            await page.selectOption(pageobject.statusfixed, { label: 'Member' });
+        });
+        await page.waitForTimeout(2000);
+        await functions.Save_Page_Project();
+        await page.click(pageobject.newPage_sidebar);
+        await page.click(pageobject.FixedStatePage);
+        await customAssert('Data with Member status should be visible', async () => {
+            await expect(page.locator(pageobject.memberCell)).toBeVisible();
+        })
     });
 });

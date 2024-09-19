@@ -85,7 +85,7 @@ test.describe('E2E Test Suite', () => {
     await page.click(pageobject.addcolumnbutton);
     // drag and drop the action locator
     await page.waitForSelector(pageobject.ActionLocator);
-    await functions.drag_And_Drop(pageobject.ActionLocator, pageobject.newcolumn1);
+    await functions.drag_And_Drop(pageobject.ActionLocator, pageobject.newcolumn4);
     // click on next button
     await page.waitForSelector(pageobject.nextoption);
     await page.click(pageobject.nextoption);
@@ -127,7 +127,6 @@ test.describe('E2E Test Suite', () => {
     await page.click(pageobject.fieldsourrce);
     await functions.drag_And_Drop(pageobject.fieldsourrce, pageobject.secondrowcolumn);
     // click on field dropdown for field
-
     await customAssert('field dropdown should be visible', async () => {
       await page.waitForSelector(pageobject.fielddropdown);
       await expect(page.locator(pageobject.fielddropdown)).toBeVisible();
@@ -173,7 +172,7 @@ test.describe('E2E Test Suite', () => {
     await page.click(pageobject.addcolumnbutton);
     // drag and drop the action view link
     await page.waitForSelector(pageobject.viewlinksource);
-    await functions.drag_And_Drop(pageobject.viewlinksource, pageobject.newcolumn2);
+    await functions.drag_And_Drop(pageobject.viewlinksource, pageobject.newcolumn5);
     // click to view link dropdown
     await customAssert('view to link dropdown should be visible', async () => {
       await page.waitForSelector(pageobject.viewtolinkdropdown);
@@ -309,7 +308,7 @@ test.describe('E2E Test Suite', () => {
     await page.waitForSelector(pageobject.addcolumnbutton);
     await page.click(pageobject.addcolumnbutton);
     // drag and drop the viewlink locator
-    await functions.drag_And_Drop(pageobject.viewlinksource, pageobject.newcolumn3);
+    await functions.drag_And_Drop(pageobject.viewlinksource, pageobject.newcolumn6);
     // select view to show from dropdown
     await customAssert('view to show dropdown should be visible', async () => {
       await page.waitForSelector(pageobject.viewtolinkdropdown);
@@ -511,11 +510,14 @@ test.describe('E2E Test Suite', () => {
     await functions.views();
     await page.click(pageobject.newviewlink);
     await page.click(pageobject.editfieldlink);
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(3000);
     // Wait for the iframe to be available
+    await page.waitForSelector('iframe');
     const frame = page.frameLocator('iframe');
     // Wait for the body inside the iframe to be available
     await frame.locator('body').waitFor();
+    // Optionally, ensure the body is visible before filling it
+    await frame.locator('body').waitFor({ state: 'visible' });
     // Fill the content inside the iframe
     await frame.locator('body').fill('Rebecca is very sporty\n- Football\n- Tennis');
     await functions.submit();
@@ -624,7 +626,7 @@ test.describe('E2E Test Suite', () => {
   //   await page.waitForSelector(pageobject.addcolumnbutton);
   //   await page.click(pageobject.addcolumnbutton);
   //   // drag and drop the viewlink locator
-  //   await functions.drag_And_Drop(pageobject.viewlinksource, pageobject.newcolumn4);
+  //   await functions.drag_And_Drop(pageobject.viewlinksource, pageobject.newcolumn7);
   //   // select view to show from dropdown
   //   await customAssert('view to link dropdown should be visible', async () => {
   //     await page.waitForSelector(pageobject.viewtolinkdropdown);
