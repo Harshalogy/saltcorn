@@ -437,27 +437,10 @@ class PageLocators {
     this.newcolumn6 = 'div:nth-child(6) > div:nth-child(2) > .canvas';
     this.newcolumn7 = 'div:nth-child(7) > div:nth-child(2) > .canvas';
     this.configureEmployeelist = 'a[href="/viewedit/config/List_Employee"]';
-    this.configureDepartmentlist = 'a[href="/viewedit/config/List_Department"]';
     this.view2editEmployee = 'text=Edit_Employee [Edit] Employee';
-    this.view2editDepartment = 'text=Edit_Department [Edit] Department';
-    this.addEmployeelink = 'a:has-text("+ Add Employee")';
+    this.addEmployeelink = 'a:has-text("Add Employee")';
     this.departmentSelect = 'select#inputdepartment';
-    this.ManagerSelect = 'select#inputmanage';
     this.relationshipLabel = '//text[@id="rel1" and text()="manage"]';
-    this.column = 'input.form-control.form-select[readonly]';
-    this.AutoSaveCheckbox = 'input#inputauto_save[name="auto_save"]';
-    this.thirdrowcolumn1 = '.row:nth-of-type(3) .split-col:nth-of-type(1) .canvas';
-    this.thirdrowcolumn2 = '.row:nth-of-type(3) .split-col:nth-of-type(2) .canvas';
-    this.thirdrowcolumn3 = '.row:nth-of-type(3) .split-col:nth-of-type(3) .canvas';
-    this.editemployeebutton = 'a.btn.btn-primary[href="/view/Edit_Employee?id=1"]';
-    this.Savebuttonlocator = '//button[text()="Save"]';
-    this.linkstyleLocator = 'select#inputcreate_link_style[name="create_link_style"]';
-    this.linksizeLocator = 'select#inputcreate_link_size[name="create_link_size"]';
-    this.numbercolumn = 'input.form-control[type="number"]';
-    this.texttodisplay = 'input.form-control.text-to-display[type="text"]';
-    this.plusicon = 'i.fas.fa-plus';
-    this.urltextbox = 'input.form-control[type="text"][value="https://saltcorn.com/"]';
-    this.addemployeebutton = 'a.btn.btn-primary[href="https://e2etest.saltcorn.co/view/Edit_Employee"]';
   }
 }
 
