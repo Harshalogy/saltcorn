@@ -463,14 +463,11 @@ class PageLocators {
     this.installkanban = 'form[action="/plugins/install/kanban"] button:has-text("Install")';
     this.Discriptiontab = 'div.tabulator-cell[tabulator-field="discription"]';
     this.Tasktable = 'a:has-text("Task")';
-    this.statustab = 'div.tabulator-cell[tabulator-field="status"]';
     this.Uniquecheckbox = "//input[@id='inputis_unique' and @type='checkbox']";
     this.Cardviewdropdown = 'select.form-control.form-select[name="show_view"]';
     this.columnsbydropdown = 'select.form-control.form-select[name="column_field"]';
     this.PositionFieldDropdown = 'select.form-control.form-select[name="position_field"]';
     this.kanbanboardlink = 'a[href="/view/Kanban_Board"]';
-    this.firstrowcolumn1 = '.split-col.col-sm-12.text-undefined .canvas';
-    this.secondrowcolumn1 = '.row:nth-of-type(1) .split-col:nth-of-type(1) .canvas';
     this.firstfield = 'div.d-inline:first-of-type';
     this.TaskCard1 = 'div.kancard.card[data-id="1"]'; // Click on the "Buy Milk" card
     this.TaskCard2 = 'div.kancard.card[data-id="2"]'; // Click on the "Take out trash" card
@@ -479,6 +476,10 @@ class PageLocators {
     this.iterationstatus = 'div.kancontainer[data-column-value="Iteration"]';
     this.configurekanban = 'a[href="/viewedit/config/Kanban_Board"]';
     this.InProgressStatus = 'div.kancontainer[data-column-value="InProgress"]';
+    this.statustab = 'div.tabulator-cell[tabulator-field="status"]';
+    this.statusCell2 = '(//div[@class="tabulator-cell" and @tabulator-field="status"])[2]';
+    this.statusCell3 = '(//div[@class="tabulator-cell" and @tabulator-field="status"])[3]';
+
   }
 }
 
