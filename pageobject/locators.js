@@ -10,8 +10,7 @@ class PageLocators {
     this.passwordInput = 'input[type="password"]';
     this.textSource = 'div.wrap-builder-elem[title="Text"]';
     this.textlocator = '#saltcorn-builder > div.row > div.col-sm-auto.builder-sidebar > div > div.settings-panel.card.mt-1 > div.card-body.p-2 > div > div.border > div';
-    // this.inputbox1 = '#inputaddress';
-    this.inputbox2 = '#inputdate_of_birth';
+
     this.saveprimarybutton = '#page-inner-content > div:nth-child(2) > div.d-inline > form > button';
     this.InputName = '#inputname';
     this.addFieldButtonLocator = 'a.btn.btn-primary.add-field.mt-2:has-text("Add field")';
@@ -384,7 +383,7 @@ class PageLocators {
     this.editIconLocator = 'i.far.fa-edit';
     this.showeditLink = 'a.btn.btn-primary:has(i.far.fa-edit)'
     this.secondrowcolumn = '.row:nth-of-type(2) .split-col:nth-of-type(2) .canvas';
-    this.fifthrowcolumn = '.row:nth-of-type(5) .split-col:nth-of-type(1) .canvas';
+    this.forthrowcolumn = '.row:nth-of-type(5) .split-col:nth-of-type(1) .canvas';
     this.optioninput = 'input[name="options"]';
     this.column5 = '.d-flex.justify-content-between.h-100 >> text=Column 5';
     this.headerlabel = 'input.form-control[value=""]';
@@ -479,6 +478,33 @@ class PageLocators {
     this.statustab = 'div.tabulator-cell[tabulator-field="status"]';
     this.statusCell2 = '(//div[@class="tabulator-cell" and @tabulator-field="status"])[2]';
     this.statusCell3 = '(//div[@class="tabulator-cell" and @tabulator-field="status"])[3]';
+    this.Column2FullName = 'div.d-flex.justify-content-between.h-100:has-text("Column 2: Full name")';
+    this.Column0Address = 'div.d-flex.justify-content-between.h-100:has-text("Column 0: Address")';
+    this.Column1Address = 'div.d-flex.justify-content-between.h-100:has-text("Column 1: Address")';
+    this.Column2DOB = 'div.d-flex.justify-content-between.h-100:has-text("Column 2: Date of birth")';
+    this.FullNameInput = 'div.split-col.col-sm-10.text-start:has(input#inputfull_name)';
+    this.AddressInput = 'div.split-col.col-sm-10.text-start:has(input#inputaddress)';
+    this.addresslabel = 'div.d-inline:text("Address")';
+    this.namelabel = 'div.d-inline:text("Full name")'
+    this.NameLocator = 'div.d-inline:has-text("Adam")';
+    this.ShowViewSelect = 'select[name="show_view"]';
+    this.ViewToCreateSelect = 'select[name="view_to_create"]';
+    this.OrderFieldSelect = 'select[name="order_field"]';
+    this.ViewDecorationSelect = 'select[name="view_decoration"]';
+    this.ColsXlInput = 'input[name="cols_xl"]';
+    this.Feedviewlink = 'a[href="/view/People_Feed"]';
+    this.NumberInput = 'input.form-control[type="number"][min="1"][max="11"][value="2"]';
+    this.ColumnSettings = 'div.bg-secondary.ps-1.text-white.w-100.mt-1:has(span > svg[aria-hidden="true"][data-icon="chevron-right"])';
+    this.SvgIcon = 'svg[xmlns="http://www.w3.org/2000/svg"][viewBox="0 0 16 16"][width="1em"][height="1em"]';
+    this.AddressLocator = 'div.d-inline:has-text("132 east Greater Noida new delhi india")';
+    this.firstrowcolumn1 = '.row:nth-of-type(1) .split-col:nth-of-type(2) .canvas';
+    this.NewPersonLink = 'a[href="/view/Edit_People"]:has-text("New person")';
+    this.InputFullName = '#inputfull_name';
+    this.inputDateOfBirth = '#inputdate_of_birth';
+    this.AddressInput = '#inputaddress';
+    this.Addresstext = 'div.d-inline:has-text("HN 01, WN 26 noida india")';
+    this.LineBreakElement = 'div.wrap-builder-elem[title="Line break"]';
+    this.EditButton6 = 'a.btn.btn-primary[href="/view/Edit_People?id=6"]';
 
   }
 }
