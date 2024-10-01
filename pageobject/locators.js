@@ -383,7 +383,8 @@ class PageLocators {
     this.editIconLocator = 'i.far.fa-edit';
     this.showeditLink = 'a.btn.btn-primary:has(i.far.fa-edit)'
     this.secondrowcolumn = '.row:nth-of-type(2) .split-col:nth-of-type(2) .canvas';
-    this.forthrowcolumn = '.row:nth-of-type(5) .split-col:nth-of-type(1) .canvas';
+    this.secondrowcolumn1 = '.row:nth-of-type(2) .split-col:nth-of-type(1) .canvas';
+    // this.forthrowcolumn = '.row:nth-of-type(5) .split-col:nth-of-type(1) .canvas';
     this.optioninput = 'input[name="options"]';
     this.column5 = '.d-flex.justify-content-between.h-100 >> text=Column 5';
     this.headerlabel = 'input.form-control[value=""]';
@@ -505,7 +506,54 @@ class PageLocators {
     this.Addresstext = 'div.d-inline:has-text("HN 01, WN 26 noida india")';
     this.LineBreakElement = 'div.wrap-builder-elem[title="Line break"]';
     this.EditButton6 = 'a.btn.btn-primary[href="/view/Edit_People?id=6"]';
-
+    this.assignedToTab = 'div.tabulator-cell[tabulator-field="assigned_to"]';
+    this.assignedToTab2 = '(//div[@class="tabulator-cell" and @tabulator-field="assigned_to"])[2]';
+    this.assignedToTab3 = '(//div[@class="tabulator-cell" and @tabulator-field="assigned_to"])[3]';
+    this.joinField = 'div[title="Join field"]';
+    this.fieldsButton = '#f-top-dropdown';
+    this.assignedToDropdown = '#_field_assigned_to';
+    this.fullNameItem = 'li.dropdown-item.field-val-item:nth-of-type(3)';
+    this.DobItem = 'li.dropdown-item.field-val-item:nth-of-type(2)';
+    this.Tasklist = 'a[href="/view/TaskList"]';
+    this.configureTasklist = 'a[href="/viewedit/config/TaskList"]';
+    this.fullNameSpan = 'span.link-style:has-text("full_name")';
+    this.view2showpeople = 'text=Show_People [Show] People';
+    this.selectButton = '#_relation_picker_toggle_';
+    this.assignedToItem = 'li.dropdown-item';
+    this.showAssigneeLink = 'a[href="/view/Show_People?id=2"]';
+    this.Peopletable = 'a:has-text("People")';
+    this.teamsCell = 'div.tabulator-cell[tabulator-field="team"]';
+    this.teamsCell2 = '(//div[@class="tabulator-cell" and @tabulator-field="team"])[2]';
+    this.teamsCell3 = '(//div[@class="tabulator-cell" and @tabulator-field="team"])[3]';
+    this.teamsCell4 = '(//div[@class="tabulator-cell" and @tabulator-field="team"])[4]';
+    this.teamsCell5 = '(//div[@class="tabulator-cell" and @tabulator-field="team"])[5]';
+    this.teamDropdown = '#_field_assigned_to\\.team'; // Escape the dot
+    this.nameItem = 'ul.ps-0 li.dropdown-item.field-val-item:nth-of-type(2)';
+    this.nameSpan = 'span.link-style:has-text("name")';
+    this.TeamNameSpan = 'span:has-text("[assigned_to.team.name]")';
+    this.fieldViewdropdown1 = '(//select[@class="form-control form-select"])[1]'
+    this.textInputformat = 'input.form-control:nth-of-type(2)';
+    this.dateOfBirthSpan = 'span.link-style:has-text("date_of_birth")';
+    this.configurePeopleList = 'a[href="/viewedit/config/People_list"]';
+    this.aggregationDiv = 'div[title="Aggregation"]';
+    this.RelationDropdown = 'select.form-control.form-select:first-of-type';
+    // this.Childtablefield = 'select.form-control.form-select';
+    this.StatisticDropdown = 'select.form-control.form-select:nth-of-type(3)';
+    this.PeopleList = 'a[href="/view/People_list"]';
+    this.IDOption = 'select.form-control.form-select option[value="id"]';
+    this.countTaskLocator = 'span.link-style:has-text("Count Task")';
+    this.minInputLocator = 'input[type="number"]#inputmin';
+    this.estimatedHourscell = 'div.tabulator-cell[tabulator-field="estimated_hours"]';
+    this.estimatedHourscell2 = '(//div[@class="tabulator-cell" and @tabulator-field="estimated_hours"])[1]';
+    this.estimatedHourscell3 = '(//div[@class="tabulator-cell" and @tabulator-field="estimated_hours"])[2]';
+    // this.countTaskAssignedToId = 'span[draggable="true"]:has-text("[Count Task.assigned_to id]")';
+    this.SumTaskLocator = 'span.link-style:has-text("Sum Task")';
+    this.Array_AggLocator = 'span.link-style:has-text("Array_Agg Task")';
+    this.configureShowPeople = 'a[href="/viewedit/config/Show_People"]';
+    this.editButtonLocator = 'span.selected-node.btn.btn-primary:has-text("Edit")';
+    this.teamDropdownLocator = 'div#_field_team.dropdown-toggle[role="button"]';
+    this.teamnameitem = 'li.dropdown-item.field-val-item:nth-of-type(2)';
+    this.richTextEditor = 'div.cke_editable[contenteditable="true"]';
   }
 }
 

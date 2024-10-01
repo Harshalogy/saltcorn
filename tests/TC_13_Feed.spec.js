@@ -4,7 +4,7 @@ const PageFunctions = require('../pageobject/function.js');
 const PageObject = require('../pageobject/locators.js');
 const customAssert = require('../pageobject/utils.js');
 const Logger = require('../pageobject/logger.js');
-const { assert } = require('console');
+//const { assert } = require('console');
 
 test.describe('E2E Test Suite', () => {
     let functions;
@@ -42,8 +42,6 @@ test.describe('E2E Test Suite', () => {
 
     // Add table by uplaoding csv
     test('Add table by uploading csv file', async () => {
-        // Clear data before test executions
-        await functions.clear_Data();
         // click table button
         await functions.click_table();
         // Click on Create from CSV upload link
@@ -76,9 +74,9 @@ test.describe('E2E Test Suite', () => {
             await functions.drag_And_Drop(pageobject.Column2DOB, pageobject.Column1Address);
         });
         await page.waitForTimeout(5000);
+         // click on next button
         await page.waitForSelector(pageobject.nextoption);
         await page.click(pageobject.nextoption);
-        // click on next button
         await functions.views();
     });
 

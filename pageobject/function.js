@@ -479,6 +479,24 @@ class PageFunctions {
       await expect(this.page.locator(this.locators.kanbanHeader)).toBeVisible();
     });
   }
+
+  async clearText(locator) {
+    // Click on the locator to focus it
+    await this.page.click(locator); 
+    // Clear existing text
+    await this.page.evaluate((selector) => {
+        const editableDiv = document.querySelector(selector);
+        if (editableDiv) {
+            const range = document.createRange();
+            range.selectNodeContents(editableDiv);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            document.execCommand('delete'); // Delete selected text
+        }
+    }, locator);
+}
+
 }
 
 module.exports = PageFunctions;

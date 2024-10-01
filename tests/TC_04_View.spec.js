@@ -539,7 +539,7 @@ test.describe('E2E Test Suite', () => {
       await page.waitForSelector(pageobject.fielddropdown);
       await page.selectOption(pageobject.fielddropdown, { label: 'Bio' });
     });
-    await customAssert('Select ckeditor4 from field view dropdown', async () => {
+    await customAssert('Select showAll from field view dropdown', async () => {
       await page.waitForSelector(pageobject.fieldViewdropdown);
       // Select 'CKEditor4' from the dropdown
       await page.waitForTimeout(2000);
