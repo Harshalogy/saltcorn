@@ -43,6 +43,7 @@ test.describe('E2E Test Suite', () => {
     test('Add Aggregation to field on People list view', async () => {
         await functions.views();
         await page.click(pageobject.configurePeopleList);
+        await page.waitForTimeout(3000);
         // Click on add column button
         await page.click(pageobject.addcolumnbutton);
         await customAssert('Drag and drop Aggregation field on page', async () => {
@@ -108,6 +109,7 @@ test.describe('E2E Test Suite', () => {
     test('Add Estimated hours on aggregation on people list', async () => {
         await functions.views();
         await page.click(pageobject.configurePeopleList);
+        await page.waitForTimeout(3000);
         await page.click(pageobject.addcolumnbutton);
         await customAssert('Drag and drop Aggregation field on page', async () => {
             await functions.drag_And_Drop(pageobject.aggregationDiv, pageobject.newcolumn5);
@@ -133,6 +135,7 @@ test.describe('E2E Test Suite', () => {
     test('Add Array_agg on aggregation on people list', async () => {
         await functions.views();
         await page.click(pageobject.configurePeopleList);
+        await page.waitForTimeout(3000);
         await page.click(pageobject.addcolumnbutton);
         await customAssert('Drag and drop Aggregation field on page', async () => {
             await functions.drag_And_Drop(pageobject.aggregationDiv, pageobject.newcolumn6);
@@ -159,8 +162,11 @@ test.describe('E2E Test Suite', () => {
     test('Add aggregation on people show view', async () => {
         await functions.views();
         await page.click(pageobject.configureShowPeople);
+        await page.waitForTimeout(3000);
+        // Remove the edit button
         await page.click(pageobject.editIconLocator);
         await page.click(pageobject.deletebutton);
+        // remove the column
         await page.click(pageobject.target);
         await page.click(pageobject.deletebutton);
         await functions.drag_And_Drop(pageobject.columnsElement, pageobject.target);
@@ -197,6 +203,7 @@ test.describe('E2E Test Suite', () => {
     test('Add Show person link on people list', async () => {
         await functions.views();
         await page.click(pageobject.configurePeopleList);
+        await page.waitForTimeout(3000);
         await page.click(pageobject.addcolumnbutton);
         await customAssert('Drag and drop Aggregation field on page', async () => {
             await functions.drag_And_Drop(pageobject.viewlinksource, pageobject.newcolumn7);
@@ -232,6 +239,7 @@ test.describe('E2E Test Suite', () => {
         });
         // submit the page
         await functions.submit();
+        await page.waitForTimeout(3000);
         await customAssert('Change text and field for first row as ID', async () => {
             await page.click(pageobject.nameDivLocator1);
             await functions.clearText(pageobject.richTextEditor);
@@ -266,6 +274,7 @@ test.describe('E2E Test Suite', () => {
     test('Add link view for show team in show people view', async () => {
         await functions.views();
         await page.click(pageobject.configureShowPeople);
+        await page.waitForTimeout(3000);
         await functions.drag_And_Drop(pageobject.viewlinksource, pageobject.target);
         await customAssert('Select show_team on view to link dropdown', async () => {
             await page.click(pageobject.viewtolinkdropdown);
@@ -295,6 +304,7 @@ test.describe('E2E Test Suite', () => {
     test('Add view for show team in show people view', async () => {
         await functions.views();
         await page.click(pageobject.configureShowPeople);
+        await page.waitForTimeout(3000);
         await page.click(pageobject.showTeamspan);
         await page.click(pageobject.deletebutton);
         await functions.drag_And_Drop(pageobject.viewsource, pageobject.target);
@@ -316,6 +326,7 @@ test.describe('E2E Test Suite', () => {
     test('Add show assigned task in show people', async () => {
         await functions.views();
         await page.click(pageobject.configureShowPeople);
+        await page.waitForTimeout(3000);
         await page.click(pageobject.IDDivLocator);
         await page.click(pageobject.deletebutton);
         await functions.drag_And_Drop(pageobject.viewlinksource, pageobject.target);
