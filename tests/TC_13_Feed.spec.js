@@ -67,13 +67,11 @@ test.describe('E2E Test Suite', () => {
         await page.fill(pageobject.discriptiontext, 'view for People table');
         // submit the page
         await functions.submit();
-        // click on next button
-        await page.waitForTimeout(5000);
         await customAssert('Set the position for columns', async () => {
             await functions.drag_And_Drop(pageobject.Column2FullName, pageobject.Column0Address);
             await functions.drag_And_Drop(pageobject.Column2DOB, pageobject.Column1Address);
         });
-        await page.waitForTimeout(5000);
+        await page.waitForTimeout(4000);
          // click on next button
         await page.waitForSelector(pageobject.nextoption);
         await page.click(pageobject.nextoption);
@@ -95,9 +93,6 @@ test.describe('E2E Test Suite', () => {
         });
         // submit the page
         await functions.submit();
-        // click on next button
-        await page.waitForTimeout(5000);
-        //await page.click('text=Address');
         await customAssert('Set the position and properties for Name columns', async () => {
             await functions.drag_And_Drop(pageobject.namelabel, pageobject.addresslabel);
             await page.click(pageobject.AddressInput);
@@ -112,7 +107,7 @@ test.describe('E2E Test Suite', () => {
             // Select 'Date of birth' from the dropdown
             await page.selectOption('select.form-control.form-select', 'Address');
         });
-        await page.waitForTimeout(2000);
+        await page.waitForTimeout(4000);
         // click on next button
         await page.click(pageobject.nextoption);
         await functions.views();
@@ -133,7 +128,6 @@ test.describe('E2E Test Suite', () => {
         });
         // submit the page
         await functions.submit();
-        await page.waitForTimeout(2000);
         // select full name lable
         await page.click(pageobject.Fullnameshow);
         // delete lable for full name
@@ -145,7 +139,7 @@ test.describe('E2E Test Suite', () => {
             await textstyleLocator.click();
             await textstyleLocator?.selectOption("Heading 1");
         });
-        await page.waitForTimeout(2000);
+
         await customAssert('Drag address row on third column', async () => {
             await functions.drag_And_Drop(pageobject.AddressLocator, pageobject.thirdrowcolumn2);
         });

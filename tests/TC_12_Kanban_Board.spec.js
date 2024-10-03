@@ -39,10 +39,6 @@ test.describe('E2E Test Suite', () => {
         await context.close();
     });
 
-    test.beforeEach(async ({ browser }) => {
-        await page.waitForTimeout(1000);
-    });
-
     // Create the Task table
     test('Create task table', async () => {
         await functions.clear_Data();
@@ -169,7 +165,6 @@ test.describe('E2E Test Suite', () => {
         });
         // submit the page
         await functions.submit();
-        await page.waitForTimeout(2000);
         await customAssert('Delete all content from view ', async () => {
             // select target
             await page.click(pageobject.target);
@@ -186,10 +181,8 @@ test.describe('E2E Test Suite', () => {
             const textstyleLocator = page.locator('.form-control.form-select').nth(2);
             // await textstyleLocator.click();
             await textstyleLocator?.selectOption("Heading 4");
-            await page.waitForTimeout(2000);
-
-            await page.waitForTimeout(2000);
         });
+        await page.waitForTimeout(4000);
         // click on next button
         await page.waitForSelector(pageobject.nextoption);
         await page.click(pageobject.nextoption);
@@ -218,7 +211,6 @@ test.describe('E2E Test Suite', () => {
         });
         // submit the page
         await functions.submit();
-        await page.waitForTimeout(2000);
         await customAssert('Select Showtask for card view', async () => {
             await page.selectOption(pageobject.Cardviewdropdown, { label: 'ShowTask' });
         });

@@ -136,7 +136,7 @@ test.describe('E2E Test Suite', () => {
     });
     await page.waitForTimeout(2000);
     await functions.drag_And_Drop(pageobject.textSource, pageobject.target);
-    await functions.fill_Text(pageobject.textlocator, 'I said..');
+    await functions.fill_Text(pageobject.richTextEditor, 'I said..');
     // click on delete button
     await page.waitForSelector(pageobject.deletebutton);
     await page.click(pageobject.deletebutton);
@@ -502,10 +502,10 @@ test.describe('E2E Test Suite', () => {
       await page.selectOption(pageobject.Toolbardropdown, { label: 'Reduced' }); // If using a select dropdown
     });
     await page.click(pageobject.helloWorldElement);
-    await functions.fill_Text(pageobject.textlocator, '');
-    await functions.fill_Text(pageobject.textlocator, 'Bio');
+    await functions.clearText(pageobject.richTextEditor);
+    await page.keyboard.type('Bio');
     await page.selectOption(pageobject.optionBio, { label: 'Bio' });
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(3000);
     await page.click(pageobject.nextoption);
     await functions.views();
     await page.click(pageobject.newviewlink);
@@ -541,13 +541,12 @@ test.describe('E2E Test Suite', () => {
     });
     await customAssert('Select showAll from field view dropdown', async () => {
       await page.waitForSelector(pageobject.fieldViewdropdown);
-      // Select 'CKEditor4' from the dropdown
-      await page.waitForTimeout(2000);
+      // Select 'showAll' from the dropdown
       await page.selectOption(pageobject.fieldViewdropdown, { label: 'showAll' }); // If using a select dropdown
     });
     await page.click(pageobject.helloWorldElement);
-    await functions.fill_Text(pageobject.textlocator, '');
-    await functions.fill_Text(pageobject.textlocator, 'Bio');
+    await functions.clearText(pageobject.richTextEditor);
+    await page.keyboard.type('Bio');
     await page.waitForTimeout(2000);
 
     // drag and drop the action view link
