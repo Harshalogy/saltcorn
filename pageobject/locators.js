@@ -569,6 +569,14 @@ class PageLocators {
     this.txttaskbadge = 'text=View: PersonTaskBadges [Badges] People';
     this.closeIcon = 'i.ms-1.fas.fa-lg.fa-times';
     this.plusIconbadge = 'i.fas.fa-lg.fa-plus';
+    this.bootstraptheme = 'h5:has-text("any-bootstrap-theme")';
+    this.installbootstap = 'form[action="/plugins/install/any-bootstrap-theme"] button:has-text("Install")';
+    this.Installedthemelocator = 'a[href="/plugins?set=installed&amp;q=theme"]';
+    this.UploadImageSelector = 'table[accordiontitle="Select image"] tr:nth-child(2) select';
+    this.UploadImageSave ='button.btn.btn-sm.btn-primary.builder-save';
+    this.CreatedPageName = 'a:has-text("saltcorn_image")';
+    this.FileInputForUpload = 'input[type="file"]';
+    this.ImageLocator = 'img[src="/files/serve/a.jpg"]';
   }
 }
 
