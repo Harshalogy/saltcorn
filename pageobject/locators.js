@@ -598,7 +598,7 @@ class PageLocators {
     this.finish_button = 'button.btn.btn-primary[type="submit"]';
     this.base_urls ='https://e2etest.saltcorn.co/';
     this.saltcorntableclick = 'h1:has-text("Tables")';
-    this.tableclick = 'https://e2etest.saltcorn.co/table/';
+    this.tableclick = 'https://e2etest.saltcorn.co/table';
     this.viewclick = 'https://e2etest.saltcorn.co/viewedit';
     this.pageclick = 'https://e2etest.saltcorn.co/pageedit';
     this.create_CSV ='https://e2etest.saltcorn.co/table/create-from-csv';
@@ -613,15 +613,16 @@ class PageLocators {
     this.Page_Url_Plugins = 'Page url should be /plugins';
     this.Create_Page =  'span.card-header h5.m-0.fw-bold.d-inline a[href="/pageedit"]';
     this.createpage = 'a.btn[href="/pageedit/new"]';
-    this.Pack_locator = '#tab-Packs';
+    this.Pack_locator = 'a.nav-link.active[href="#tab-Packs"][role="tab"]';
     this.htmltextdone  ='button.btn.btn-sm.btn-primary.builder-save';
     this.Theme_Locator = 'a.nav-link.active[href="#tab-Theme"]';
-    this.Trigger_Locator = '#tab-Triggers';
-    this.Files_Locator = '#tab-Files';
-    this.Help_Locator = '#tab-Help';
-    this.Theme_Locator = '#tab-Theme';
-    this.Users_Locator = '#tab-Users';
-    // this.tableclickmobileview = 'a.nav-link[href="/table"]';
+    this.Trigger_Locator =  'div.card-header ul.nav-tabs li:nth-of-type(1) a';
+    this.Files_Locator = 'div.card-header ul.nav-tabs li:nth-of-type(2) a';
+    this.Help_Locator = 'div.card-header ul.nav-tabs li:nth-of-type(3) a';
+    this.Theme_Locator = 'a.nav-link.active[href="#tab-Theme"][role="tab"]';
+    this.Users_Locator = 'a.nav-link.active[href="#tab-Users"][role="tab"]';
+    this.saltcornImageLink = '.navbar-brand.mt-1.ms-3.mb-2';
+
   }
 }
 
