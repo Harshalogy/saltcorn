@@ -1,3 +1,5 @@
+const { baseURL } = require('../pageobject/base_url.js');
+
 class PageLocators {
   constructor(page) {
     this.page = page;
@@ -9,7 +11,7 @@ class PageLocators {
     this.textSource = 'div.wrap-builder-elem[title="Text"]';
     this.textlocator = '#saltcorn-builder > div.row > div.col-sm-auto.builder-sidebar > div > div.settings-panel.card.mt-1 > div.card-body.p-2 > div > div.border > div';
     this.InputName = '#inputname';
-    this.addFieldButtonLocator = 'a.btn.btn-primary.add-field.mt-2:has-text("Add field")';
+    this.addFieldButtonLocator = 'a.add-field:has-text("Add field")';
     this.columnsElement = 'div[title="Split into columns"]';
     this.firstColumn = 'div.row > div.split-col.col-sm-6.text-undefined.align-items-undefined:nth-of-type(1)';
     //'(//div[contains(@class, "row")]/div[contains(@class, "split-col") and contains(@class, "col-sm-6")])[1]'
@@ -118,7 +120,7 @@ class PageLocators {
     this.EditlinkLocator = 'a:has(i.fas.fa-2x.fa-edit)';
     this.downloadlinklocator = 'a:has(i.fas.fa-2x.fa-download)';
     this.uploadcsvlinklocator = 'label:has-text("Upload CSV")';
-    this.addrowlocator = 'button.btn.btn-sm.btn-primary.me-2:has-text("Add row")';
+    this.addrowlocator = 'button:has-text("Add row")';
     this.fieldsource = '//div[@title="Field"]';
     this.createfromcsvupload = '//a[@href="/table/create-from-csv"]';
     this.ActionLocator = 'div[title="Action button"]';
@@ -578,6 +580,7 @@ class PageLocators {
     this.Installedthemelocator = 'a[href="/plugins?set=installed&amp;q=theme"]';
     this.UploadImageSelector = 'table[accordiontitle="Select image"] tr:nth-child(2) select';
     this.UploadImageSave ='button.btn.btn-sm.btn-primary.builder-save';
+    this.PageSave ='button.btn.btn-sm.btn-primary.builder-save';
     this.CreatedPageName = 'a:has-text("saltcorn_image")';
     this.FileInputForUpload = 'input[type="file"]';
     this.ImageLocator = 'img[src="/files/serve/images.jpg"]';
@@ -602,12 +605,12 @@ class PageLocators {
     this.view_Click = 'a[href="/viewedit"]';
     this.inputmenu_style = '#inputmenu_style';
     this.finish_button = 'button.btn.btn-primary[type="submit"]';
-    this.base_urls ='https://e2etest.saltcorn.co/';
+    this.base_urls = baseURL+'/';
     this.saltcorntableclick = 'h1:has-text("Tables")';
-    this.tableclick = 'https://e2etest.saltcorn.co/table';
-    this.viewclick = 'https://e2etest.saltcorn.co/viewedit';
-    this.pageclick = 'https://e2etest.saltcorn.co/pageedit';
-    this.create_CSV ='https://e2etest.saltcorn.co/table/create-from-csv';
+    this.tableclick = baseURL+'/table';
+    this.viewclick = baseURL+'/viewedit';
+    this.pageclick = baseURL+'/pageedit';
+    this.create_CSV = baseURL+ '/table'+ '/create-from-csv';
     this.admin_Clear_All ='admin/clear-all';
     this.admin_Build_Mobile_App = 'Page url should be /admin/build-mobile-app';
     this.plugins_Set_All ='Page url should be /plugins?set=all';
@@ -628,6 +631,17 @@ class PageLocators {
     this.Theme_Locator = 'a.nav-link.active[href="#tab-Theme"][role="tab"]';
     this.Users_Locator = 'a.nav-link.active[href="#tab-Users"][role="tab"]';
     this.saltcornImageLink = '.navbar-brand.mt-1.ms-3.mb-2';
+    this.dragElement = 'div.d-inline-flex:has-text("mycard")';
+    this.cardBoxClick = 'div.card.shadow.builder >> div.card-header';
+    this.Library = 'div.bg-secondary.ps-1.text-white.w-100.mt-1';
+    this.plusAddButton = 'button#dropdownMenuButton';
+    this.nameField = 'input.form-control';
+    this.selectIcon = '.rfipbtn__current .rfipbtn__icon--empty';
+    this.selectIconFarFaAddress = 'span.rfipicons__icon[title="far fa-address-card"]';
+    this.selectIconFlip = '.fipicon-angle-down';
+    this.addButtonAfterSelect = 'button.btn.btn-primary.mt-3';
+    this.pageNameSave = 'table.table >> tbody >> tr >> td:nth-child(1) >> a';
+    this.testPage2 = 'li.breadcrumb-item:has-text("testpage2") a';
 
   }
 }
