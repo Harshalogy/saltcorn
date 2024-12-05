@@ -631,7 +631,7 @@ class PageLocators {
     this.Theme_Locator = 'a.nav-link.active[href="#tab-Theme"][role="tab"]';
     this.Users_Locator = 'a.nav-link.active[href="#tab-Users"][role="tab"]';
     this.saltcornImageLink = '.navbar-brand.mt-1.ms-3.mb-2';
-    this.dragElement = 'div.d-inline-flex:has-text("mycard")';
+    this.dragElement = 'div.d-inline-flex.wrap-builder-elem[draggable="true"]';
     this.cardBoxClick = 'div.card.shadow.builder >> div.card-header';
     this.Library = 'div.bg-secondary.ps-1.text-white.w-100.mt-1';
     this.plusAddButton = 'button#dropdownMenuButton';
@@ -641,7 +641,14 @@ class PageLocators {
     this.selectIconFlip = '.fipicon-angle-down';
     this.addButtonAfterSelect = 'button.btn.btn-primary.mt-3';
     this.pageNameSave = 'table.table >> tbody >> tr >> td:nth-child(1) >> a';
-    this.testPage2 = 'li.breadcrumb-item:has-text("testpage2") a';
+    this.testPage2 = 'li.breadcrumb-item.fw-bold[aria-current="page"] a';
+    this.dragcolumn = 'div[title="Split into columns"]';
+    this.dragTextIntoColumn = '.split-col.col-sm-6.text-undefined.align-items-undefined.canvas';
+    this.selectIconFasFaAddress = 'span.rfipicons__icon[title="fas fa-address-card"]';
+    this.containerClick = '.canvas root-canvas ';
+    this.dragElement1 = 'div.d-inline-flex.wrap-builder-elem >> div.inner > i.fas.fa-address-card';
+    this.testPage4 = 'li.breadcrumb-item.fw-bold[aria-current="page"] a';
+    this.pageNameSave3 = 'table.table >> tbody >> tr >> td:nth-child(3) >> a';
 
   }
 }
