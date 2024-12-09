@@ -649,7 +649,12 @@ class PageLocators {
     this.dragElement1 = 'div.d-inline-flex.wrap-builder-elem >> div.inner > i.fas.fa-address-card';
     this.testPage4 = 'li.breadcrumb-item.fw-bold[aria-current="page"] a';
     this.pageNameSave3 = 'table.table >> tbody >> tr >> td:nth-child(3) >> a';
-
+    this.viewName = 'table.table >> tbody >> tr >> td:nth-child(1) >> a';
+    this.mycardDrag = 'div.toolbar-row > div.d-inline-flex.wrap-builder-elem[draggable="true"]';
+    this.viewSetting = "role=button[name='View settings']";
+    this.mypage = "input[data-fieldname='page_title']";
+    this.inputdefaultrenderpage = '#inputdefault_render_page';
+    
   }
 }
 

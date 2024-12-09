@@ -137,7 +137,7 @@ test.describe('E2E Test Suite', () => {
             await expect(Linktext).toHaveValue('youtube link');
         });
         const column = page.locator('h2', { hasText: 'Column' });
-        await column.click(); 
+        await column.click();
 
     });
 
@@ -165,9 +165,9 @@ test.describe('E2E Test Suite', () => {
         await customAssert('Assert +Add button is visible', async () => {
             await expect(page.locator(pageobject.addButtonAfterSelect)).toBeVisible();
         });
-        await page.click(pageobject.addButtonAfterSelect);  
+        await page.click(pageobject.addButtonAfterSelect);
         await page.click(pageobject.PageSave);
- 
+
         await customAssert(' testPage3 name field should be visible', async () => {
             const names = await page.locator(pageobject.pageNameSave3).allInnerTexts();
         });
@@ -183,6 +183,84 @@ test.describe('E2E Test Suite', () => {
             expect(page.url()).toBe(baseURL + derivedURL + 'page/testpage4');
         });
         await page.waitForTimeout(5000);
+    });
+
+
+    test('Create new view', async () => {
+        await functions.views();
+        // assert the view edit url
+        await customAssert('page url should be /viewedit  ', async () => {
+            expect(page.url()).toBe(baseURL + derivedURL + 'viewedit');
+        });
+        // assert the visibility of create new view
+        await customAssert('Create new view button should be visible and working', async () => {
+            await page.waitForSelector(pageobject.createnewview);
+            await expect(page.locator(pageobject.createnewview)).toBeVisible();
+            // Assert the lable for create view button
+            await expect(page.locator(pageobject.createnewview)).toHaveText('Create view');
+            // click on create new view
+            await page.click(pageobject.createnewview);
+        });
+        // assert the view url
+        await customAssert('page url should be /viewedit/new  ', async () => {
+            expect(page.url()).toBe(baseURL + derivedURL + 'viewedit/new');
+        });
+        // input view name and discription
+        await page.fill(pageobject.InputName, 'TestView');
+        await page.fill(pageobject.discriptiontext, 'create view and use the library for page');
+
+
+        // validate the view pattern in table dropdown
+        await customAssert('View Pattern should be list', async () => {
+            // select list pattern
+            const ListPattern = await page.$("#inputviewtemplate");
+            await ListPattern?.selectOption("List");
+        });
+
+        await customAssert('View Settings should be visible', async () => {
+            await page.click(pageobject.viewSetting);
+            await expect(page.locator(pageobject.viewSetting)).toBeVisible();
+  
+        });
+        await page.locator(pageobject.mypage).fill("My Page");
+        // Locator for the dropdown
+        const dropdown = page.locator(pageobject.inputdefaultrenderpage);
+        // Select "TestPage" from the dropdown
+        await dropdown.selectOption('TestPage');
+        // submit the page  
+        await functions.submit();
 
     });
+
+    test('verify page by view', async () => {
+        // click on add column button on page
+        await page.waitForSelector(pageobject.addcolumnbutton);
+        await page.click(pageobject.addcolumnbutton);
+        await page.locator(pageobject.Library).click();
+        // drag and drop the library locator
+        await customAssert('Drag and drop Library button on view', async () => {
+            // Define locators
+            const firstElement = page.locator(pageobject.mycardDrag).nth(0);
+            const target = page.locator(pageobject.newcolumn); // Replace with actual target locator   
+            // Drag and drop action
+            await firstElement.dragTo(target, { force: true });
+        });
+
+        await page.waitForSelector(pageobject.nextoption);
+        await page.click(pageobject.nextoption);
+
+        await customAssert('Save button on view', async () => {
+            await functions.submit();
+            await functions.submit();
+        });
+
+        await customAssert(' TestView name  should be visible', async () => {
+            const names = await page.locator(pageobject.viewName).allInnerTexts();
+            await page.click(pageobject.viewName);
+            await page.waitForTimeout(2000);
+        });
+
+
+    });
+
 });
