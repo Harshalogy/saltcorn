@@ -589,6 +589,7 @@ class PageLocators {
     this.backupTab = 'a.nav-link:has-text("Backup")';
     this.emailTab = 'a.nav-link:has-text("Email")';
     this.systemTab = 'a.nav-link[href="/admin/system"]';
+    this.systemtablink = 'a.nav-link:has-text("System")';
     this.mobileAppLink = 'a.nav-link:has-text("Mobile app")';
     this.viewNavLinkID = '#viewNavLinkID';
     this.androidCheckbox ='.form-check-input[name="androidPlatform"]';
@@ -654,7 +655,42 @@ class PageLocators {
     this.viewSetting = "role=button[name='View settings']";
     this.mypage = "input[data-fieldname='page_title']";
     this.inputdefaultrenderpage = '#inputdefault_render_page';
-    
+    this.createview = 'h5:has-text("Create view")';
+    this.Blog = 'h5:has-text("Blog")';
+    this.installBlog = 'form[action="/packs/install-named/Blog"] button[type="submit"]';
+    this.addPost = 'a[href="/view/EditPost"]';
+    this.frameLocator ='iframe[title="Rich Text Editor, inputexcerpt"]';
+    this.frameLocatorbody = 'iframe[title="Rich Text Editor, inputbody"]';
+    this.inputtitle = '#inputtitle';
+    this.saltcornblog = 'section.page-section div.container h1';
+    this.Addressbook = 'h5:has-text("Address book")';
+    this.installAddressbook = 'form[action="/packs/install-named/Address%20book"] button[type="submit"]';
+    this.contacts = 'td >> a:has-text("Contacts")';
+    this.addperson = 'a:has-text("Add Person")'
+    this.addpersonlabels = 'div.row.w-100 div.col-2.text-left';
+    this.inputpostcode = '#inputpostcode';
+    this.inputaddress ='#inputaddress';
+    this.inputtowncity = '#inputtowncity';
+    this.inputtelephone = '#inputtelephone';
+    this.searchinput= '.search-bar input[type="search"]';
+    this.dropdownmenubutton = '//button[@id="dropdownMenuButton"]';
+    this.dropdownitem = '.dropdown-item';
+    this.createpack = 'span.card-header h5.m-0.fw-bold.text-primary';
+    this.userTable = 'label[for="inputtable.users"]';
+    this.userTableCheckbox ='input[type="checkbox"][name="table.users"][id="inputtable.users"]';
+    this.basePlugin = 'label[for="inputplugin.base"]';
+    this.basePluginCheckbox = 'input[type="checkbox"][name="plugin.base"][id="inputplugin.base"]';
+    this.sbadmin2plugin = 'label[for="inputplugin.sbadmin2"]';
+    this.sbadmin2pluginCheckbox = 'input[type="checkbox"][name="plugin.sbadmin2"][id="inputplugin.sbadmin2"]';
+    this.publicRole = 'label[for="inputrole.public"]';
+    this.publicRoleCheckbox = 'input[type="checkbox"][name="role.public"][id="inputrole.public"]';
+    this.userRole = 'label[for="inputrole.user"]';
+    this.userRoleCheckbox = 'input[type="checkbox"][name="role.user"][id="inputrole.user"]';
+    this.staffRole = 'label[for="inputrole.staff"]';
+    this.staffRoleCheckbox = 'input[type="checkbox"][name="role.staff"][id="inputrole.staff"]';
+    this.includeEventLog = 'label[for="inputwith_event_logs"]';
+    this.in_EventLogCheckbox = 'input[type="checkbox"][name="with_event_logs"][id="inputwith_event_logs"]';
+    this.savebutton = 'button[type="submit"].btn.btn-primary';
   }
 }
 
