@@ -29,11 +29,10 @@ test.describe('E2E Test Suite', () => {
 
     // Navigate to base URL and perform login
     await functions.navigate_To_Base_URL(baseURL, derivedURL);
-    await functions.login('myproject19july@mailinator.com', 'nUYLLoVR2o');
+    await functions.login('myproject19july@mailinator.com', 'myproject19july');
     await functions.submit();
   });
   test.afterAll(async () => {
-    await functions.clear_Data();
     // Close the page and context after all test
     await page.close();
     await context.close();
@@ -46,37 +45,38 @@ test.describe('E2E Test Suite', () => {
     await customAssert('Page URL should be view/EditPerson', async () => {
       expect(page.url()).toBe(baseURL + derivedURL + 'view/EditPerson');
     });
-    await customAssert('Title label should be visible and contain correct text', async () => {
+    await customAssert('Title label contain correct text', async () => {
       await page.locator(pageobject.addpersonlabels, { hasText: 'Title' });
     });
 
-    await customAssert('Name label should be visible and contain correct text', async () => {
+    await customAssert('Name label contain correct text', async () => {
       await page.locator(pageobject.addpersonlabels, { hasText: 'Name' });
     });
 
-    await customAssert('Address label should be visible and contain correct text', async () => {
+    await customAssert('Address label contain correct text', async () => {
       await page.locator(pageobject.addpersonlabels, { hasText: 'Address' });
     });
 
-    await customAssert('Town or City label should be visible and contain correct text', async () => {
+    await customAssert('Town or City label contain correct text', async () => {
       await page.locator(pageobject.addpersonlabels, { hasText: 'Town or city' });
     });
 
-    await customAssert('Postcode label should be visible and contain correct text', async () => {
+    await customAssert('Postcode label contain correct text', async () => {
       await page.locator(pageobject.addpersonlabels, { hasText: 'Postcode' });
     });
 
-    await customAssert('Email label should be visible and contain correct text', async () => {
+    await customAssert('Email label contain correct text', async () => {
       await page.locator(pageobject.addpersonlabels, { hasText: 'Email' }); 
     });
     
-    await customAssert('Telephone label should be visible and contain correct text', async () => {
+    await customAssert('Telephone label contain correct text', async () => {
       await page.locator(pageobject.addpersonlabels, { hasText: 'Telephone' }); 
     });
   });
 
   test('Add person filling text ', async () => {
    // Fill out the form fields
+   await page.waitForTimeout(5000);
   await page.selectOption(pageobject.inputtitle, 'Mr'); // Select Title dropdown
   await page.fill(pageobject.InputName, 'John Doe'); // Name
   await page.fill(pageobject.inputaddress , '123 Main Street'); // Address
@@ -85,7 +85,7 @@ test.describe('E2E Test Suite', () => {
   await page.fill(pageobject.inputemail, 'johndoe@example.com'); // Email
   await page.fill(pageobject.inputtelephone, '1234567890'); // Telephone
   await functions.submit();
-
+  await functions.clear_Data();
   });
 
 });

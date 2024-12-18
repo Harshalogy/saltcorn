@@ -578,7 +578,6 @@ class PageFunctions {
     await systemtablink.click();
   }
    async navi_Setting_Dropdown_Clear(page, pageobject)   {
-    await this.page.click(this.locators.clearAllButton);
      await this.page.click('#inputusers');
      await this.page.waitForSelector(this.locators.submitButton);
      await this.page.click(this.locators.submitButton);
@@ -705,7 +704,7 @@ async  Address_book(){
      await expect(this.page.locator(this.locators.Addressbook)).toBeVisible();
    });
    await this.page.click(this.locators.installAddressbook);
-   await customAssert('Success message for Blog should be visible', async () => {
+   await customAssert('Success message for Address Book should be visible', async () => {
      await this.page.waitForSelector(this.locators.successmessage);
      await expect(this.page.locator(this.locators.successmessage)).toHaveText('success');
    });

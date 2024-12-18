@@ -28,7 +28,7 @@ test.describe('E2E Test Suite', () => {
 
         // Navigate to the base URL and log in
         await functions.navigate_To_Base_URL(baseURL, derivedURL);
-        await functions.login('myproject19july@mailinator.com', 'nUYLLoVR2o');
+        await functions.login('myproject19july@mailinator.com', 'myproject19july');
         await functions.submit(); // Ensure submit is required
         // await functions.clear_Data();
     });
@@ -55,7 +55,7 @@ test.describe('E2E Test Suite', () => {
 
     test('Three Dot', async () => {
         await customAssert('Three Dot should be visible and click', async () => {
-            await page.waitForTimeout(3000);
+            await page.waitForTimeout(5000);
             const dropdownButton = page.locator(pageobject.dropdownmenubutton); // Direct by ID
             await expect(dropdownButton).toBeVisible();
             await dropdownButton.click();
@@ -161,6 +161,5 @@ test.describe('E2E Test Suite', () => {
             await expect(saveButton).toHaveText('Save');
         });
     });
-
 
 });

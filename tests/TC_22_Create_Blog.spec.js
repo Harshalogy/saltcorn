@@ -29,9 +29,8 @@ test.describe('E2E Test Suite', () => {
 
     // Navigate to base URL and perform login
     await functions.navigate_To_Base_URL(baseURL, derivedURL);
-    await functions.login('myproject19july@mailinator.com', 'nUYLLoVR2o');
+    await functions.login('myproject19july@mailinator.com', 'myproject19july');
     await functions.submit();
-    // await functions.clear_Data();
   });
   test.afterAll(async () => {
     // Close the page and context after all test
@@ -44,9 +43,8 @@ test.describe('E2E Test Suite', () => {
         // Click the "Add Post" link
         await page.click(pageobject.addPost);
         await customAssert('Page URL should be view/EditPost', async () => {
-            const expectedUrl = `${baseURL}${derivedURL}view/EditPost`;
-            expect(page.url()).toBe(expectedUrl);
-        });
+          expect(page.url()).toBe(baseURL + derivedURL + 'view/EditPost');
+      });
         // Fill in the "Title" input field with "New Blog"
         await page.fill(pageobject.inputtitle, 'New Blog');
         // Excerpt should be an integer type
@@ -65,10 +63,7 @@ test.describe('E2E Test Suite', () => {
             await expect(page.locator(pageobject.saltcornblog)).toHaveText('Saltcorn blog');
           });       
         // Navigate settings tabs and clear dropdown settings
-        await functions.navigateSettingsTabs(page, pageobject);
-        await functions.navi_Setting_Dropdown_Clear(page, pageobject);
+        await page.goto(baseURL + derivedURL + pageobject.admin_Clear_All);
+          await functions.navi_Setting_Dropdown_Clear();
   });
-
-
-
 });
