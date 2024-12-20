@@ -710,6 +710,21 @@ async  Address_book(){
    });
 }
 
+async  Saltcorn_Store(){
+  await this.navigate_To_Settings();
+  // Navigate to Module
+  await this.navigate_To_module();
+ // Step 2: Install Address book Module
+ await this.fill_Text(this.locators.SearchModule, 'Saltcorn store');
+ await customAssert('Saltcorn store module should be visible', async () => {
+   await expect(this.page.locator(this.locators.SaltcornStore)).toBeVisible();
+ });
+ await this.page.click(this.locators.installSaltcornStore);
+ await customAssert('Success message for Saltcorn store should be visible', async () => {
+   await this.page.waitForSelector(this.locators.successmessage);
+   await expect(this.page.locator(this.locators.successmessage)).toHaveText('success');
+ });
+}
 }
 
 module.exports = PageFunctions;

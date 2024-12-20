@@ -691,8 +691,41 @@ class PageLocators {
     this.includeEventLog = 'label[for="inputwith_event_logs"]';
     this.in_EventLogCheckbox = 'input[type="checkbox"][name="with_event_logs"][id="inputwith_event_logs"]';
     this.savebutton = 'button[type="submit"].btn.btn-primary';
-   
-   
+    this.installpack = baseURL+'/packs/install';
+    this.sourceInput = 'select#inputsource';
+    this.labelInputSource = 'label[for="inputsource"]';
+    this.inputPack = 'label[for="inputpack"]';
+    this.installButtonPack = 'button.btn.btn-primary';
+    this.installmodule = baseURL+ '/plugins/new';
+    this.inputName = 'label[for="inputname"]';
+    this.inputLocation = 'label[for="inputlocation"]';
+    this.input_inputlocation = 'input#inputlocation';
+    this.createButton = 'div.col-sm-10 > button.btn.btn-primary';
+    this.SaltcornStore = 'h5:has-text("Saltcorn store")';
+    this.installSaltcornStore = 'form[action="/packs/install-named/Saltcorn%20store"] button[type="submit"]';
+    this.packlink = 'ul.navbar-nav > li.nav-item:nth-of-type(1) a.nav-link';
+    this.pluginslink = 'ul.navbar-nav > li.nav-item:nth-of-type(2) a.nav-link';
+    this.extensions = 'table.table-sm a';
+    this.tableField = 'span.card-header >> text=Fields';
+    this.descriptionLabel = 'tr:has(td):first-child td';
+    this.stringType = 'table tbody tr td';
+    this.inputType = "#inputtype";
+    this.addPackLink = 'a[href="/view/EditPack"]';
+    this.selectId = 'select.field.form-control.form-select';
+    this.idLink = 'span.link-style[onclick*="sortby(\'id\'"]';
+    this.selectDownload = 'span.link-style[onclick*="sortby(\'downloads\'"]';
+    this.input_inputname = 'input#inputname';
+    this.textarea_inputpack = 'textarea#inputpack';
+    this.input_inputdescription = 'input#inputdescription';
+    this.input_desclabel = 'label[for="inputdescription"]';
+    this.nameCell = 'table.table-sm tbody tr td';
+    this.addExtensionlink = 'a[href="/view/editexts"]';
+    this.firstCell_Elem = 'td:nth-of-type(1)';
+    this.secondCell_Elem = 'td:nth-of-type(2)';
+    this.thirdCell_Elem = 'td:nth-of-type(3)';
+    this.fourthCell_Elem = 'td:nth-of-type(4) a';
+    this.fivthCell_Elem = 'td:nth-of-type(5)';
+    this.inputOptionCheck = '#inputtable_name option:checked';
   }
 }
 

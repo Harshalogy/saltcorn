@@ -162,4 +162,47 @@ test.describe('E2E Test Suite', () => {
         });
     });
 
+    test('Add another pack', async () => {
+        await page.goto(pageobject.installpack);
+        await customAssert('Page URL should be packs/install', async () => {
+            expect(page.url()).toBe(baseURL + derivedURL + 'packs/install');
+        });
+
+        await customAssert('Source should be visible', async () => {
+            await expect(page.locator(pageobject.sourceInput)).toBeVisible();
+            await expect(page.locator(pageobject.labelInputSource)).toHaveText('Source');
+            await expect(page.locator(pageobject.sourceInput)).toHaveValue('from_text');
+        });
+        await customAssert('Pack should be visible', async () => {
+            await expect(page.locator(pageobject.inputPack)).toHaveText('Pack');
+        });
+        await customAssert('Install should be visible', async () => {
+            await expect(page.locator(pageobject.installButtonPack)).toHaveText('Install');
+        });
+    });
+
+    test('install module', async () => {
+        await page.goto(pageobject.installmodule);
+        await customAssert('Page URL should be packs/install', async () => {
+            expect(page.url()).toBe(baseURL + derivedURL + 'plugins/new');
+        });
+        await customAssert('Name should be visible', async () => {
+            await expect(page.locator(pageobject.inputName)).toBeVisible();
+            await expect(page.locator(pageobject.inputName)).toHaveText('Name');
+        });
+        await customAssert('Source should be visible', async () => {
+            await expect(page.locator(pageobject.labelInputSource)).toBeVisible();
+            await expect(page.locator(pageobject.labelInputSource)).toHaveText('Source');
+        });
+        await customAssert('Location should be visible', async () => {
+            await expect(page.locator(pageobject.inputLocation)).toBeVisible();
+            await expect(page.locator(pageobject.inputLocation)).toHaveText('Location');
+        });
+        await customAssert('Create should be visible', async () => {
+            const createButton = page.locator(pageobject.createButton);
+            await expect(createButton).toBeVisible();
+            await expect(createButton).toHaveText('Create');
+        });
+    });
+
 });
