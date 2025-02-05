@@ -653,6 +653,13 @@ class PageLocators {
     this.ClickToEditCheckBox = 'input[type="checkbox"][name="inline"]'
     this.editedUserName = 'table tbody td div input'
     this.submitEditedName = 'button[type="submit"].btn.btn-sm.btn-primary'
+    this.viewSetting = "role=button[name='View settings']";
+    this.inputdefaultrenderpage = '#inputdefault_render_page';
+    this.mycardDrag = 'div.toolbar-row > div.d-inline-flex.wrap-builder-elem[draggable="true"]';
+    this.mypage = "input[data-fieldname='page_title']";
+    this.viewName = 'table.table >> tbody >> tr >> td:nth-child(1) >> a';
+    this.createview = 'h5:has-text("Create view")';
+
 
   }
 }
