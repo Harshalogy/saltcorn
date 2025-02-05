@@ -160,7 +160,7 @@ class PageLocators {
     this.containercontentsetting = '//div[contains(text(), "Contents")]';
     this.containerflexsetting = '//div[contains(text(), "Flex properties")]';
     this.containercontentlink = '//div[contains(text(), "Container link")]';
-    this.containercustomclass = '//div[contains(text(), "Custom class/CSS")]';
+    this.containercustomclass = '//div[contains(text(), "Class, ID and CSS")]';
     this.SearchLocator = 'div[title="Search bar"]';  
     this.SearchModule = 'input.form-control.search-bar';
     this.searchicon = 'i.fas.fa-search';
@@ -589,7 +589,6 @@ class PageLocators {
     this.backupTab = 'a.nav-link:has-text("Backup")';
     this.emailTab = 'a.nav-link:has-text("Email")';
     this.systemTab = 'a.nav-link[href="/admin/system"]';
-    this.systemtablink = 'a.nav-link:has-text("System")';
     this.mobileAppLink = 'a.nav-link:has-text("Mobile app")';
     this.viewNavLinkID = '#viewNavLinkID';
     this.androidCheckbox ='.form-check-input[name="androidPlatform"]';
@@ -650,82 +649,11 @@ class PageLocators {
     this.dragElement1 = 'div.d-inline-flex.wrap-builder-elem >> div.inner > i.fas.fa-address-card';
     this.testPage4 = 'li.breadcrumb-item.fw-bold[aria-current="page"] a';
     this.pageNameSave3 = 'table.table >> tbody >> tr >> td:nth-child(3) >> a';
-    this.viewName = 'table.table >> tbody >> tr >> td:nth-child(1) >> a';
-    this.mycardDrag = 'div.toolbar-row > div.d-inline-flex.wrap-builder-elem[draggable="true"]';
-    this.viewSetting = "role=button[name='View settings']";
-    this.mypage = "input[data-fieldname='page_title']";
-    this.inputdefaultrenderpage = '#inputdefault_render_page';
-    this.createview = 'h5:has-text("Create view")';
-    this.Blog = 'h5:has-text("Blog")';
-    this.installBlog = 'form[action="/packs/install-named/Blog"] button[type="submit"]';
-    this.addPost = 'a[href="/view/EditPost"]';
-    this.frameLocator ='iframe[title="Rich Text Editor, inputexcerpt"]';
-    this.frameLocatorbody = 'iframe[title="Rich Text Editor, inputbody"]';
-    this.inputtitle = '#inputtitle';
-    this.saltcornblog = 'section.page-section div.container h1';
-    this.Addressbook = 'h5:has-text("Address book")';
-    this.installAddressbook = 'form[action="/packs/install-named/Address%20book"] button[type="submit"]';
-    this.contacts = 'td >> a:has-text("Contacts")';
-    this.addperson = 'a:has-text("Add Person")'
-    this.addpersonlabels = 'div.row.w-100 div.col-2.text-left';
-    this.inputpostcode = '#inputpostcode';
-    this.inputaddress ='#inputaddress';
-    this.inputtowncity = '#inputtowncity';
-    this.inputtelephone = '#inputtelephone';
-    this.searchinput= '.search-bar input[type="search"]';
-    this.dropdownmenubutton = '#dropdownMenuButton';
-    this.dropdownitem = '.dropdown-item';
-    this.createpack = 'span.card-header h5.m-0.fw-bold.text-primary';
-    this.userTable = 'label[for="inputtable.users"]';
-    this.userTableCheckbox ='input[type="checkbox"][name="table.users"][id="inputtable.users"]';
-    this.basePlugin = 'label[for="inputplugin.base"]';
-    this.basePluginCheckbox = 'input[type="checkbox"][name="plugin.base"][id="inputplugin.base"]';
-    this.sbadmin2plugin = 'label[for="inputplugin.sbadmin2"]';
-    this.sbadmin2pluginCheckbox = 'input[type="checkbox"][name="plugin.sbadmin2"][id="inputplugin.sbadmin2"]';
-    this.publicRole = 'label[for="inputrole.public"]';
-    this.publicRoleCheckbox = 'input[type="checkbox"][name="role.public"][id="inputrole.public"]';
-    this.userRole = 'label[for="inputrole.user"]';
-    this.userRoleCheckbox = 'input[type="checkbox"][name="role.user"][id="inputrole.user"]';
-    this.staffRole = 'label[for="inputrole.staff"]';
-    this.staffRoleCheckbox = 'input[type="checkbox"][name="role.staff"][id="inputrole.staff"]';
-    this.includeEventLog = 'label[for="inputwith_event_logs"]';
-    this.in_EventLogCheckbox = 'input[type="checkbox"][name="with_event_logs"][id="inputwith_event_logs"]';
-    this.savebutton = 'button[type="submit"].btn.btn-primary';
-    this.installpack = baseURL+'/packs/install';
-    this.sourceInput = 'select#inputsource';
-    this.labelInputSource = 'label[for="inputsource"]';
-    this.inputPack = 'label[for="inputpack"]';
-    this.installButtonPack = 'button.btn.btn-primary';
-    this.installmodule = baseURL+ '/plugins/new';
-    this.inputName = 'label[for="inputname"]';
-    this.inputLocation = 'label[for="inputlocation"]';
-    this.input_inputlocation = 'input#inputlocation';
-    this.createButton = 'div.col-sm-10 > button.btn.btn-primary';
-    this.SaltcornStore = 'h5:has-text("Saltcorn store")';
-    this.installSaltcornStore = 'form[action="/packs/install-named/Saltcorn%20store"] button[type="submit"]';
-    this.packlink = 'ul.navbar-nav > li.nav-item:nth-of-type(1) a.nav-link';
-    this.pluginslink = 'ul.navbar-nav > li.nav-item:nth-of-type(2) a.nav-link';
-    this.extensions = 'table.table-sm a';
-    this.tableField = 'span.card-header >> text=Fields';
-    this.descriptionLabel = 'tr:has(td):first-child td';
-    this.stringType = 'table tbody tr td';
-    this.inputType = "#inputtype";
-    this.addPackLink = 'a[href="/view/EditPack"]';
-    this.selectId = 'select.field.form-control.form-select';
-    this.idLink = 'span.link-style[onclick*="sortby(\'id\'"]';
-    this.selectDownload = 'span.link-style[onclick*="sortby(\'downloads\'"]';
-    this.input_inputname = 'input#inputname';
-    this.textarea_inputpack = 'textarea#inputpack';
-    this.input_inputdescription = 'input#inputdescription';
-    this.input_desclabel = 'label[for="inputdescription"]';
-    this.nameCell = 'table.table-sm tbody tr td';
-    this.addExtensionlink = 'a[href="/view/editexts"]';
-    this.firstCell_Elem = 'td:nth-of-type(1)';
-    this.secondCell_Elem = 'td:nth-of-type(2)';
-    this.thirdCell_Elem = 'td:nth-of-type(3)';
-    this.fourthCell_Elem = 'td:nth-of-type(4) a';
-    this.fivthCell_Elem = 'td:nth-of-type(5)';
-    this.inputOptionCheck = '#inputtable_name option:checked';
+    this.actionButton = 'button.btn.btn-primary.selected-node';
+    this.ClickToEditCheckBox = 'input[type="checkbox"][name="inline"]'
+    this.editedUserName = 'table tbody td div input'
+    this.submitEditedName = 'button[type="submit"].btn.btn-sm.btn-primary'
+
   }
 }
 
