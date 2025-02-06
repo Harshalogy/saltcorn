@@ -55,8 +55,6 @@ test.describe('E2E Test Suite', () => {
       // click on create new view
       await page.click(pageobject.createnewview);
     });
-
-
     // assert the view url
     await customAssert('page url should be /viewedit/new  ', async () => {
       expect(page.url()).toBe(baseURL + derivedURL + 'viewedit/new');
@@ -83,7 +81,7 @@ test.describe('E2E Test Suite', () => {
     });
     // submit the page
     await functions.submit();
-    await page.locator(`text=myproject19july@mailinator.com`).nth(0).click(); 
+    await page.locator(`text=myproject19july@mailinator.com`).nth(0).click();
     await customAssert('Click on the checkbox to edit', async () => {
       const checkboxLocator = page.locator(pageobject.ClickToEditCheckBox);
       await expect(checkboxLocator).toBeVisible();  // Assert checkbox is visible
@@ -94,48 +92,77 @@ test.describe('E2E Test Suite', () => {
       await page.locator(pageobject.nextoption).click();
       await page.locator(pageobject.nextoption).click();
     });
-    
+
     await functions.submit();
-    
+
     await functions.views();
-    
+
     await page.waitForSelector(pageobject.newviewlink);
     await page.click(pageobject.newviewlink);
-    
+
     await customAssert('Click on the email to edit', async () => {
       const emailEditLocator = page.locator('table tbody td div:has-text("myproject19july@mailinator.com")');
       await emailEditLocator.click();
     });
-    
+
+    await customAssert('Click on the email to edit and check edit icon visibility', async () => {
+      const emailEditLocator = page.locator('table tbody td div:has-text("myproject19july@mailinator.com")');
+      await emailEditLocator.hover(); // Hover over the email to make the edit icon appear
+      const editIconLocator = emailEditLocator.locator('.editicon');
+
+      // Assertion to check if edit icon is visible
+      await expect(editIconLocator).toBeVisible();
+      await emailEditLocator.click(); // Click to edit after verifying visibility
+    });
+
+    await customAssert('Click on the edit icon and verify OK and Cancel button visibility', async () => {
+
+      // Locators for OK and Cancel buttons
+      const okButtonLocator = page.locator('button.btn.btn-sm.btn-primary'); // OK button
+      const cancelButtonLocator = page.locator('button.btn.btn-sm.btn-danger'); // Cancel button
+
+      // Assertions to verify both buttons are visible
+      await expect(okButtonLocator).toBeVisible();
+      await expect(cancelButtonLocator).toBeVisible();
+    });
+
+
+    // Generate a random email
+    const randomEmail = `updated${Math.floor(Math.random() * 10000)}@mailinator.com`;
+
     await customAssert('Ensure the username field is editable and fill it with new value', async () => {
       const usernameFieldLocator = page.locator(pageobject.editedUserName);
-      await usernameFieldLocator.fill('updated2email@mailinator.com');
+      await usernameFieldLocator.fill(randomEmail); // Use the random email
     });
-    
+
     await customAssert('Click on submit button after editing the name', async () => {
       const submitButtonLocator = page.locator(pageobject.submitEditedName);
       await submitButtonLocator.click();
     });
-    
+
     await page.reload();
-    
     await page.reload({ waitUntil: 'networkidle' });
-    
+
     await customAssert('Verify the updated email is visible in the table', async () => {
-      const updatedEmailLocator = page.locator('table tbody td div:has-text("updated2email@mailinator.com")');
+      const updatedEmailLocator = page.locator(`table tbody td div:has-text("${randomEmail}")`);
       await updatedEmailLocator.click();
     });
-    
+
+
     await customAssert('Ensure the username field is editable again and reset it', async () => {
       const usernameFieldLocator = page.locator(pageobject.editedUserName);
-      await page.waitForSelector(pageobject.editedUserName)
-      await usernameFieldLocator.fill('myproject19july@mailinator.com');
+      await page.waitForSelector(pageobject.editedUserName);
+
+      // Clear the input field
+      await usernameFieldLocator.fill(''); // This ensures the field is empty
+      await usernameFieldLocator.fill('myproject19july@mailinator.com'); // Fill with new email
     });
-    
+
     await customAssert('Click on submit button to save the reset email', async () => {
       const submitButtonLocator = page.locator(pageobject.submitEditedName);
       await expect(submitButtonLocator).toBeEnabled();  // Assert submit button is enabled
       await submitButtonLocator.click();
     });
+    await functions.clear_Data();
   });
 });
