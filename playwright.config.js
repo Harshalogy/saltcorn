@@ -24,6 +24,7 @@ module.exports = defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+  timeout:60000,
   use: {
     //headless: false, // or true if you want to run in headless mode
     

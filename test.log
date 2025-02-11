@@ -1,0 +1,15 @@
+INFO: Assertion passed: page url should be /viewedit  
+INFO: Assertion passed: Create new view button should be visible and working
+INFO: Assertion passed: page url should be /viewedit/new  
+INFO: Assertion passed: View Pattern should be list
+INFO: Assertion passed: Table Name should be same as we created earlier
+INFO: Assertion passed: Click on the checkbox to edit
+INFO: Assertion passed: Click the next option twice
+INFO: Assertion passed: Click on the email to edit
+INFO: Assertion passed: Click on the email to edit and check edit icon visibility
+INFO: Assertion passed: Click on the edit icon and verify OK and Cancel button visibility
+INFO: Assertion passed: Ensure the username field is editable and fill it with new value
+INFO: Assertion passed: Click on submit button after editing the name
+INFO: Assertion passed: Verify the updated email is visible in the table
+INFO: Assertion passed: Ensure the username field is editable again and reset it
+INFO: Assertion passed: Click on submit button to save the reset email
