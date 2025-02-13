@@ -154,7 +154,7 @@ class PageLocators {
     this.showfieldlink = '(//a[text()="Show"])[1]';
     this.listshowlink = '(//a[text()="ListShow"])[1]';
     this.ActionLabel = 'input[type="text"].form-control';
-    this.ActionHoverTitle = 'input.form-control:not([type])';
+    this.ActionHoverTitle = 'input.linkoractiontitle';
     this.containsdraglocator= 'div[title="Container"]';
     this.containerdisplaysetting = '//div[contains(text(), "Display")]';
     this.containercontentsetting = '//div[contains(text(), "Contents")]';
@@ -549,7 +549,7 @@ class PageLocators {
     this.textInputLabel = 'input.viewlink-label.form-control[type="text"]';
     this.popupcheckbox = 'input.form-check-input[type="checkbox"][name="block"]';
     this.showTeamLink = 'a[href*="Show_Team?id=1"]';
-    this.showTeamspan = 'span.btn.btn-secondary.btn-sm.is-builder-link:has-text("Show team")';
+    this.showTeamspan = 'span.is-builder-link:has-text("Show team")';
     this.IDDivLocator = 'div.col-2.text-end:has-text("ID")';
     this.view2tasklist = 'text=TaskList [List] Task';
     this.listOfAssignedTasks = 'a:has-text("List of assigned tasks")';
