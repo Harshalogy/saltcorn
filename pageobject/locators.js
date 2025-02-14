@@ -659,6 +659,15 @@ class PageLocators {
     this.mypage = "input[data-fieldname='page_title']";
     this.viewName = 'table.table >> tbody >> tr >> td:nth-child(1) >> a';
     this.createview = 'h5:has-text("Create view")';
+    this.addstep = 'a.btn.btn-secondary';
+    this.ctxvalues='#inputctx_values';
+    this.newstep= '.nodeLabel .fa-plus';
+    this.actionname='label[for="inputwf_action_name"]';
+    this.selectactionname='select#inputwf_action_name';
+    this.userformlabel='input[data-fieldname="label"]';
+    this.userformvarname='input[data-fieldname="var_name"]';
+    this.userformqtype='select[data-fieldname="qtype"]';
+
 
 
   }

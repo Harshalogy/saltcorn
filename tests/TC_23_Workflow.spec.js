@@ -140,20 +140,20 @@ test.describe('E2E Test Suite', () => {
 
         //Configure workflow Click the "Add step" button
         await customAssert('click add new step', async () => {
-            await page.click('a.btn.btn-secondary');
+            await page.click(pageobject.addstep);
         });
         await customAssert('step edit url', async () => {
             const currentURL = page.url();
             expect(currentURL).toMatch(new RegExp(`${baseURL}${derivedURL}actions/stepedit/\\d+\\?initial_step=true`));
         });
         await customAssert('fill CTX value', async () => {
-            await page.locator('#inputctx_values').fill("{x:1}");
+            await page.locator(pageobject.ctxvalues).fill("{x:1}");
         });
         await functions.submit();
 
         await customAssert('Add next step 2', async () => {
-            const addButton = page.locator('.nodeLabel .fa-plus');
-            await addButton.waitFor({ state: 'visible' });
+            await page.waitForLoadState('networkidle');
+            const addButton = page.locator(pageobject.newstep);
             await addButton.click();
         });
 
@@ -193,17 +193,20 @@ test.describe('E2E Test Suite', () => {
         await functions.submit();
 
         await customAssert('Add next step 3', async () => {
+            await page.waitForTimeout(2000);
+            await page.waitForSelector('.edgeLabel .label .edgeLabel .add-btw-nodes');
             const addButton = page.locator('.edgeLabel .label .edgeLabel .add-btw-nodes').nth(1);
             await addButton.waitFor({ state: 'visible' });
             await addButton.click();
         });
 
-        const plusIcon = page.locator('i.fas.fa-plus.with-link');
-        await plusIcon.click();
+        // const plusIcon = page.locator('i.fas.fa-plus.with-link');
+        // await plusIcon.click();
 
-        // await functions.submit();
+         await functions.submit();
 
         await customAssert('Add next step 4', async () => {
+            await page.waitForLoadState('networkidle');
             const addButton = page.locator('.nodeLabel .fa-plus');
             await addButton.waitFor({ state: 'visible' });
             await addButton.click();
@@ -242,10 +245,10 @@ test.describe('E2E Test Suite', () => {
         });
         await functions.submit();
 
-        await page.waitForSelector('a[href^="/actions/testrun/"]', { state: 'visible' });
+        await page.waitForLoadState('networkidle');
         await page.click('a[href^="/actions/testrun/"]');
 
-
+        await page.waitForLoadState('networkidle');
         await page.click('label[for="inputname"]');
         await page.fill('#inputname', 'John Doe');
 
@@ -255,11 +258,14 @@ test.describe('E2E Test Suite', () => {
 
 
         await customAssert('Verify modal header text', async () => {
+            await page.waitForTimeout(2000);
+            await page.waitForLoadState('networkidle');
             const headerText = await page.locator('.modal-header .modal-title').textContent();
+            await page.waitForSelector('.modal-header .modal-title');
             expect(headerText.trim()).toBe('Workflow output');
         });
 
-        await functions.submit();
+        await page.click('.btn.btn-primary');
         
 
 
