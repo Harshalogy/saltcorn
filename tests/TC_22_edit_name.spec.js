@@ -41,7 +41,7 @@ test.describe('E2E Test Suite', () => {
   });
 
   // create view with list view pattern
-  test('create view with list view pattern', async () => {
+  test.only('create view with list view pattern', async () => {
     await functions.clear_Data();
     await functions.views();
     // assert the view edit url
@@ -85,10 +85,8 @@ test.describe('E2E Test Suite', () => {
     await functions.submit();
     await page.waitForTimeout(5000); // Wait for 5 seconds
 
-    await page.locator('text=myproject19july@mailinator.com', { hasNotClass: 'd-none', hasText: "myproject19july@mailinator.com" }).click();
-
-
-    //await page.locator(`text=myproject19july@mailinator.com`).click();
+    await page.locator('div.d-inline:has-text("@mailinator.com")').click();
+   //await page.locator(`text=myproject19july@mailinator.com`).click();
     await customAssert('Click on the checkbox to edit', async () => {
       const checkboxLocator = page.locator(pageobject.ClickToEditCheckBox);
       await expect(checkboxLocator).toBeVisible();  // Assert checkbox is visible
