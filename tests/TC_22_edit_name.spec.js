@@ -41,7 +41,7 @@ test.describe('E2E Test Suite', () => {
   });
 
   // create view with list view pattern
-  test.only('create view with list view pattern', async () => {
+  test('create view with list view pattern', async () => {
     await functions.clear_Data();
     await functions.views();
     // assert the view edit url
