@@ -86,7 +86,6 @@ test.describe('E2E Test Suite', () => {
     await page.waitForTimeout(5000); // Wait for 5 seconds
 
     await page.locator('div.d-inline:has-text("@mailinator.com")').click();
-   //await page.locator(`text=myproject19july@mailinator.com`).click();
     await customAssert('Click on the checkbox to edit', async () => {
       const checkboxLocator = page.locator(pageobject.ClickToEditCheckBox);
       await expect(checkboxLocator).toBeVisible();  // Assert checkbox is visible
@@ -105,28 +104,25 @@ test.describe('E2E Test Suite', () => {
     await page.waitForSelector(pageobject.newviewlink);
     await page.click(pageobject.newviewlink);
 
-    await customAssert('Click on the email to edit', async () => {
-      const emailEditLocator = page.locator('td div[data-inline-edit-fielddata*="email"]');
-
-     // const emailEditLocator = page.locator('table tbody td div:has-text("myproject19july@mailinator.com")');
-      await emailEditLocator.click();
+ 
+      await customAssert('Click on the email to edit', async () => {
+        const emailEditLocator = page.locator('td div[data-inline-edit-fielddata*="email"]');
+      
+        // Hover over the email to make the edit icon appear
+        await emailEditLocator.hover(); 
+        await page.waitForTimeout(4000)
+        
+        const editIconLocator = emailEditLocator.locator('.editicon');
+  
+        // Assertion to check if edit icon is visible
+        await expect(editIconLocator).toBeVisible();
+        // Click to edit after verifying visibility
+        await emailEditLocator.click(); 
+  
 
     });
 
-    await customAssert('Click on the email to edit and check edit icon visibility', async () => {
-      const emailEditLocator = page.locator('td div[data-inline-edit-fielddata*="email"]');
-
-     // const emailEditLocator = page.locator('table tbody td div:has-text("myproject19july@mailinator.com")');
-     console.log("Focusing on the email edit field...");
-     await emailEditLocator.focus();
-     console.log("Focus applied successfully!"); // Hover over the email to make the edit icon appear
-      const editIconLocator = emailEditLocator.locator('.editicon');
-
-
-      // Assertion to check if edit icon is visible
-      await expect(editIconLocator).toBeVisible();
-      await emailEditLocator.click(); // Click to edit after verifying visibility
-    });
+   
 
     await customAssert('Click on the edit icon and verify OK and Cancel button visibility', async () => {
 
