@@ -667,9 +667,33 @@ class PageLocators {
     this.userformlabel='input[data-fieldname="label"]';
     this.userformvarname='input[data-fieldname="var_name"]';
     this.userformqtype='select[data-fieldname="qtype"]';
+    this.ViewActionLabel ='label[for="inputaction"]';
+    this.ViewSelectinput= 'select#inputaction';
+    this.NodesBetweenClass='.edgeLabel .label .edgeLabel .add-btw-nodes';
 
+    this.InputOutput = '#inputoutput_text';
+    this.inputmarkdown = '#inputmarkdown';
+    this.hrefTestrun = 'a[href^="/actions/testrun/"]';
+    this.inputnameLable = 'label[for="inputname"]';
+    this.buttonPrimary = 'button.btn.btn-primary';
+    this.btnButtonPrimary = '.btn.btn-primary';
+    this.modalHeader = '.modal-header .modal-title';
+    this.inputPrevRuns = '#inputprev_runs';
+    this.tableSMTD = 'table.table-sm td';
 
-
+    this.msg_relation = 'msg_relation';
+    this.file_link = 'text="[Link file]"';
+    this.FileEditlink = 'a[href="/view/Add_File"]';
+    this.file1img = 'img[src="/files/resize/50/0/File1.png"]';
+    this.inputdisc = '#inputdiscription';
+    this.configureAddFile = 'a[href="/viewedit/config/Add_File"]';
+    this.thirdrowcolumn = '.builder-columns.row:nth-of-type(3) .split-col:nth-of-type(2) .canvas';
+    this.show_if_button = 'text="Show if..."';
+    this.formulatxtbox = '#saltcorn-builder > div.row > div.col-sm-auto.builder-sidebar > div > div.settings-panel.card.mt-1 > div.card-body.p-2 > table > tbody > tr:nth-child(2) > td > input';
+    this.maxInputLocator = 'input[type="number"]#inputmax';
+    this.containerfield = 'div.kontainer.canvas.text-left.false.selected-node';
+    this.Ageclclink = 'a[href="/view/Age_clc"]';
+    this.inputage = '#inputage';
   }
 }
 
