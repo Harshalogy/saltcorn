@@ -152,11 +152,10 @@ test.describe('E2E Test Suite', () => {
         await functions.views();
         await page.click(pageobject.FileEditlink);
 
-        //await page.locator('#inputfile').click();
         // Wait for the file input element to be available
         const fileInput = await page.waitForSelector('input[type="file"]');
         // Set the file input to the desired file
-        const filePath = 'Csv_file_to_uplaod/File1.png'; // Replace with the correct path to your png file
+        const filePath = 'Csv_file_to_uplaod/file1.png'; // Replace with the correct path to your png file
         await fileInput.setInputFiles(filePath);
         // Click on create button
         await functions.submit();
@@ -212,8 +211,6 @@ test.describe('E2E Test Suite', () => {
         await functions.submit();
         await page.waitForTimeout(4000);
 
-        // await page.click(pageobject.configureAddFile);
-
         await functions.drag_And_Drop(pageobject.containsdraglocator, pageobject.target);
         await page.click(pageobject.show_if_button);
         await functions.fill_Text(pageobject.formulatxtbox, 'age > 17');
@@ -231,8 +228,9 @@ test.describe('E2E Test Suite', () => {
         await page.click(pageobject.Ageclclink);
         await functions.fill_Text(pageobject.inputage, '45');
         await functions.submit();
-        await page.waitForSelector('text="You are Eligible for voting"', { state: 'visible', timeout: 500 });
-        await expect(page.locator('text="You are Eligible for voting"')).toBeVisible();
+        // await page.waitForSelector(pageobject.containText, { state: 'attached', timeout: 500 });
+        await page.goBack();
+        await expect(page.locator(pageobject.containText)).toBeVisible();
     });
 
 }); 
