@@ -694,6 +694,10 @@ class PageLocators {
     this.inputage = '#inputage';
     this.roomcell = '.tabulator .tabulator-cell[tabulator-field="room_name"]';
     this.containText = 'div.col-10.text-start > div:has-text("You are Eligible for voting")'
+    this.configureAddmsg = 'a[href="/viewedit/config/Message_Add"]';
+    this.Msglist = 'a[href="/view/Message_List"]';
+    this.AddMsg = 'a[href="/view/Message_Add"]';
+    this.inputcontent = '#inputcontent';
   }
 }
 
