@@ -698,6 +698,7 @@ class PageLocators {
     this.Msglist = 'a[href="/view/Message_List"]';
     this.AddMsg = 'a[href="/view/Message_Add"]';
     this.inputcontent = '#inputcontent';
+    this.fourthrowcolumn = '.builder-columns.row:nth-of-type(4) .split-col:nth-of-type(2) .canvas';
   }
 }
 

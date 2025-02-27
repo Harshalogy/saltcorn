@@ -155,6 +155,8 @@ test.describe('E2E Test Suite', () => {
         });
         // Select key to user as foreign key for sender
         await page.selectOption('#inputtype', { label: 'Key to users' });
+        // Check require tag
+        await page.check(pageobject.RequiredcheckboxLocator);
         // Click on next button
         await functions.submit();
         // Select UserID on summary field
@@ -166,6 +168,7 @@ test.describe('E2E Test Suite', () => {
             await page.selectOption(pageobject.onDeleteSelect, { label: 'Fail' });
         });
         // click on submit
+        await functions.submit();
         await functions.submit();
 
         // click on add field button
@@ -279,6 +282,16 @@ test.describe('E2E Test Suite', () => {
         // submit the page
         await functions.submit();
         await page.waitForTimeout(2000);
+
+        await functions.drag_And_Drop(pageobject.fieldsource, pageobject.fourthrowcolumn);
+        await customAssert('field dropdown should be visible', async () => {
+            await page.waitForSelector(pageobject.fielddropdown);
+            await expect(page.locator(pageobject.fielddropdown)).toBeVisible();
+            await page.click(pageobject.fielddropdown);
+            // Select 'Date of birth' from the dropdown
+            await page.selectOption('select.form-control.form-select', 'Sender');
+          });
+
         // click on next button
         await page.waitForSelector(pageobject.nextoption);
         await page.click(pageobject.nextoption);
@@ -394,7 +407,7 @@ test.describe('E2E Test Suite', () => {
         // click on next button
         await page.waitForSelector(pageobject.nextoption);
         await page.click(pageobject.nextoption);
-        await page.click(pageobject.nextoption);
+        //await page.click(pageobject.nextoption);
         
         // Select room view for destination after message add
         await page.selectOption(pageobject.destinationview, { label: 'Room.room' });
