@@ -97,7 +97,7 @@ test.describe('E2E Test Suite', () => {
         await customAssert('field view dropdown should be visible', async () => {
             await page.waitForSelector(pageobject.fieldViewdropdown);
             await expect(page.locator(pageobject.fieldViewdropdown)).toBeVisible();
-            // Select 'showDay' from the dropdown
+            // Select 'Thumbnail' from the dropdown
             await page.selectOption(pageobject.fieldViewdropdown, { label: 'Thumbnail' }); // If using a select dropdown
         });
 

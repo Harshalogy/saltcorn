@@ -699,6 +699,32 @@ class PageLocators {
     this.AddMsg = 'a[href="/view/Message_Add"]';
     this.inputcontent = '#inputcontent';
     this.fourthrowcolumn = '.builder-columns.row:nth-of-type(4) .split-col:nth-of-type(2) .canvas';
+
+    this.MoneyHeader = 'h5:has-text("money")';
+    this.installmoney = 'form[action="/plugins/install/money"] button:has-text("Install")';
+    this.Subs_Plantable = 'a:has-text("Subscription_Plan")';
+    this.inputcurrency = '#inputcurrency';
+    this.inputfilestype = '#inputfiles_accept_filter'
+    this.inputfeatures = '#inputfeatures';
+    this.view2editplan = 'text=Edit_Plan [Edit] Subscription_Plan';
+    this.configureEditPlan = 'a[href="/viewedit/config/Edit_Plan"]';
+    this.PlanListlink = 'a[href="/view/Plan_List"]';
+    this.addplanlink = 'a[href="/view/Edit_Plan"]';
+    this.inputplan_name = '#inputplan_name';
+    this.inputprice = '#inputprice';
+    this.inputcta_link = '#inputcta_link';
+    this.CenterButtonalign = 'button.field-hAlign.btn.btn-sm.btn-outline-secondary[title="Center"]';
+    this.widthInput = 'div.builder-config-field[data-field-name="width"] input.field-width';
+    this.heightInput = 'div.builder-config-field[data-field-name="height"] input.field-height';
+    this.ImageLocator = 'img[src="/files/resize/50/0/basic.png"]:nth-of-type(2)';
+    this.h1Button = 'button.btn.btn-sm.btn-outline-secondary.style-h1[title="Heading 1"]';
+    this.h2Button = 'button.btn.btn-sm.btn-outline-secondary.style-h2[title="Heading 2"]';
+    this.linkTitleInput = 'div.builder-config-field[data-field-name="link_title"] input.field-link_title';
+    this.column1 = '.builder-columns.row:nth-of-type(1) .split-col:nth-of-type(1) .canvas';
+    this.column2 = '(//div[contains(@class, "split-col")])[2]';
+    this.column3 = '(//div[contains(@class, "split-col")])[3]';
+    this.column4 = '(//div[contains(@class, "split-col")])[4]';
+    this.column5 = '(//div[contains(@class, "split-col")])[5]';
   }
 }
 
