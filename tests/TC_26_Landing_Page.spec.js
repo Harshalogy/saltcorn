@@ -22,7 +22,7 @@ test.describe('E2E Test Suite', () => {
     page = await context.newPage();
 
     // Maximize the screen
-    await page.setViewportSize({ width: 1350, height: 720 });
+    await page.setViewportSize({ width: 1550, height: 720 });
 
     functions = new PageFunctions(page);
     pageobject = new PageObject(page);
@@ -151,10 +151,10 @@ test.describe('E2E Test Suite', () => {
     // input view name and discription
     await page.fill(pageobject.InputName, 'Edit_Plan');
     await page.fill(pageobject.discriptiontext, 'Add subscription Plan');
-      // select the Edit pattern
-      const EditPattern = await page.$("#inputviewtemplate");
-      await EditPattern?.selectOption("Edit");
-  
+    // select the Edit pattern
+    const EditPattern = await page.$("#inputviewtemplate");
+    await EditPattern?.selectOption("Edit");
+
     // submit the page
     await functions.submit();
     // drag and drop the page source on the page
@@ -182,7 +182,7 @@ test.describe('E2E Test Suite', () => {
     // submit the page
     await functions.submit();
     await page.waitForTimeout(2000);
-    await page.click('text="[Link icon]"');      
+    await page.click('text="[Link icon]"');
     // Select 'Thumbnail' from the dropdown
     await page.selectOption(pageobject.fieldViewdropdown, { label: 'Thumbnail' }); // If using a select dropdown
     // Add new column for edit plan link
@@ -213,7 +213,7 @@ test.describe('E2E Test Suite', () => {
     await page.click(pageobject.nextoption);
     // select destination view
     await page.click(pageobject.destinationview);
-    await page.selectOption(pageobject.destinationview, { label: 'Plan_List [List on Subscription_Plan]' }); 
+    await page.selectOption(pageobject.destinationview, { label: 'Plan_List [List on Subscription_Plan]' });
     // Finish the page
     await functions.submit();
   });
@@ -298,97 +298,178 @@ test.describe('E2E Test Suite', () => {
     await functions.submit();
   });
 
-  // Create show_Plan view with show view pattern
-  test('Create Show_Plan view with show view pattern', async () => {
-    await functions.views();
-    // click on create new view
-    await page.click(pageobject.createnewview);
-    // input view name and discription
-    await page.fill(pageobject.InputName, 'Show_Plan');
-    await page.fill(pageobject.discriptiontext, 'show subscription Plan');
-    // select the show pattern
-    const showPattern = await page.$("#inputviewtemplate");
-    await showPattern?.selectOption("Show");
-    // submit the page
-    await functions.submit();
-    // drag and drop the page source on the page
-    await page.waitForTimeout(2000);
-    await page.click(pageobject.target);
-    await page.click(pageobject.deletebutton);
-    // drag and drop the Column on page
-    await functions.drag_And_Drop(pageobject.columnsElement, pageobject.target);
-    await functions.fill_Text(pageobject.numbercolumn, '1');
-    await page.click(pageobject.columnSettings);
-    await page.click(pageobject.CenterButtonalign);
-    await page.click(pageobject.clonebutton);
-    await page.click(pageobject.clonebutton);
-    await page.click(pageobject.clonebutton);
-    await page.click(pageobject.clonebutton);
-    await functions.drag_And_Drop(pageobject.fieldsource, pageobject.column1);
-    //await page.click(pageobject.fielddropdown);
-    // Select 'icon' from the dropdown
-    await page.selectOption('select.form-control.form-select', 'icon');
-    // Set icon field view as thumbnail
-    await page.selectOption(pageobject.fieldViewdropdown, { label: 'Thumbnail' });
-    // select width and height for thumbnail
-    await functions.fill_Text(pageobject.widthInput, '200');
-    await functions.fill_Text(pageobject.heightInput, '200');
-
-    await functions.drag_And_Drop(pageobject.fieldsource, pageobject.column2);
-    // await page.click(pageobject.fielddropdown);
-    // Select 'icon' from the dropdown
-    await page.selectOption('select.form-control.form-select', 'Plan Name');
-    // Set heading1
-    await page.click(pageobject.h1Button);
-
-    await functions.drag_And_Drop(pageobject.fieldsource, pageobject.column3);
-    await page.selectOption('select.form-control.form-select', 'Features');
-    // Set as Heading2
-    await page.click(pageobject.h2Button);
-
-    await functions.drag_And_Drop(pageobject.fieldsource, pageobject.column4);
-    await page.selectOption('select.form-control.form-select', 'Price');
-    // Set as Heading2
-    await page.click(pageobject.h1Button);
-
-    await functions.drag_And_Drop(pageobject.fieldsource, pageobject.column5);
-    await page.selectOption('select.form-control.form-select', 'cta_link');
-    await page.selectOption(pageobject.fieldViewdropdown, { label: 'as_link' });
-    await functions.fill_Text(pageobject.linkTitleInput, 'Subscribe');
-    // click on next button
-    await page.click(pageobject.nextoption);
-  });
-
-  // Create Feed view to show view cards
-  test('Create Feed view to show view cards', async () => {
-    await functions.views();
-    // click on create new view
-    await page.click(pageobject.createnewview);
-    // input view name and discription
-    await page.fill(pageobject.InputName, 'Card_Feed');
-    await page.fill(pageobject.discriptiontext, 'Feed for show plan');
-    // select the feed pattern
-    const showPattern = await page.$("#inputviewtemplate");
-    await showPattern?.selectOption("Feed");
-    // submit the page
-    await functions.submit()
-    await page.selectOption(pageobject.ShowViewSelect, { label: 'Show_Plan [Show]' });
-    await functions.submit();
-    await page.selectOption(pageobject.OrderFieldSelect, { label: 'id' });
-    await page.selectOption(pageobject.ViewDecorationSelect, { label: 'Card' });
-    await functions.fill_Text(pageobject.ColsXlInput, '3');
-    await functions.submit()
-  });
-
-  test('Create a new page with random string', async () => {
+  test('Create a landing Page for Subscription Plans', async () => {
     // Create a new page for landing page
     await functions.create_New_Page('Landing_Page');
-    await page.waitForTimeout(5000);
-    // Drag and drop the text source
-    await page.waitForSelector(pageobject.textSource);
-    await functions.drag_And_Drop(pageobject.textSource, pageobject.target);
-    await functions.fill_Text(pageobject.textlocator, '');
     await page.waitForTimeout(2000);
-    await functions.fill_Text(pageobject.textlocator, 'Welcome to our subscription');
+    // Drag and drop the text source
+    await page.waitForSelector(pageobject.htmlCodeSource);
+    await functions.drag_And_Drop(pageobject.htmlCodeSource, pageobject.target);
+    await page.waitForTimeout(2000);
+    await functions.fill_Text(pageobject.htmltextlocator, `
+      <div style="text-align: center; padding: 50px; background: linear-gradient(135deg, #6a11cb, #2575fc); color: white; border-radius: 10px;">
+        <h1 style="font-size: 2.5em;">🚀 Welcome to Our Premium Plans!</h1>
+        <p style="font-size: 1.2em;">Unlock exclusive features & elevate your experience. Choose the perfect plan and enjoy premium benefits!</p>
+        <a href="#plans" style="background-color: #ffcc00; color: #000; padding: 12px 25px; text-decoration: none; font-weight: bold; border-radius: 5px; display: inline-block; margin-top: 15px;">
+          Explore Plans
+        </a>
+      </div>
+    `);
+    await functions.drag_And_Drop(pageobject.columnsElement, pageobject.target);
+    await functions.fill_Text(pageobject.numbercolumn, '4');
+
+    await functions.drag_And_Drop(pageobject.htmlCodeSource, pageobject.column1_3);
+    await functions.fill_Text(pageobject.htmltextlocator, `
+    <div style="background-color: #d1ecf1; border: 2px solid #17a2b8; border-radius: 15px; padding: 20px; width: 320px; text-align: center; box-shadow: 2px 2px 10px rgba(0,0,0,0.1);">
+        <h3 style="color: #0c5460; font-size: 22px; font-weight: bold; margin-bottom: 10px;">Pro Plan</h3>
+        <p style="color: #0c5460; font-size: 20px; font-weight: bold;">₹499 / month</p>
+        
+        <ul style="list-style: none; padding: 0; margin: 15px 0; color: #0c5460; text-align: left;">
+            <li>✔ 50GB Storage</li>
+            <li>✔ Priority Support</li>
+            <li>✔ Access to Exclusive Content</li>
+            <li>✔ Free Custom Domain</li>
+            <li style="color: red;">❌ Advanced Analytics & Reports</li>
+        </ul>
+        <a href="https://e2etest.saltcorn.co/page/Payment_Page" style="text-decoration: none;">
+        <button style="background-color: #0056b3; color: white; font-size: 16px; font-weight: bold; padding: 10px 20px; border: none; border-radius: 25px; cursor: pointer; box-shadow: 1px 1px 5px rgba(0,0,0,0.2);">Subscribe</button>
+        </a>
+    </div>
+`);
+
+    await functions.drag_And_Drop(pageobject.htmlCodeSource, pageobject.column1_2);
+    await functions.fill_Text(pageobject.htmltextlocator, `
+      <div style="background-color: #d4edda; border: 2px solid #28a745; border-radius: 15px; padding: 20px; width: 320px; text-align: center; box-shadow: 2px 2px 10px rgba(0,0,0,0.1);">
+          <h3 style="color: #155724; font-size: 22px; font-weight: bold; margin-bottom: 10px;">Basic Plan</h3>
+          <p style="color: #155724; font-size: 20px; font-weight: bold;">₹199 / month</p>
+          
+          <ul style="list-style: none; padding: 0; margin: 15px 0; color: #155724; text-align: left;">
+              <li>✔ 10GB Storage</li>
+              <li>✔ Basic Support</li>
+              <li>✔ Access to Community</li>
+              <li style="color: red;">❌ Free Custom Domain & Hosting</li>
+              <li style="color: red;">❌ Advanced Analytics & Reports</li>
+          </ul>
+          <a href="https://e2etest.saltcorn.co/page/Payment_Page" style="text-decoration: none;">
+          <button style="background-color: #218838; color: white; font-size: 16px; font-weight: bold; padding: 10px 20px; border: none; border-radius: 25px; cursor: pointer; box-shadow: 1px 1px 5px rgba(0,0,0,0.2);">Subscribe</button>
+          </a>
+      </div>
+  `);
+
+    await functions.drag_And_Drop(pageobject.htmlCodeSource, pageobject.column1_4);
+    await functions.fill_Text(pageobject.htmltextlocator, `
+  <div style="background-color: #fff3cd; border: 2px solid #ffc107; border-radius: 15px; padding: 20px; width: 320px; text-align: center; box-shadow: 2px 2px 10px rgba(0,0,0,0.1);">
+      <h3 style="color: #856404; font-size: 22px; font-weight: bold; margin-bottom: 10px;">Premium Plan</h3>
+      <p style="color: #856404; font-size: 20px; font-weight: bold;">₹999 / month</p>
+      
+      <ul style="list-style: none; padding: 0; margin: 15px 0; color: #856404; text-align: left;">
+          <li>✔ 100GB Storage</li>
+          <li>✔ 24/7 Priority Support</li>
+          <li>✔ Access to All Exclusive Content</li>
+          <li>✔ Free Custom Domain & Hosting</li>
+          <li>✔ Advanced Analytics & Reports</li>
+      </ul>
+      <a href="https://e2etest.saltcorn.co/page/Payment_Page" style="text-decoration: none;">
+      <button style="background-color: #d39e00; color: white; font-size: 16px; font-weight: bold; padding: 10px 20px; border: none; border-radius: 25px; cursor: pointer; box-shadow: 1px 1px 5px rgba(0,0,0,0.2);">Subscribe</button>
+      </a>
+  </div>
+`);
+    await functions.drag_And_Drop(pageobject.htmlCodeSource, pageobject.column1);
+    await functions.fill_Text(pageobject.htmltextlocator, `
+      <div style="background-color: #e3f2fd; border: 2px solid #2196f3; border-radius: 15px; padding: 20px; width: 320px; text-align: center; box-shadow: 2px 2px 10px rgba(0,0,0,0.1);">
+          <h3 style="color: #0d47a1; font-size: 22px; font-weight: bold; margin-bottom: 10px;">Free Plan</h3>
+          <p style="color: #0d47a1; font-size: 20px; font-weight: bold;">₹0 / month</p>
+          
+          <ul style="list-style: none; padding: 0; margin: 15px 0; color: #0d47a1; text-align: left;">
+              <li>✔ 5GB Storage</li>
+              <li>✔ Limited Access to Features</li>
+              <li style="color: red;">❌ No Custom Domain & Hosting</li>
+              <li style="color: red;">❌ No Advanced Analytics & Reports</li>
+              <li style="color: red;">❌ No Priority Support</li>
+          </ul>
+  
+          <button style="background-color: #1976d2; color: white; font-size: 16px; font-weight: bold; padding: 10px 20px; border: none; border-radius: 25px; cursor: pointer; box-shadow: 1px 1px 5px rgba(0,0,0,0.2);">Get Started</button>
+      </div>
+  `);
+    await functions.Save_Page_Project();
+  });
+
+  test('Create a payment page and thank you and Test the landing Page', async () => {
+    // Create a new page for landing page
+    await functions.create_New_Page('Payment_Page');
+    await page.waitForTimeout(2000);
+    // Drag and drop the text source
+    await page.waitForSelector(pageobject.htmlCodeSource);
+    await functions.drag_And_Drop(pageobject.htmlCodeSource, pageobject.target);
+    await functions.fill_Text(pageobject.htmltextlocator, `
+      <div style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f4f4f4; font-family: Arial, sans-serif;">
+          <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); width: 600px; text-align: center;">
+              <h2 style="color: #333; margin-bottom: 20px;">Saltcorn Secure Payment</h2>
+  
+              <form style="width: 100%;" onsubmit="event.preventDefault(); window.location.href='https://e2etest.saltcorn.co/page/Thank_you';">
+                  <div style="display: flex; flex-direction: column; margin-bottom: 15px;">
+                      <label style="font-weight: bold; margin-bottom: 5px;">Cardholder Name</label>
+                      <input type="text" placeholder="Card Holder Name" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px;" required>
+                  </div>
+  
+                  <div style="display: flex; flex-direction: column; margin-bottom: 15px;">
+                      <label style="font-weight: bold; margin-bottom: 5px;">Card Number</label>
+                      <input type="number" placeholder="1234 5678 9012 3456" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px;" required>
+                  </div>
+  
+                  <div style="display: flex; gap: 15px; margin-bottom: 15px;">
+                      <div style="display: flex; flex-direction: column; width: 50%;">
+                          <label style="font-weight: bold; margin-bottom: 5px;">Expiry Date</label>
+                          <input type="text" placeholder="MM/YY" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px;" required>
+                      </div>
+  
+                      <div style="display: flex; flex-direction: column; width: 50%;">
+                          <label style="font-weight: bold; margin-bottom: 5px;">CVV</label>
+                          <input type="password" placeholder="123" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px;" required>
+                      </div>
+                  </div>
+  
+                  <button type="submit" style="background: #007bff; color: white; padding: 15px; width: 100%; border: none; border-radius: 5px; font-size: 18px; cursor: pointer; margin-top: 15px;">
+                      Proceed to Pay
+                  </button>
+              </form>
+          </div>
+      </div>
+  `);  
+    await functions.Save_Page_Project();
+
+    // Create a new page for thank you
+    await functions.create_New_Page('Thank_you');
+    await page.waitForTimeout(2000);
+    // Drag and drop the text source
+    await page.waitForSelector(pageobject.htmlCodeSource);
+    await functions.drag_And_Drop(pageobject.htmlCodeSource, pageobject.target);
+    await functions.fill_Text(pageobject.htmltextlocator, `
+      <div style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f4f4f4; font-family: Arial, sans-serif;">
+          <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); width: 600px; text-align: center;">
+              <h2 style="color: #28a745; font-size: 24px; margin-bottom: 10px;">Thank You for Your Payment!</h2>
+              <p style="color: #555; font-size: 18px; margin-bottom: 20px;">Your transaction is Processing... A confirmation email will be sent to your email address.</p>
+              <a href="/page/Landing_Page" style="background: #007bff; color: white; padding: 12px 20px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; text-decoration: none; display: inline-block;">
+                  Back to Home
+              </a>
+          </div>
+      </div>
+  `);
+    await functions.Save_Page_Project();
+
+    // test the landing page
+    await page.click(pageobject.newPage_sidebar);
+    await page.click(pageobject.LandingPage);
+    // click on subscribe button
+    await page.click(pageobject.SubscribeButton);
+    // enter details
+    await functions.fill_Text(pageobject.CardholderNameInput, 'john doe');
+    await functions.fill_Text(pageobject.CardNumberInput, '4111111111111111');
+    await functions.fill_Text(pageobject.Exdateinput, '10/36');
+    await functions.fill_Text(pageobject.CVVinput, '926');
+    // click to proceed button
+    await page.click(pageobject.ProceedToPayButton);
+    // click on back to home button
+    await page.click(pageobject.LandingPage);
   });
 });
