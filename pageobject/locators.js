@@ -709,7 +709,7 @@ class PageLocators {
     this.view2editplan = 'text=Edit_Plan [Edit] Subscription_Plan';
     this.configureEditPlan = 'a[href="/viewedit/config/Edit_Plan"]';
     this.PlanListlink = 'a[href="/view/Plan_List"]';
-    this.addplanlink = 'a[href="/view/Edit_Plan"]';
+    this.addplanlink = 'a:has-text("Add New Plan")';
     this.inputplan_name = '#inputplan_name';
     this.inputprice = '#inputprice';
     this.inputcta_link = '#inputcta_link';
