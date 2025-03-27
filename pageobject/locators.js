@@ -716,7 +716,6 @@ class PageLocators {
     this.CenterButtonalign = 'button.field-hAlign.btn.btn-sm.btn-outline-secondary[title="Center"]';
     this.widthInput = 'div.builder-config-field[data-field-name="width"] input.field-width';
     this.heightInput = 'div.builder-config-field[data-field-name="height"] input.field-height';
-    this.ImageLocator = 'img[src="/files/resize/50/0/basic.png"]:nth-of-type(2)';
     this.h1Button = 'button.btn.btn-sm.btn-outline-secondary.style-h1[title="Heading 1"]';
     this.h2Button = 'button.btn.btn-sm.btn-outline-secondary.style-h2[title="Heading 2"]';
     this.linkTitleInput = 'div.builder-config-field[data-field-name="link_title"] input.field-link_title';
@@ -724,7 +723,6 @@ class PageLocators {
     this.column2 = '(//div[contains(@class, "split-col")])[2]';
     this.column3 = '(//div[contains(@class, "split-col")])[3]';
     this.column4 = '(//div[contains(@class, "split-col")])[4]';
-    this.column5 = '(//div[contains(@class, "split-col")])[5]';
     this.column1_2 = '.builder-columns.row:nth-of-type(1) .split-col:nth-of-type(2) .canvas';
     this.column1_3 = '.builder-columns.row:nth-of-type(1) .split-col:nth-of-type(3) .canvas';
     this.column1_4 = '.builder-columns.row:nth-of-type(1) .split-col:nth-of-type(4) .canvas';
