@@ -18,11 +18,10 @@ test.describe('E2E Test Suite', () => {
     context = await browser.newContext({
       ignoreHTTPSErrors: true
     });
-
     page = await context.newPage();
 
     // Maximize the screen
-    await page.setViewportSize({ width: 1550, height: 720 });
+    await page.setViewportSize({ width: 1500, height: 720 });
 
     functions = new PageFunctions(page);
     pageobject = new PageObject(page);
@@ -154,7 +153,6 @@ test.describe('E2E Test Suite', () => {
     // select the Edit pattern
     const EditPattern = await page.$("#inputviewtemplate");
     await EditPattern?.selectOption("Edit");
-
     // submit the page
     await functions.submit();
     // drag and drop the page source on the page
@@ -435,7 +433,7 @@ test.describe('E2E Test Suite', () => {
               </form>
           </div>
       </div>
-  `);  
+  `);
     await functions.Save_Page_Project();
 
     // Create a new page for thank you
@@ -460,15 +458,20 @@ test.describe('E2E Test Suite', () => {
     // test the landing page
     await page.click(pageobject.newPage_sidebar);
     await page.click(pageobject.LandingPage);
-    // click on subscribe button
-    await page.click(pageobject.SubscribeButton);
+    await customAssert('Subscribe button on plan card should be visible and clickable', async () => {
+      // click on subscribe button
+      await page.click(pageobject.SubscribeButton);
+    });
     // enter details
     await functions.fill_Text(pageobject.CardholderNameInput, 'john doe');
     await functions.fill_Text(pageobject.CardNumberInput, '4111111111111111');
     await functions.fill_Text(pageobject.Exdateinput, '10/36');
     await functions.fill_Text(pageobject.CVVinput, '926');
-    // click to proceed button
-    await page.click(pageobject.ProceedToPayButton);
+    await customAssert('Subscribe button on plan card should be visible and clickable', async () => {
+      await expect(page.locator(pageobject.ProceedToPayButton)).toBeVisible();
+      // click to proceed button
+      await page.click(pageobject.ProceedToPayButton);
+    });
     // click on back to home button
     await page.click(pageobject.LandingPage);
   });

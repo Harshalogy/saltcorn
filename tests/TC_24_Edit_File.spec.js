@@ -4,7 +4,6 @@ const PageFunctions = require('../pageobject/function.js');
 const PageObject = require('../pageobject/locators.js');
 const customAssert = require('../pageobject/utils.js');
 const Logger = require('../pageobject/logger.js');
-const fs = require('fs');
 
 test.describe('E2E Test Suite', () => {
     let functions;
@@ -19,7 +18,6 @@ test.describe('E2E Test Suite', () => {
         context = await browser.newContext({
             ignoreHTTPSErrors: true
         });
-
         page = await context.newPage();
 
         // Maximize the screen
@@ -74,7 +72,6 @@ test.describe('E2E Test Suite', () => {
         await functions.submit();
         // click on next button
         await functions.submit();
-
     });
 
     test('Create view with list view pattern', async () => {
@@ -232,5 +229,4 @@ test.describe('E2E Test Suite', () => {
         await page.goBack();
         await expect(page.locator(pageobject.containText)).toBeVisible();
     });
-
 }); 
