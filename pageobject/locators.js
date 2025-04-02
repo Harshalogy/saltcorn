@@ -646,12 +646,13 @@ class PageLocators {
     this.containerClick = '.canvas root-canvas ';
     this.dragElement1 = 'div.d-inline-flex.wrap-builder-elem >> div.inner > i.fas.fa-address-card';
     this.testPage4 = 'li.breadcrumb-item.fw-bold[aria-current="page"] a';
-    this.pageNameSave3 = 'table.table >> tbody >> tr >> td:nth-child(3) >> a';
+    this.pageNameSave3 = 'a[href="/page/testpage3"]'
+    //'table.table >> tbody >> tr >> td:nth-child(3) >> a';
     this.actionButton = 'button.btn.btn-primary.selected-node';
     this.ClickToEditCheckBox = 'input[type="checkbox"][name="inline"]'
     this.editedUserName = 'table tbody td div input'
     this.submitEditedName = 'button[type="submit"].btn.btn-sm.btn-primary'
-    this.viewSetting = "role=button[name='View settings']";
+    this.viewSetting = 'button:has-text("View settings")';
     this.inputdefaultrenderpage = '#inputdefault_render_page';
     this.mycardDrag = 'div.toolbar-row > div.d-inline-flex.wrap-builder-elem[draggable="true"]';
     this.mypage = "input[data-fieldname='page_title']";
@@ -735,6 +736,10 @@ class PageLocators {
     this.ProceedToPayButton = 'button:has-text("Proceed to Pay")';
     this.inputpagename = '#inputpagename';
     this.inputtext = '#inputtext';
+    this.Searchiconbar = '[placeholder="Search icon..."]';
+    this.planbutton = 'button i.far.fa-paper-plane';
+    this.inputtooltip = '#inputtooltip';
+    this.inputmax_role = '#inputmax_role';
   }
 }
 
