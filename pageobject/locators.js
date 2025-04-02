@@ -655,7 +655,7 @@ class PageLocators {
     this.inputdefaultrenderpage = '#inputdefault_render_page';
     this.mycardDrag = 'div.toolbar-row > div.d-inline-flex.wrap-builder-elem[draggable="true"]';
     this.mypage = "input[data-fieldname='page_title']";
-    this.viewName = 'table.table >> tbody >> tr >> td:nth-child(1) >> a';
+    this.viewName = 'a[href="/view/TestView"]';
     this.createview = 'h5:has-text("Create view")';
     this.addstep = 'a.btn.btn-secondary';
     this.ctxvalues='#inputctx_values';
@@ -733,6 +733,8 @@ class PageLocators {
     this.Exdateinput = 'input[placeholder="MM/YY"]';
     this.CVVinput = 'input[placeholder="123"]';
     this.ProceedToPayButton = 'button:has-text("Proceed to Pay")';
+    this.inputpagename = '#inputpagename';
+    this.inputtext = '#inputtext';
   }
 }
 
