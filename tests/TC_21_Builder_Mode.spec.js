@@ -96,7 +96,6 @@ test.describe('E2E Test Suite', () => {
         });
     });
 
-
     test('Create Second page', async () => {
         await functions.create_New_Page('testpage2');
         // await page.waitForTimeout(5000);
@@ -134,7 +133,6 @@ test.describe('E2E Test Suite', () => {
         });
         const column = page.locator('h2', { hasText: 'Column' });
         await column.click();
-
     });
 
     test('Add Library for testpage3', async () => {
@@ -179,7 +177,6 @@ test.describe('E2E Test Suite', () => {
             expect(page.url()).toBe(baseURL + derivedURL + 'page/testpage4');
         });
     });
-
 
     test('Create new view', async () => {
         await functions.views();
@@ -249,7 +246,7 @@ test.describe('E2E Test Suite', () => {
             await functions.submit();
         });
 
-        await customAssert(' TestView name  should be visible', async () => {
+        await customAssert(' TestView name should be visible', async () => {
             const names = await page.locator(pageobject.viewName).allInnerTexts();
             await page.click(pageobject.viewName);
             // await page.waitForTimeout(2000);
@@ -362,7 +359,7 @@ test.describe('E2E Test Suite', () => {
             // await expect(page.locator(page.tableViewLink)).toBeVisible();
             await tableViewLink.click();
             // await page.waitForTimeout(2000);
-            await functions.clear_Data();
+            // await functions.clear_Data();
         });
     });
 });
