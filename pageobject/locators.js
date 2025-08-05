@@ -282,7 +282,7 @@ class PageLocators {
     this.idNumberInput = '#inputid';
     this.roleTextInput = '#inputrole';
     this.userNavLink = 'a[data-bs-target="#collapseUser"]';
-    this.userSettingsLink = 'a.collapse-item >> text="User Settings"';
+    this.userSettingsLink = 'a.collapse-item >> text="User settings"';
     this.logout = 'a[href="/auth/logout"]';
     this.TriggerTitle = 'h5:has-text("Triggers")';
     this.CreateTriggerBtn = 'a:has-text("Create trigger")';
@@ -519,7 +519,7 @@ class PageLocators {
     this.view2showteam = 'text=Show_Team [Show] Teams';
     this.textInputLabel = 'input.viewlink-label.form-control[type="text"]';
     this.popupcheckbox = 'input.form-check-input[type="checkbox"][name="block"]';
-    this.showTeamLink = 'a[href*="Show_Team?id=1"]';
+    this.showTeamLink = 'a[onclick*="Show_Team?id=1"]';
     this.showTeamspan = 'span.is-builder-link:has-text("Show team")';
     this.IDDivLocator = 'div.col-2.text-end:has-text("ID")';
     this.view2tasklist = 'text=TaskList [List] Task';
@@ -731,7 +731,7 @@ class PageLocators {
     this.view2relation = 'text=Relation [Checkboxes many-to-many] My_Table';
     this.checkboxAdam = 'input.form-check-input[onchange*="value: \'Adam\'"]';
     this.donaldCheckbox = 'input.form-check-input[onchange*="value: \'Donald\'"]';
-
+    this.fourthrowcolumn2 = '.row:nth-of-type(4) .split-col:nth-of-type(2) .canvas';
   }
 }
 
