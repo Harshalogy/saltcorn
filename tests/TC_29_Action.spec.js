@@ -40,7 +40,7 @@ test.describe('E2E Test Suite', () => {
         await context.close();
     });
 
-    test('TC_01_Action: Verify the action functionality', async () => {
+    test('create the table', async () => {
         await functions.clear_Data();
         await functions.click_table();
         // Click on Create from CSV upload link
@@ -88,12 +88,87 @@ test.describe('E2E Test Suite', () => {
 
         // Press Enter to select the option
         await page.keyboard.press('Enter');
-        await page.waitForTimeout(1000);
-
+        await page.waitForTimeout(2000);
+        await page.fill('textarea.field-row_expr', '{full_name:"Sumit"}');
+        await page.waitForTimeout(2000);
         // click on next page
         await page.waitForSelector(pageobject.nextoption);
         await page.click(pageobject.nextoption);
         // click on finish button
         await functions.submit();
     });
+
+    test('create view with list view pattern', async () => {
+        await functions.views();
+        // click on create new view
+        await page.click(pageobject.createnewview);
+        // input view name and discription
+        await page.fill(pageobject.InputName, 'NewView_List');
+        await page.fill(pageobject.discriptiontext, 'view for table');
+
+        // validate the view pattern in table dropdown
+        await customAssert('View Pattern should be list', async () => {
+            // select list pattern
+            const ListPattern = await page.$("#inputviewtemplate");
+            await ListPattern?.selectOption("List");
+        });
+
+        // validate the table name in table dropdown
+        await customAssert('Table Name should be same as we created earlier', async () => {
+            await expect(page.locator('#inputtable_name')).toHaveText(`csv_Tableusers`);
+            const tableText = await page.locator('#inputtable_name').innerText();
+            await page.locator('#inputtable_name').selectText('csv_Tableusers');
+            console.log(`Text in locator '#inputtable_name': ${tableText}`);
+        });
+        // submit the page
+        await functions.submit();
+        await page.waitForTimeout(2000);
+        // click on add column button on page
+        await page.waitForSelector(pageobject.addcolumnbutton);
+        await page.click(pageobject.addcolumnbutton);
+        await functions.drag_And_Drop(pageobject.viewlinksource, pageobject.newcolumn);
+        // click to view link dropdown
+        await customAssert('view to link dropdown should be visible', async () => {
+            await page.waitForSelector(pageobject.viewtolinkdropdown);
+            await expect(page.locator(pageobject.viewtolinkdropdown)).toBeVisible();
+            await page.click(pageobject.viewtolinkdropdown);
+            // Click the view to edit option in the dropdown
+            await page.click(pageobject.view2modifyoption);
+        });
+        // add lable for link
+        await functions.fill_Text(pageobject.lebelforfield, 'Edit');
+        await page.waitForSelector(pageobject.viewtolinkdropdown);
+        await page.click(pageobject.viewtolinkdropdown);
+        // click on next button
+        await page.waitForSelector(pageobject.nextoption);
+        await page.click(pageobject.nextoption);
+        // click on next button
+        await functions.submit();
+        await functions.submit();
+
+        // click on new view link
+        await page.waitForSelector(pageobject.newviewlink);
+        await page.click(pageobject.newviewlink);
+        // check visibility for edit butoon for row
+        await customAssert('Edit field link should be visible', async () => {
+            await expect(page.locator(pageobject.editfieldlink)).toBeVisible();
+            // assert the lable for edit link
+            await expect(page.locator(pageobject.editfieldlink)).toHaveText('Edit');
+            // click on edit button
+            await page.waitForSelector(pageobject.editfieldlink);
+            await page.click(pageobject.editfieldlink);
+        });
+        await page.getByRole('link', { name: 'modify_row' }).click();
+         await page.waitForTimeout(1000);
+        await functions.submit();
+         await page.waitForTimeout(1000);
+        await functions.views();
+        await page.click(pageobject.newviewlink);
+        await page.waitForTimeout(2000);
+        await customAssert('Edit field link should be visible', async () => {
+            await expect(page.getByText('Sumit')).toBeVisible();
+        });
+    });
+
+
 });
