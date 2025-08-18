@@ -49,7 +49,7 @@ test.describe('E2E Test Suite', () => {
         });
         // assert the about application url
         await customAssert('page url should be /admin', async () => {
-            expect(page.url()).toBe(baseURL + derivedURL + 'admin', { TIMEOUT: 20000 });
+            expect(page.url()).toBe(baseURL + derivedURL + 'admin', { TIMEOUT: 10000 });
         });
     });
 
