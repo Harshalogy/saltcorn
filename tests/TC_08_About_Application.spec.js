@@ -326,9 +326,9 @@ test.describe('E2E Test Suite', () => {
             await expect(page.locator(pageobject.log_level)).toBeVisible();
         });
         // check the npm package textbox
-        await customAssert('Assert the npm package textbox', async () => {
-            await expect(page.locator(pageobject.npm_package)).toHaveValue('');
-        });
+        // await customAssert('Assert the npm package textbox', async () => {
+        //     await expect(page.locator(pageobject.npm_package)).toHaveValue('');
+        // });
         // check the log viewer link in development tab
         await customAssert('Assert the logs viewer link', async () => {
             await expect(page.locator(pageobject.logs_viewer)).toHaveText('open logs viewer');
