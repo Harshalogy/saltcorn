@@ -89,7 +89,7 @@ test.describe('E2E Test Suite', () => {
       await expect(checkboxLocator).toBeVisible();  // Assert checkbox is visible
       await checkboxLocator.click();
     });
-    await page.waitForTimeout(3500);
+    await page.waitForTimeout(2500);
     await customAssert('Click the next option twice', async () => {
       await page.locator(pageobject.nextoption).click();
       await page.locator(pageobject.nextoption).click();
