@@ -138,7 +138,7 @@ test.describe('E2E Test Suite', () => {
     await functions.views();
     await page.click(pageobject.Filterview);
     await page.selectOption(pageobject.filterStatus, 'Lapsed');
-    // await page.waitForTimeout(1000);
+    await page.waitForTimeout(1000);
 
     // Assert that a table cell with 'Lapsed' is visible
     await expect(page.locator('td', { hasText: 'Lapsed' })).toBeVisible();
