@@ -18,7 +18,7 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Run Playwright tests
-      run: npx playwright test TC_25, TC_26, TC_27, TC_28, TC_29, TC_30, TC_31, TC_32, TC_33, TC_34, TC_35
+      run: npx playwright test TC_25_Real_time_chat.spec.js \TC_26_Landing_Page.spec.js \  TC_27_Main_Menu.spec.js \  TC_28_Many_to_many.spec.js \  TC_29_Action.spec.js \  TC_30_toast_validation.spec.js \  TC_31_filter_view.spec.js \  TC_32_Real_time_collaboration.spec.js \  TC_33_calculated_field.spec.js \  TC_34_Language_chnaging.spec.js \  TC_35_multi_step_action.spec.js
     - uses: actions/upload-artifact@v4
       if: always()
       with:
