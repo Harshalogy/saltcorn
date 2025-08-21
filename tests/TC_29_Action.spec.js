@@ -159,12 +159,11 @@ test.describe('E2E Test Suite', () => {
             await page.click(pageobject.editfieldlink);
         });
         await page.getByRole('link', { name: 'modify_row' }).click();
-         // await page.waitForTimeout(500);
+        await page.waitForTimeout(500);
         await functions.submit();
          // await page.waitForTimeout(500);
         await functions.views();
         await page.click(pageobject.newviewlink);
-        await page.waitForTimeout(1000);
         await customAssert('Edit field link should be visible', async () => {
             await expect(page.getByText('Sumit')).toBeVisible();
         });
