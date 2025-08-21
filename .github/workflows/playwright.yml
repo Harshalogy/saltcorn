@@ -18,7 +18,7 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Run Playwright tests
-      run: npx playwright test multi_step
+      run: npx playwright test TC_25, TC_26, TC_27, TC_28, TC_29, TC_30, TC_31, TC_32, TC_33, TC_34, TC_35
     - uses: actions/upload-artifact@v4
       if: always()
       with:
