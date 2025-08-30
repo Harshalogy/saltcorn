@@ -222,17 +222,6 @@ test.describe('E2E Test Suite', () => {
         await expect(roleToAccess).toHaveText("admin");
     });
 
-   test('Create new folder', async () => {
-        await functions.dialog_handle("folder1");
-        const createNewFolderRow = page.locator(pageobject.tablelocator, { hasText: "Create new folder..." });
-        await createNewFolderRow.click();
-        await page.waitForTimeout(2000);
-        await expect(page.locator('tbody td').filter({ hasText: 'folder1/' })).toBeVisible();
-        const firstRow = page.locator(pageobject.tablelocator).nth(0);
-        const roleToAccess = firstRow.locator("td").nth(4); 
-        await expect(roleToAccess).toHaveText("admin");
-    });
-
     test('download archived files', async () => {
         await functions.clear_Data();
         await functions.SALTCORN();
@@ -260,15 +249,5 @@ test.describe('E2E Test Suite', () => {
 
     });
 
-    test('Create new folder', async () => {
-        await functions.dialog_handle("folder1");
-        const createNewFolderRow = page.locator(pageobject.tablelocator, { hasText: "Create new folder..." });
-        await createNewFolderRow.click();
-        await page.waitForTimeout(2000);
-        await expect(page.locator('tbody td').filter({ hasText: 'folder1/' })).toBeVisible();
-        const firstRow = page.locator(pageobject.tablelocator).nth(0);
-        const roleToAccess = firstRow.locator("td").nth(4); 
-        await expect(roleToAccess).toHaveText("admin");
-    });
 
 });
