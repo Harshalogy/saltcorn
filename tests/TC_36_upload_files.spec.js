@@ -231,7 +231,7 @@ test.describe('E2E Test Suite', () => {
         await functions.upload_file('Csv_file_to_uplaod/file_sample.pdf');
         await functions.upload_file('Csv_file_to_uplaod/basic.png');
         await functions.upload_file('Csv_file_to_uplaod/images.jpg');
-        await page.locator(pageobject.tablebodylocator).nth(0).click();
+        await page.locator(pageobject.tablebodylocator).nth(1).click();
         await page.keyboard.down('Control');
         await page.keyboard.press('a');
         await page.keyboard.up('Control');
