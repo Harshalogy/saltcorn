@@ -5,6 +5,7 @@ const PageObject = require('../pageobject/locators.js');
 const customAssert = require('../pageobject/utils.js');
 const Logger = require('../pageobject/logger.js');
 
+
 test.describe('E2E Test Suite', () => {
   let functions;
   let pageobject;
