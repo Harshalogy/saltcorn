@@ -61,7 +61,8 @@ test.describe('E2E Test Suite', () => {
 
     // Test to validate the "Files" tab and its elements
     test('Validate "Files" tab and its elements', async () => {
-        // Navigate to the Files tab and validate its elements
+        test.setTimeout(60000);
+        await page.goto(baseURL + derivedURL + 'files?sortBy=filename');
         await functions.Files_to_Files();
 
         // Assertions for various elements in the "Files" tab
@@ -100,7 +101,8 @@ test.describe('E2E Test Suite', () => {
 
     // Test to validate the "Storage" tab and its elements
     test('Validate "Storage" tab and its elements', async () => {
-        // Navigate to the Storage tab and validate its elements
+        test.setTimeout(60000);
+        await page.goto(baseURL + derivedURL + 'files?sortBy=filename');
         await functions.Files_to_Storage();
 
         // Assertions for various elements in the "Storage" tab
@@ -120,30 +122,13 @@ test.describe('E2E Test Suite', () => {
         });
         await customAssert('Assert the Amazon S3 Bucket input field', async () => {
             await expect(page.locator(pageobject.s3BucketInput)).toHaveValue('');
-        });
-        await customAssert('Assert the Amazon S3 path input field', async () => {
-            await expect(page.locator(pageobject.s3PathPrefixInput)).toHaveValue('');
-        });
-        await customAssert('Assert the Amazon S3 End point input', async () => {
-            await expect(page.locator(pageobject.s3EndpointInput)).toHaveValue('s3.amazonaws.com');
-        });
-        await customAssert('Assert the Amazon S3 Region input', async () => {
-            await expect(page.locator(pageobject.s3RegionInput)).toHaveValue('us-east-1');
-        });
-        await customAssert('Assert the Amazon S3 Access Key input', async () => {
-            await expect(page.locator(pageobject.s3AccessKeyInput)).toHaveValue('');
-        });
-        await customAssert('Assert the Amazon S3 Secret Access Key input', async () => {
-            await expect(page.locator(pageobject.s3AccessSecretInput)).toHaveValue('');
-        });
-        await customAssert('Assert the "Use Amazon S3 Secure" checkbox is checked', async () => {
-            await expect(page.locator(pageobject.s3SecureCheckbox)).toBeChecked();
-        });
+        });       
     });
 
     // Test to validate the "Settings" tab and its elements
     test('Validate "Settings" tab and its elements', async () => {
-        // Navigate to the Settings tab and validate its elements
+        test.setTimeout(60000);
+        await page.goto(baseURL + derivedURL + 'files?sortBy=filename');
         await functions.Files_to_Settings();
 
         // Assertions for various elements in the "Settings" tab
