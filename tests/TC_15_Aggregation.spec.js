@@ -289,7 +289,7 @@ test.describe('E2E Test Suite', () => {
         await functions.views();
         await page.click(pageobject.configureShowPeople);
         await page.waitForTimeout(1500);
-        await page.click(pageobject.IDDivLocator);
+        await page.click(pageobject.firstrowcolumn1);
         await page.click(pageobject.deletebutton);
         await functions.drag_And_Drop(pageobject.viewlinksource, pageobject.target);
         await customAssert('Select show_team on view to link dropdown', async () => {
