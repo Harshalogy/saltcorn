@@ -1,4 +1,5 @@
 const { expect } = require('@playwright/test');
+const fs = require('fs');
 const customAssert = require('../pageobject/utils.js');
 class PageFunctions {
   constructor(page) {
@@ -236,6 +237,143 @@ class PageFunctions {
   async navigate_To_Site_Structure() {
     await this.page.waitForSelector(this.locators.SiteStructure);
     await this.page.click(this.locators.SiteStructure);
+  }
+  async open_Site_Structure_Menu(baseURL, Logger) {
+    const menuTabActiveCount = await this.page
+      .locator(`${this.locators.siteStructureTabStrip} a[href="/menu"].active`)
+      .count();
+    if (menuTabActiveCount > 0) return;
+
+    Logger?.info('Action: open Settings -> Site structure');
+    await this.navigate_To_Settings();
+
+    const collapseSettings = this.page.locator(this.locators.collapseSettings);
+    const collapseSettingsShown = this.page.locator(this.locators.collapseSettingsShown);
+    await collapseSettings.waitFor({ state: 'attached', timeout: 30000 });
+
+    if ((await collapseSettingsShown.count()) === 0) {
+      Logger?.info('Action: expand Settings sidebar section');
+      const settingsNavLink = this.page.locator(this.locators.settingsNavLink).first();
+      await settingsNavLink.waitFor({ state: 'attached', timeout: 30000 });
+      await settingsNavLink.click({ force: true });
+      const shownAfter = await collapseSettingsShown.count();
+      Logger?.info(`Settings collapse shownAfterClick=${shownAfter}`);
+    }
+
+    const siteStructureScoped = this.page.locator(this.locators.siteStructureScoped).first();
+    const siteStructureFallback = this.page.locator(this.locators.siteStructureFallback).first();
+    let siteStructureLink = siteStructureScoped;
+    if ((await siteStructureScoped.count()) === 0) siteStructureLink = siteStructureFallback;
+
+    await siteStructureLink.waitFor({ state: 'attached', timeout: 30000 });
+    const isVisible = await siteStructureLink.isVisible().catch(() => false);
+    Logger?.info(`Site structure sidebar link attached. isVisible=${isVisible}`);
+    if (isVisible) {
+      await siteStructureLink.click({ force: true });
+    } else {
+      Logger?.info('Action: Site structure link not visible, click via DOM');
+      await this.page.evaluate((scopedSel, fallbackSel) => {
+        const scoped = document.querySelector(scopedSel);
+        const any = document.querySelector(fallbackSel);
+        (scoped || any)?.click();
+      }, this.locators.siteStructureScoped, this.locators.siteStructureFallback);
+    }
+
+    const tabStrip = this.page.locator(this.locators.siteStructureTabStrip);
+    const waitUrlOrUi = async (timeoutMs) => {
+      return await Promise.race([
+        this.page.waitForURL(/\/(menu|site-structure)(\?|$)/, { timeout: timeoutMs }).then(() => 'url').catch(() => null),
+        tabStrip.waitFor({ state: 'visible', timeout: timeoutMs }).then(() => 'ui').catch(() => null),
+      ]);
+    };
+    let urlOrUi = await waitUrlOrUi(15000);
+    Logger?.info(`Site structure navigation wait resolvedBy=${urlOrUi || 'timeout'}`);
+    if (!urlOrUi) {
+      Logger?.info('Fallback: hard navigate to /menu');
+      await this.page.goto(`${baseURL}/menu`, { waitUntil: 'domcontentloaded' });
+      urlOrUi = await waitUrlOrUi(30000);
+      Logger?.info(`Site structure navigation fallback resolvedBy=${urlOrUi || 'timeout'}`);
+    }
+  }
+
+  async openRegistryEditorFromPeopleList(Logger) {
+    // Navigate from Views -> People_list overflow (...) -> Registry editor.
+    if (this.page.url().includes('/registry-editor')) return;
+
+    Logger?.info('Action: open Views (left panel)');
+    await this.views();
+    await this.page.waitForTimeout(1500);
+
+    const yourViews = this.page.getByText('Your views').first();
+    await expect(yourViews).toBeVisible({ timeout: 15000 });
+
+    Logger?.info('Action: locate People_list row in views table');
+    const peopleListRow = this.page.locator('table tbody tr').filter({ hasText: 'People_list' }).first();
+    await expect(peopleListRow).toBeVisible({ timeout: 15000 });
+
+    Logger?.info('Action: open row overflow menu for People_list');
+    let overflowButton = null;
+    const overflowCandidates = [
+      peopleListRow.locator('button.dropdown-toggle').first(),
+      peopleListRow.locator('button[data-bs-toggle="dropdown"]').first(),
+      peopleListRow.locator('button:has(svg)').first(),
+      peopleListRow.locator('button:has-text("...")').first(),
+      peopleListRow.locator('a:has-text("...")').first(),
+    ];
+
+    for (const candidate of overflowCandidates) {
+      if ((await candidate.count()) > 0) {
+        if ((await candidate.first().isVisible().catch(() => false)) === true) {
+          overflowButton = candidate;
+          break;
+        }
+      }
+    }
+
+    expect(overflowButton).not.toBeNull();
+    await expect(overflowButton).toBeVisible({ timeout: 5000 });
+
+    await overflowButton.click();
+    await this.page.waitForTimeout(1000);
+
+    Logger?.info('Action: click Registry editor option from dropdown');
+    let registryEditorMenuItem = null;
+    const registryCandidates = [
+      this.page.locator('.dropdown-menu.show a:has-text("Registry editor")').first(),
+      this.page.locator('.dropdown-menu.show button:has-text("Registry editor")').first(),
+      this.page.getByRole('menuitem', { name: 'Registry editor' }).first(),
+    ];
+
+    for (const candidate of registryCandidates) {
+      if ((await candidate.count()) > 0) {
+        if ((await candidate.first().isVisible().catch(() => false)) === true) {
+          registryEditorMenuItem = candidate;
+          break;
+        }
+      }
+    }
+
+    expect(registryEditorMenuItem).not.toBeNull();
+    await expect(registryEditorMenuItem).toBeVisible({ timeout: 5000 });
+
+    await registryEditorMenuItem.click();
+    await this.page.waitForTimeout(2500);
+
+    await expect(this.page).toHaveURL(/\/registry-editor/, { timeout: 15000 });
+    await expect(this.page.locator(this.locators.registrylocator)).toBeVisible({ timeout: 15000 });
+  }
+
+  async run_With_Dialog_Accept(action, Logger) {
+    this.page.once('dialog', async (dialog) => {
+      Logger?.info(`Dialog accepted: ${dialog.message()}`);
+      await dialog.accept();
+    });
+    await action();
+  }
+
+  async assert_Mutation_Persistence(description, persistenceCheck, Logger) {
+    await persistenceCheck();
+    Logger?.info(`Mutation feedback (${description}): persistence verified (no toast assumption)`);
   }
 
   async navigate_To_Events() {
@@ -877,6 +1015,836 @@ async install_ManyToMany() {
         await this.page.waitForTimeout(2000);
         fileName = await this.page.textContent(this.locators.tablebodylocator+" td:nth-child(2)");
         expect(fileName?.trim()).toBe(new_file_name);
+  }
+
+  async takeDebugScreenshot(name, Logger, debugDir = 'test-results') {
+    if (!fs.existsSync(debugDir)) fs.mkdirSync(debugDir, { recursive: true });
+    const path = `${debugDir}/${name}_${Date.now()}.png`;
+    await this.page.screenshot({ path, fullPage: true });
+    Logger?.info?.(`Debug screenshot saved: ${path}`);
+    return path;
+  }
+
+  async tc41_assert_site_structure_tabs_default_and_navigation(Logger, baseURL) {
+    await this.open_Site_Structure_Menu(baseURL, Logger);
+
+    await customAssert('Default active breadcrumb step should be Menu', async () => {
+      const activeCrumb = this.page.locator(this.locators.activeBreadcrumb).first();
+      await expect(activeCrumb).toBeVisible({ timeout: 30000 });
+      await expect(activeCrumb).toContainText('Menu');
+    });
+
+    await customAssert('All 8 tabs are present and active tab is Menu', async () => {
+      const expectedTabs = [
+        { href: '/menu', label: 'Menu' },
+        { href: '/search/config', label: 'Search' },
+        { href: '/library/list', label: 'Library' },
+        { href: '/site-structure/localizer', label: 'Languages' },
+        { href: '/page_group/settings', label: 'Pagegroups' },
+        { href: '/tag', label: 'Tags' },
+        { href: '/diagram', label: 'Diagram' },
+        { href: '/registry-editor', label: 'Registry editor' }
+      ];
+
+      const tabsContainer = this.page.locator(this.locators.siteStructureTabStrip);
+      await expect(tabsContainer).toBeVisible({ timeout: 15000 });
+
+      const tabLinks = this.page.locator(this.locators.siteStructureTabLinks);
+      await expect(tabLinks).toHaveCount(expectedTabs.length);
+
+      for (const t of expectedTabs) {
+        const link = this.page.locator(`${this.locators.siteStructureTabStrip} a[href="${t.href}"]`).first();
+        await expect(link).toBeVisible({ timeout: 15000 });
+        await expect(link).toContainText(t.label);
+      }
+
+      const activeTab = this.page.locator(`${this.locators.siteStructureTabStrip} a.active`);
+      await expect(activeTab).toBeVisible({ timeout: 15000 });
+      await expect(activeTab).toContainText('Menu');
+
+      Logger?.info?.('Action: click each Site structure tab and verify navigation');
+      for (const t of expectedTabs) {
+        const tabLink = this.page.locator(`${this.locators.siteStructureTabStrip} a[href="${t.href}"]`).first();
+        Logger?.info?.(`Action: click tab ${t.label} (${t.href})`);
+        await tabLink.click({ force: true });
+        await expect(this.page).toHaveURL(new RegExp(`${t.href.replace('/', '\\/')}(\\?|$)`));
+        await expect(tabLink).toHaveClass(/active/);
+      }
+
+      Logger?.info?.('Action: return to Menu tab');
+      await this.page.locator(`${this.locators.siteStructureTabStrip} a[href="/menu"]`).first().click({ force: true });
+      await expect(this.page).toHaveURL(/\/menu(\?|$)/);
+    });
+
+    await this.takeDebugScreenshot('tc_41_tabs_01_all_tabs_rendered', Logger);
+  }
+
+  async tc41_assert_menu_tab_controls(Logger, baseURL) {
+    await this.open_Site_Structure_Menu(baseURL, Logger);
+
+    await customAssert('Menu editor card and main form controls are visible', async () => {
+      await expect(this.page.locator(this.locators.cardShadow)).toBeVisible({ timeout: 15000 });
+      const menuEditorHeader = this.page.locator(this.locators.cardHeaderH5).filter({ hasText: 'Menu editor' }).first();
+      await expect(menuEditorHeader).toBeVisible({ timeout: 15000 });
+      await expect(this.page.locator(this.locators.menuForm)).toBeVisible({ timeout: 15000 });
+
+      const typeSelect = this.page.locator(this.locators.menuTypeSelect);
+      await expect(typeSelect).toBeVisible({ timeout: 15000 });
+
+      const expectedTypeOptions = [
+        'View', 'Page', 'Page Group', 'Admin Page', 'User Page',
+        'Link', 'Header', 'Dynamic', 'Search', 'Separator', 'Action'
+      ];
+      const typeOptions = this.page.locator(this.locators.menuTypeOptions);
+      await expect(typeOptions).toHaveCount(expectedTypeOptions.length);
+      const actualTypeOptions = await typeOptions.evaluateAll((opts) =>
+        opts.map((o) => (o.textContent || '').trim())
+      );
+      expect(actualTypeOptions).toEqual(expectedTypeOptions);
+
+      await expect(this.page.locator(this.locators.menuUpdateBtn)).toBeVisible({ timeout: 15000 });
+      await expect(this.page.locator(this.locators.menuUpdateBtn)).toBeDisabled();
+      await expect(this.page.locator(this.locators.menuAddBtn)).toBeVisible({ timeout: 15000 });
+      await expect(this.page.locator(this.locators.menuRecalcBtn)).toBeVisible({ timeout: 15000 });
+
+      await expect(this.page.locator(this.locators.menuIconBtn)).toBeVisible({ timeout: 15000 });
+
+      const menuLabelChecks = [
+        { loc: this.locators.menuLabelType, text: 'Type' },
+        { loc: this.locators.menuLabelText, text: 'Text label' },
+        { loc: this.locators.menuLabelTooltip, text: 'Tooltip' },
+        { loc: this.locators.menuLabelMinRole, text: 'Minimum role' },
+        { loc: this.locators.menuLabelMaxRole, text: 'Maximum role' },
+        { loc: this.locators.menuLabelShowIf, text: 'Show if' },
+        { loc: this.locators.menuLabelDisableMobile, text: 'Disable on mobile' },
+        { loc: this.locators.menuLabelTargetBlank, text: 'Open in new tab' },
+        { loc: this.locators.menuLabelModal, text: 'Open in popup modal?' },
+        { loc: this.locators.menuLabelStyle, text: 'Style' },
+        { loc: this.locators.menuLabelShortcut, text: 'Keyboard shortcut' },
+        { loc: this.locators.menuLabelLocation, text: 'Location' }
+      ];
+      for (const c of menuLabelChecks) await expect(this.page.locator(c.loc)).toContainText(c.text);
+
+      const menuRoleChecks = [
+        { loc: this.locators.menuMinRoleAdmin, text: 'admin' },
+        { loc: this.locators.menuMaxRolePublic, text: 'public' }
+      ];
+      for (const c of menuRoleChecks) await expect(this.page.locator(c.loc)).toHaveText(c.text);
+
+      await expect(this.page.locator(this.locators.menuTree)).toBeVisible({ timeout: 15000 });
+      const menuTreeSections = ['Tables', 'Views', 'Pages', 'Settings'];
+      for (const s of menuTreeSections) {
+        await expect(this.page.locator(this.locators.menuTreeTxt, { hasText: s }).first()).toBeVisible({ timeout: 15000 });
+      }
+
+      Logger?.info?.('Action: click Menu Add button (trial)');
+      await this.page.locator(this.locators.menuAddBtn).click({ trial: true });
+      Logger?.info?.('Action: click Menu Recalculate button (trial)');
+      await this.page.locator(this.locators.menuRecalcBtn).click({ trial: true });
+
+      Logger?.info?.('Action: change Menu item Type to Link');
+      await typeSelect.selectOption({ label: 'Link' });
+      await expect(typeSelect).toHaveValue('Link');
+      Logger?.info?.('Action: change Menu item Type back to View');
+      await typeSelect.selectOption({ label: 'View' });
+      await expect(typeSelect).toHaveValue('View');
+    });
+
+    await this.takeDebugScreenshot('tc_41_menu_01_controls', Logger);
+  }
+
+  async tc41_assert_search_tab_controls(Logger, baseURL) {
+    await this.open_Site_Structure_Menu(baseURL, Logger);
+    await this.Site_Structure_to_Search();
+
+    await customAssert('Search configuration UI is visible with expected controls', async () => {
+      await expect(this.page).toHaveURL(/\/search\/config/);
+
+      const activeCrumb = this.page.locator(this.locators.activeBreadcrumb).first();
+      await expect(activeCrumb).toBeVisible({ timeout: 15000 });
+      await expect(activeCrumb).toContainText('Search');
+
+      const header = this.page.locator(this.locators.cardHeaderH5).filter({ hasText: 'Search configuration' }).first();
+      await expect(header).toBeVisible({ timeout: 15000 });
+
+      const form = this.page.locator(this.locators.searchConfigForm);
+      await expect(form).toBeVisible({ timeout: 15000 });
+
+      const tableDescCheckbox = this.page.locator(this.locators.searchTableDescription);
+      await expect(tableDescCheckbox).toBeVisible({ timeout: 15000 });
+      await expect(tableDescCheckbox).toBeChecked();
+
+      const decorationSelect = this.page.locator(this.locators.searchResultsDecoration);
+      await expect(decorationSelect).toBeVisible({ timeout: 15000 });
+      await expect(this.page.locator(this.locators.searchResultsDecorationOptions)).toHaveCount(2);
+      await expect(this.page.locator(this.locators.searchResultsCards)).toHaveText('Cards');
+      await expect(this.page.locator(this.locators.searchResultsTabs)).toHaveText('Tabs');
+
+      const disableFts = this.page.locator(this.locators.searchDisableFts);
+      await expect(disableFts).toBeVisible({ timeout: 15000 });
+      await expect(disableFts).not.toBeChecked();
+
+      Logger?.info?.('Action: trial click Search link from configuration page');
+      await this.page.locator(this.locators.searchLink).first().click({ trial: true });
+
+      Logger?.info?.('Action: toggle Search table description checkbox off/on');
+      await tableDescCheckbox.click();
+      await expect(tableDescCheckbox).not.toBeChecked();
+      await tableDescCheckbox.click();
+      await expect(tableDescCheckbox).toBeChecked();
+
+      Logger?.info?.('Action: toggle Search disable FTS checkbox off/on');
+      await disableFts.click();
+      await expect(disableFts).toBeChecked();
+      await disableFts.click();
+      await expect(disableFts).not.toBeChecked();
+
+      Logger?.info?.('Action: change Search results decoration Tabs -> Cards');
+      await decorationSelect.selectOption('Tabs');
+      await expect(decorationSelect).toHaveValue('Tabs');
+      await decorationSelect.selectOption('Cards');
+      await expect(decorationSelect).toHaveValue('Cards');
+
+      Logger?.info?.('Action: click Search link to navigate to /search');
+      await this.page.locator(this.locators.searchLink).first().click({ force: true });
+      await expect(this.page).toHaveURL(/\/search(\?|$)/);
+
+      Logger?.info?.('Action: go back to /search/config');
+      await this.page.goBack();
+      await expect(this.page).toHaveURL(/\/search\/config(\?|$)/);
+    });
+
+    await this.takeDebugScreenshot('tc_41_search_01_controls', Logger);
+  }
+
+  async tc41_assert_library_tab_table_headers(Logger, baseURL) {
+    await this.open_Site_Structure_Menu(baseURL, Logger);
+    await this.Site_Structure_to_Library();
+
+    await customAssert('Library UI has the expected table structure', async () => {
+      await expect(this.page).toHaveURL(/\/library\/list/);
+
+      const header = this.page.locator(this.locators.cardHeaderH5);
+      await expect(header).toContainText('Library: component assemblies');
+
+      const table = this.page.locator(this.locators.tableResponsiveSm);
+      await expect(table).toBeVisible({ timeout: 15000 });
+
+      const ths = table.locator(this.locators.tableHeadCells);
+      await expect(ths).toHaveCount(3);
+
+      const expectedLibHeaders = ['Name', 'Icon', 'Delete'];
+      for (let i = 0; i < expectedLibHeaders.length; i++) {
+        await expect(ths.nth(i)).toContainText(expectedLibHeaders[i]);
+      }
+
+      Logger?.info?.('Action: trial click Settings breadcrumb link');
+      await this.page.locator(this.locators.settingsBreadcrumbLink).first().click({ trial: true });
+    });
+
+    await this.takeDebugScreenshot('tc_41_library_01_table_headers', Logger);
+  }
+
+  async tc41_assert_languages_tab_add_language_and_upload_csv(Logger, baseURL) {
+    const debugDir = 'test-results';
+    if (!fs.existsSync(debugDir)) fs.mkdirSync(debugDir, { recursive: true });
+
+    await this.open_Site_Structure_Menu(baseURL, Logger);
+    await this.Site_Structure_to_Languages();
+
+    await customAssert('Languages UI shows table + add/upload controls', async () => {
+      await expect(this.page).toHaveURL(/\/site-structure\/localizer/);
+
+      const header = this.page.locator(this.locators.activeBreadcrumb).first();
+      await expect(header).toContainText('Languages');
+
+      const table = this.page.locator(this.locators.tableResponsiveSm);
+      await expect(table).toBeVisible({ timeout: 15000 });
+
+      const ths = table.locator(this.locators.tableHeadCells);
+      await expect(ths).toHaveCount(5);
+
+      const expectedLangHeaders = ['Language', 'Locale', 'Default', 'Language CSV', 'Delete'];
+      for (let i = 0; i < expectedLangHeaders.length; i++) {
+        await expect(ths.nth(i)).toContainText(expectedLangHeaders[i]);
+      }
+
+      const langUiCtas = [
+        { locator: this.locators.languagesAddLink, label: 'Add language' },
+        { locator: this.locators.languagesUploadLabel, label: 'Upload language CSV' }
+      ];
+      for (const c of langUiCtas) {
+        const el = this.page.locator(c.locator).first();
+        await expect(el).toBeVisible({ timeout: 15000 });
+        await expect(el).toContainText(c.label);
+      }
+
+      const addLang = this.page.locator(this.locators.languagesAddLink).first();
+
+      await expect(this.page.locator(this.locators.languagesUploadInput)).toHaveAttribute('type', 'file');
+      await expect(this.page.locator(this.locators.languagesUploadInput)).toHaveClass(/d-none/);
+      await expect(this.page.locator(this.locators.languagesUploadForm)).toBeVisible({ timeout: 15000 });
+
+      // E2E flow: Add language + validate persistence by re-checking the edit form fields and then the table row.
+      const langName = `E2E_Lang_${Date.now()}`;
+      const langLocale = `e2e-${Date.now().toString().slice(-4)}`;
+
+      Logger?.info?.('Action: click Add language');
+      await addLang.click({ force: true });
+      await expect(this.page).toHaveURL(/\/site-structure\/localizer\/add-lang/);
+
+      const nameField = this.page.locator(this.locators.languageNameInput).first();
+      const localeField = this.page.locator(this.locators.languageLocaleInput).first();
+      await expect(nameField).toBeVisible({ timeout: 15000 });
+      await expect(localeField).toBeVisible({ timeout: 15000 });
+
+      Logger?.info?.('Action: fill new language name + locale');
+      await nameField.fill(langName);
+      await localeField.fill(langLocale);
+
+      Logger?.info?.('Action: submit new language form');
+      await this.page.locator(this.locators.submitButtonGeneric).first().click();
+      await expect(this.page).toHaveURL(/\/site-structure\/localizer\/edit\//);
+
+      await this.assert_Mutation_Persistence('language create', async () => {
+        await expect(this.page.locator(this.locators.languageNameInput).first()).toHaveValue(langName);
+        await expect(this.page.locator(this.locators.languageLocaleInput).first()).toHaveValue(langLocale);
+      }, Logger);
+
+      const langTableRows = `${this.locators.tableResponsiveSm} ${this.locators.tableBodyRows}`;
+      await this.page.goto(`${baseURL}/site-structure/localizer`, { waitUntil: 'domcontentloaded' });
+      await expect(this.page).toHaveURL(/\/site-structure\/localizer(\?|$)/);
+      await expect(this.page.locator(langTableRows).filter({ hasText: langName }).first()).toBeVisible({ timeout: 30000 });
+
+      // E2E flow: upload CSV from hidden input and verify persistence in the table.
+      const langCsvPath = `${debugDir}/tc_41_langpack_${Date.now()}.csv`;
+      fs.writeFileSync(langCsvPath, 'key,value\nhello,Hello from E2E\n');
+
+      Logger?.info?.('Action: upload language CSV');
+      await this.page.locator(this.locators.languagesUploadInput).setInputFiles(langCsvPath);
+      await expect(this.page).toHaveURL(/\/site-structure\/localizer(\?|$)/);
+
+      await this.assert_Mutation_Persistence('language csv upload', async () => {
+        await expect(this.page.locator(langTableRows).filter({ hasText: langName }).first()).toBeVisible({ timeout: 15000 });
+      }, Logger);
+
+      // Best-effort cleanup: delete created language row.
+      const createdRow = this.page.locator(langTableRows).filter({ hasText: langName }).first();
+      if ((await createdRow.count()) > 0) {
+        const deleteLink = createdRow.locator(this.locators.languagesDeleteAction).first();
+        if ((await deleteLink.count()) > 0) {
+          Logger?.info?.('Action: delete created language row');
+          await this.run_With_Dialog_Accept(async () => {
+            await deleteLink.click({ force: true });
+          }, Logger);
+          await this.assert_Mutation_Persistence('language delete', async () => {
+            await expect(this.page.locator(langTableRows).filter({ hasText: langName })).toHaveCount(0);
+          }, Logger);
+        }
+      }
+    });
+
+    await this.takeDebugScreenshot('tc_41_languages_01_controls', Logger);
+  }
+
+  async tc41_assert_pagegroups_tab_controls(Logger, baseURL) {
+    await this.open_Site_Structure_Menu(baseURL, Logger);
+    await this.Site_Structure_to_Page_groups();
+
+    await customAssert('Pagegroups UI renders both cards and key form controls', async () => {
+      await expect(this.page).toHaveURL(/\/page_group\/settings/);
+
+      const activeCrumb = this.page.locator(this.locators.activeBreadcrumb).first();
+      await expect(activeCrumb).toContainText('Pagegroups');
+
+      const userAgentHeader = this.page.locator(this.locators.cardHeaderH5).filter({ hasText: 'User Agent screen infos' }).first();
+      await expect(userAgentHeader).toBeVisible({ timeout: 15000 });
+
+      const screenInfoCells = ['web', '1920', '1000', '1848', '980'];
+      const screenInfoTd = this.page.locator(`${this.locators.tableResponsiveSm} td`);
+      for (const v of screenInfoCells) {
+        await expect(screenInfoTd.filter({ hasText: v }).first()).toBeVisible({ timeout: 15000 });
+      }
+
+      const card2Header = this.page.locator(this.locators.cardHeaderH5).filter({ hasText: 'Page Group settings' }).first();
+      await expect(card2Header).toBeVisible({ timeout: 15000 });
+
+      await expect(this.page.locator(this.locators.pagegroupsStrategy)).toBeVisible({ timeout: 15000 });
+      await expect(this.page.locator(this.locators.pagegroupsStrategy)).toHaveValue('guess_from_user_agent');
+
+      const strategyOptionChecks = [
+        { loc: this.locators.pagegroupsStrategyGuess, text: 'Guess from user agent' },
+        { loc: this.locators.pagegroupsStrategyReload, text: 'Reload' }
+      ];
+      for (const c of strategyOptionChecks) await expect(this.page.locator(c.loc)).toHaveText(c.text);
+
+      Logger?.info?.('Action: change missing screen info strategy to Reload and save');
+      await this.page.locator(this.locators.pagegroupsStrategy).selectOption('reload');
+      await expect(this.page.locator(this.locators.pagegroupsStrategy)).toHaveValue('reload');
+
+      await this.page.locator(this.locators.submitButtonGeneric).first().click();
+      await this.assert_Mutation_Persistence('pagegroup strategy reload save', async () => {
+        await expect(this.page.locator(this.locators.pagegroupsStrategy)).toHaveValue('reload');
+      }, Logger);
+
+      await expect(this.page).toHaveURL(/\/page_group\/settings(\?|$)/);
+      await expect(this.page.locator(this.locators.pagegroupsStrategy)).toHaveValue('reload');
+
+      Logger?.info?.('Action: change missing screen info strategy back to Guess from user agent and save');
+      await this.page.locator(this.locators.pagegroupsStrategy).selectOption('guess_from_user_agent');
+      await expect(this.page.locator(this.locators.pagegroupsStrategy)).toHaveValue('guess_from_user_agent');
+
+      await this.page.locator(this.locators.submitButtonGeneric).first().click();
+      await this.assert_Mutation_Persistence('pagegroup strategy reset save', async () => {
+        await expect(this.page.locator(this.locators.pagegroupsStrategy)).toHaveValue('guess_from_user_agent');
+      }, Logger);
+
+      const addDeviceLink = this.page.locator(this.locators.pagegroupsAddDevice).first();
+      await expect(addDeviceLink).toBeVisible({ timeout: 15000 });
+      await expect(addDeviceLink).toContainText('Add screen info');
+
+      Logger?.info?.('Action: click Add screen info');
+      await addDeviceLink.click({ force: true });
+      await expect(this.page).toHaveURL(/\/page_group\/settings\/add-device/);
+
+      Logger?.info?.('Action: go back to /page_group/settings');
+      await this.page.goBack();
+      await expect(this.page).toHaveURL(/\/page_group\/settings(\?|$)/);
+    });
+
+    await this.takeDebugScreenshot('tc_41_pagegroups_01_controls', Logger);
+  }
+
+  async tc41_assert_tags_tab_controls(Logger, baseURL) {
+    await this.open_Site_Structure_Menu(baseURL, Logger);
+    await this.Site_Structure_to_Tags();
+
+    await customAssert('Tags table shows expected columns and Create tag CTA', async () => {
+      await expect(this.page).toHaveURL(/\/tag$/);
+
+      const activeCrumb = this.page.locator(this.locators.activeBreadcrumb).first();
+      await expect(activeCrumb).toContainText('Tags');
+
+      const header = this.page.locator(this.locators.cardHeaderH5).filter({ hasText: 'Tags' }).first();
+      await expect(header).toBeVisible({ timeout: 15000 });
+
+      const table = this.page.locator(this.locators.tableResponsiveSm);
+      await expect(table).toBeVisible({ timeout: 15000 });
+
+      const ths = table.locator(this.locators.tableHeadCells);
+      await expect(ths).toHaveCount(2);
+      const expectedTagHeaders = ['Tag name', 'Delete'];
+      for (let i = 0; i < expectedTagHeaders.length; i++) await expect(ths.nth(i)).toContainText(expectedTagHeaders[i]);
+
+      const rows = table.locator(this.locators.tableBodyRows);
+      const rowCount = await rows.count();
+      Logger?.info?.(`Tags table tbody rowCount=${rowCount}`);
+      expect(rowCount).toBeGreaterThan(0);
+
+      const createTag = this.page.locator(this.locators.tagsCreateLink).first();
+      await expect(createTag).toBeVisible({ timeout: 15000 });
+      await expect(createTag).toContainText('Create tag');
+
+      const expectedTags = ['Aurora', 'Edit Audit', 'Filter', 'Join M2M', 'Many2Many', 'Midas', 'Midas2Aurora'];
+      for (const tagName of expectedTags) {
+        await expect(this.page.locator(`${this.locators.tableResponsiveSm} tbody tr td a`).filter({ hasText: tagName }).first()).toBeVisible({ timeout: 15000 });
+      }
+
+      // E2E: create temporary tag and delete it.
+      const tempTag = `e2e_tag_${Date.now()}`;
+      Logger?.info?.('Action: click Create tag');
+      await createTag.click({ force: true });
+      await expect(this.page).toHaveURL(/\/tag\/new/);
+
+      Logger?.info?.('Action: fill temporary tag name + submit');
+      await this.page.locator(this.locators.languageNameInput).fill(tempTag);
+      await this.page.locator(this.locators.submitButtonGeneric).first().click();
+      await expect(this.page).toHaveURL(/\/tag\/\d+/);
+
+      await this.assert_Mutation_Persistence('tag create', async () => {
+        await expect(this.page).toHaveURL(/\/tag\/\d+/);
+      }, Logger);
+
+      await this.page.goto(`${baseURL}/tag`, { waitUntil: 'domcontentloaded' });
+      await expect(this.page).toHaveURL(/\/tag(\?|$)/);
+
+      const tempTagRow = this.page.locator(`${this.locators.tableResponsiveSm} ${this.locators.tableBodyRows}`).filter({ hasText: tempTag }).first();
+      await expect(tempTagRow).toBeVisible({ timeout: 30000 });
+
+      const tempTagDelete = tempTagRow.locator(this.locators.languagesDeleteAction).first();
+      if ((await tempTagDelete.count()) > 0) {
+        Logger?.info?.('Action: delete temporary tag');
+        await this.run_With_Dialog_Accept(async () => {
+          await tempTagDelete.click({ force: true });
+        }, Logger);
+        await this.assert_Mutation_Persistence('tag delete', async () => {
+          await expect(this.page.locator(`${this.locators.tableResponsiveSm} ${this.locators.tableBodyRows}`).filter({ hasText: tempTag })).toHaveCount(0);
+        }, Logger);
+      }
+    });
+
+    await this.takeDebugScreenshot('tc_41_tags_01_controls', Logger);
+  }
+
+  async tc41_assert_diagram_tab_controls(Logger, baseURL) {
+    await this.open_Site_Structure_Menu(baseURL, Logger);
+    await this.Site_Structure_to_Diagram();
+
+    await customAssert('Diagram UI has dropdown filters and #cy canvas', async () => {
+      await expect(this.page).toHaveURL(/\/diagram/);
+      await expect(this.page.locator(this.locators.diagramCanvas)).toBeVisible({ timeout: 15000 });
+
+      const header = this.page.locator(this.locators.cardHeaderH5).filter({ hasText: 'Application diagram' }).first();
+      await expect(header).toBeVisible({ timeout: 15000 });
+
+      const allEntitiesBtn = this.page.locator(this.locators.diagramAllEntitiesBtn).first();
+      Logger?.info?.('Action: click All entities button');
+      await allEntitiesBtn.click({ force: true });
+
+      const showViews = this.page.locator(this.locators.diagramShowViews);
+      const showPages = this.page.locator(this.locators.diagramShowPages);
+      const showTables = this.page.locator(this.locators.diagramShowTables);
+      const showTriggers = this.page.locator(this.locators.diagramShowTriggers);
+
+      const diagramAllEntityChecks = [
+        { cb: showViews, label: this.locators.diagramLabelShowViews, text: 'Views' },
+        { cb: showPages, label: this.locators.diagramLabelShowPages, text: 'Pages' },
+        { cb: showTables, label: this.locators.diagramLabelShowTables, text: 'Tables' },
+        { cb: showTriggers, label: this.locators.diagramLabelShowTriggers, text: 'Triggers' }
+      ];
+      for (const c of diagramAllEntityChecks) {
+        await expect(c.cb).toBeChecked();
+        await expect(this.page.locator(c.label)).toHaveText(c.text);
+      }
+
+      const newBtn = this.page.locator(this.locators.diagramNewBtn).first();
+      Logger?.info?.('Action: click Diagram New dropdown');
+      await newBtn.click({ force: true });
+
+      const newDropdownLinks = [
+        { loc: this.locators.diagramNewViewLink, count: 1 },
+        { loc: this.locators.diagramNewPageLink, count: 1 },
+        { loc: this.locators.diagramNewTableLink, count: 1 },
+        { loc: this.locators.diagramNewTriggerLink, count: 1 }
+      ];
+      for (const c of newDropdownLinks) await expect(this.page.locator(c.loc)).toHaveCount(c.count);
+
+      const viewCreateHref = await this.page.locator(this.locators.diagramNewViewLink).first().getAttribute('href');
+      expect(viewCreateHref).toBeTruthy();
+
+      Logger?.info?.('Action: navigate using View create link from New dropdown');
+      await this.page.goto(`${baseURL}${viewCreateHref}`, { waitUntil: 'domcontentloaded' });
+      await expect(this.page).toHaveURL(/\/viewedit\/new/);
+
+      Logger?.info?.('Action: go back to Diagram');
+      await this.page.goBack();
+      await expect(this.page).toHaveURL(/\/diagram(\?|$)/);
+
+      const tagsBtn = this.page.locator(this.locators.diagramTagsBtn).first();
+      Logger?.info?.('Action: open Diagram Tags dropdown');
+      await tagsBtn.click({ force: true });
+
+      await expect(this.page.locator(this.locators.diagramNoTags)).toBeChecked();
+      await expect(this.page.locator(this.locators.diagramAuroraTagFilter)).not.toBeChecked();
+      await expect(this.page.locator(this.locators.diagramTagNewLink)).toHaveCount(1);
+
+      Logger?.info?.('Action: trial click Diagram refresh and camera buttons');
+      await expect(this.page.locator(this.locators.diagramRefreshBtn).first()).toBeVisible({ timeout: 15000 });
+      await expect(this.page.locator(this.locators.diagramCameraBtn).first()).toBeVisible({ timeout: 15000 });
+      await this.page.locator(this.locators.diagramRefreshBtn).first().click({ trial: true });
+      await this.page.locator(this.locators.diagramCameraBtn).first().click({ trial: true });
+
+      Logger?.info?.('Action: toggle Aurora tag filter checkbox');
+      await this.page.locator(this.locators.diagramAuroraTagFilter).click({ force: true });
+      await expect(this.page.locator(this.locators.diagramAuroraTagFilter)).toBeChecked();
+      await this.page.locator(this.locators.diagramAuroraTagFilter).click({ force: true });
+      await expect(this.page.locator(this.locators.diagramAuroraTagFilter)).not.toBeChecked();
+    });
+
+    await this.takeDebugScreenshot('tc_41_diagram_01_filters', Logger);
+  }
+
+  async tc41_assert_registry_editor_tab_controls(Logger, baseURL) {
+    await this.open_Site_Structure_Menu(baseURL, Logger);
+    await this.Site_Structure_to_Registry_editor();
+
+    await customAssert('Registry editor UI is visible with entity tree and search box', async () => {
+      await expect(this.page).toHaveURL(/\/registry-editor/);
+
+      const activeCrumb = this.page.locator(this.locators.activeBreadcrumb).first();
+      await expect(activeCrumb).toContainText('Registry editor');
+
+      const entitiesCardHeader = this.page.locator(this.locators.registryEntitiesHeader).filter({ hasText: 'Entities' }).first();
+      await expect(entitiesCardHeader).toBeVisible({ timeout: 15000 });
+
+      const expectedSections = ['Tables', 'Views', 'Pages', 'Triggers', 'Configuration', 'Modules'];
+      for (const section of expectedSections) {
+        await expect(this.page.locator(this.locators.kateTreeSummary).filter({ hasText: section }).first()).toBeVisible({ timeout: 15000 });
+      }
+
+      await expect(this.page.locator(this.locators.registryRightPanelBody).filter({ hasText: 'Choose an entity to edit' }).first()).toBeVisible({ timeout: 15000 });
+
+      const searchInput = this.page.locator(this.locators.registryEntitiesSearchInput);
+      await expect(searchInput).toBeVisible({ timeout: 15000 });
+      await expect(searchInput).toHaveAttribute('placeholder', 'Search');
+
+      Logger?.info?.('Action: search Registry editor for "timezone"');
+      await searchInput.fill('timezone');
+      Logger?.info?.('Action: submit Registry editor search');
+      await this.page.locator(this.locators.registryEntitiesSearchSubmit).click();
+      await this.page.waitForURL(/q=timezone/, { timeout: 30000 });
+
+      const timezoneLink = this.page.locator(this.locators.kateTreeTimezoneLink).first();
+      await expect(timezoneLink).toBeVisible({ timeout: 15000 });
+
+      Logger?.info?.('Action: click timezone entity link');
+      await timezoneLink.click({ force: true });
+      await expect(this.page).toHaveURL(/ename=timezone/);
+      await expect(this.page.locator(this.locators.saveButtonByText).first()).toBeVisible({ timeout: 15000 });
+    });
+
+    await this.takeDebugScreenshot('tc_41_registry_01_after_search', Logger);
+  }
+
+  // ---------------------------
+  // TC_40 Registry editor E2E
+  // ---------------------------
+
+  async tc40_openRegistryEditorFromPeopleList_WithScreenshot(Logger) {
+    await this.openRegistryEditorFromPeopleList(Logger);
+    await this.takeDebugScreenshot('tc_39_open_registry_editor_after_navigation', Logger);
+  }
+
+  async tc40_add_table_by_uploading_csv(Logger) {
+    await this.clear_Data();
+    await this.click_table();
+    await this.page.click(this.locators.createfromcsvupload);
+
+    const fileInput = await this.page.waitForSelector(this.locators.fileInput);
+    const filePath = 'Csv_file_to_uplaod/People1.csv';
+    await fileInput.setInputFiles(filePath);
+
+    await this.fill_Text(this.locators.InputName, 'People');
+    await this.submit();
+  }
+
+  async tc40_create_list_view_from_people_table(Logger) {
+    await this.views();
+    await this.page.click(this.locators.createnewview);
+
+    await this.page.fill(this.locators.InputName, 'People_list');
+    await this.page.fill(this.locators.discriptiontext, 'view for People table');
+    await this.submit();
+
+    await customAssert('Set the position for columns', async () => {
+      await this.drag_And_Drop(this.locators.Column2FullName, this.locators.Column0Address);
+      await this.drag_And_Drop(this.locators.Column2DOB, this.locators.Column1Address);
+    });
+
+    await this.page.waitForTimeout(5000);
+    await this.page.waitForSelector(this.locators.nextoption);
+    await this.page.click(this.locators.nextoption);
+    await this.views();
+  }
+
+  async tc40_open_registry_editor_from_people_list_smoke(Logger) {
+    await this.tc40_openRegistryEditorFromPeopleList_WithScreenshot(Logger);
+
+    await customAssert('Registry editor page header should contain Registry editor', async () => {
+      const header = this.page
+        .locator(this.locators.registryPageHeaderGeneric)
+        .filter({ hasText: 'Registry editor' })
+        .first();
+      await expect(header).toBeVisible({ timeout: 15000 });
+      await expect(header).toContainText('Registry editor');
+    });
+
+    await customAssert('Registry editor page should reference People_list view', async () => {
+      await expect(this.page.getByText('People_list', { exact: false }).first()).toBeVisible({ timeout: 15000 });
+    });
+
+    await customAssert('Breadcrumb should be visible', async () => {
+      const breadcrumb = this.page.locator(this.locators.breadcrumb).first();
+      await expect(breadcrumb).toBeVisible({ timeout: 15000 });
+    });
+  }
+
+  async tc40_left_panel_entity_sections_render(Logger) {
+    await this.tc40_openRegistryEditorFromPeopleList_WithScreenshot(Logger);
+
+    const sectionNames = ['Tables', 'Views', 'Pages', 'Triggers', 'Configuration', 'Modules'];
+    await customAssert('Left panel entity sections should be visible', async () => {
+      for (const sectionName of sectionNames) {
+        const matches = this.page.getByText(sectionName, { exact: true });
+        const matchCount = await matches.count();
+        expect(matchCount).toBeGreaterThan(0);
+
+        let visibleFound = false;
+        for (let i = 0; i < matchCount; i++) {
+          const candidate = matches.nth(i);
+          if (await candidate.isVisible().catch(() => false)) {
+            visibleFound = true;
+            break;
+          }
+        }
+
+        Logger?.info?.(`Left panel section "${sectionName}" visibleFound=${visibleFound}`);
+        expect(visibleFound).toBe(true);
+      }
+    });
+
+    await this.takeDebugScreenshot('tc_39_panel_01_left_sections', Logger);
+  }
+
+  async tc40_left_panel_expand_collapse_views_details(Logger) {
+    await this.tc40_openRegistryEditorFromPeopleList_WithScreenshot(Logger);
+
+    await customAssert('Views <details> can be expanded/collapsed and affects People_list visibility', async () => {
+      const viewsDetails = this.page.locator(this.locators.kateTreeViewsDetails).first();
+      await expect(viewsDetails).toBeVisible({ timeout: 15000 });
+
+      const peopleLink = this.page.locator(this.locators.kateTreePeopleListLink).first();
+      await expect(peopleLink).toBeVisible({ timeout: 15000 });
+
+      await this.takeDebugScreenshot('tc_39_expand_01_viewsdetails_initial', Logger);
+
+      const initialOpen = await viewsDetails.evaluate((el) => el.open);
+      Logger?.info?.(`Views details initialOpen=${initialOpen}`);
+
+      // Ensure expanded first
+      if (!initialOpen) {
+        Logger?.info?.('Action: expand Views details (click summary)');
+        await this.page.locator(this.locators.kateTreeViewsSummary).first().click();
+        await this.page.waitForTimeout(700);
+        const expandedOpen = await viewsDetails.evaluate((el) => el.open);
+        await expect(expandedOpen).toBe(true);
+        await expect(peopleLink).toBeVisible({ timeout: 15000 });
+      }
+
+      Logger?.info?.('Action: collapse Views details (click summary)');
+      await this.page.locator(this.locators.kateTreeViewsSummary).first().click();
+      await this.page.waitForTimeout(700);
+      const collapsedOpen = await viewsDetails.evaluate((el) => el.open);
+      Logger?.info?.(`Views details collapsedOpen=${collapsedOpen}`);
+      await expect(collapsedOpen).toBe(false);
+      await expect(peopleLink).toBeHidden({ timeout: 15000 });
+
+      // Expand again (verifies both directions)
+      Logger?.info?.('Action: expand Views details again (click summary)');
+      await this.page.locator(this.locators.kateTreeViewsSummary).first().click();
+      await this.page.waitForTimeout(700);
+      const reExpandedOpen = await viewsDetails.evaluate((el) => el.open);
+      Logger?.info?.(`Views details reExpandedOpen=${reExpandedOpen}`);
+      await expect(reExpandedOpen).toBe(true);
+      await expect(peopleLink).toBeVisible({ timeout: 15000 });
+      await this.takeDebugScreenshot('tc_39_expand_03_viewsdetails_after', Logger);
+    });
+
+    await this.takeDebugScreenshot('tc_39_panel_02_expand_collapse', Logger);
+  }
+
+  async tc40_left_panel_search_filters_entities(Logger) {
+    await this.tc40_openRegistryEditorFromPeopleList_WithScreenshot(Logger);
+
+    await customAssert('Search input should be visible, accept query, and clear correctly', async () => {
+      const entitiesSearchForm = this.page.locator(this.locators.registryEntitiesForm);
+      await expect(entitiesSearchForm).toBeVisible({ timeout: 15000 });
+
+      const searchInput = this.page.locator(this.locators.registryEntitiesSearchInput);
+      const searchSubmitBtn = this.page.locator(this.locators.registryEntitiesSearchSubmit);
+
+      await expect(searchInput).toBeVisible({ timeout: 15000 });
+      await expect(searchSubmitBtn).toBeVisible({ timeout: 15000 });
+
+      const placeholderAttr = await searchInput.getAttribute('placeholder');
+      Logger?.info?.(`Search box placeholder: ${placeholderAttr}`);
+
+      const peopleLink = this.page.locator(this.locators.kateTreePeopleListLink).first();
+      await expect(peopleLink).toBeVisible({ timeout: 15000 });
+
+      const visibleAnchorsBefore = await this.page.locator(this.locators.kateTreeVisibleAnchors).count();
+      Logger?.info?.(`Visible anchors before search: ${visibleAnchorsBefore}`);
+      await this.takeDebugScreenshot('tc_39_search_01_before', Logger);
+
+      // Submit search explicitly (GET form). This avoids guessing whether it filters live.
+      const query = 'timezone';
+      Logger?.info?.(`Action: search in entities with query="${query}"`);
+      await searchInput.fill(query);
+      await expect(searchInput).toHaveValue(query);
+      await searchSubmitBtn.click();
+
+      await this.page.waitForURL(new RegExp(`q=${query}`), { timeout: 30000 });
+
+      const timezoneLink = this.page.locator(this.locators.kateTreeTimezoneLink).first();
+      await expect(timezoneLink).toBeVisible({ timeout: 15000 });
+
+      const visibleAnchorsAfter = await this.page.locator(this.locators.kateTreeVisibleAnchors).count();
+      Logger?.info?.(`Visible anchors after search: ${visibleAnchorsAfter}`);
+      expect(visibleAnchorsAfter).toBeGreaterThan(0);
+      await this.takeDebugScreenshot('tc_39_search_02_after', Logger);
+
+      // Clear search by submitting empty query
+      Logger?.info?.('Action: clear entities search');
+      await searchInput.fill('');
+      await searchSubmitBtn.click();
+      await this.page.waitForURL(/\/registry-editor/, { timeout: 30000 });
+
+      // After clearing, People_list should still be visible (Views details open by default in this state)
+      await expect(peopleLink).toBeVisible({ timeout: 15000 });
+      await this.takeDebugScreenshot('tc_39_search_03_cleared', Logger);
+    });
+  }
+
+  async tc40_configure_menu_opens_suboptions(Logger) {
+    await this.tc40_openRegistryEditorFromPeopleList_WithScreenshot(Logger);
+
+    await customAssert('Configure link navigates to /viewedit/config/People_list and config builder UI loads', async () => {
+      const configureLink = this.page.locator(this.locators.configurePeopleListLink).first();
+      await expect(configureLink).toBeVisible({ timeout: 15000 });
+      await expect(configureLink).toContainText('Configure');
+
+      Logger?.info?.('Action: click Configure link');
+      await configureLink.click();
+
+      await this.page.waitForURL(/\/viewedit\/config\/People_list/, { timeout: 30000 });
+      await this.takeDebugScreenshot('tc_39_configure_01_after_nav', Logger);
+
+      // Builder/config page evidence:
+      await expect(this.page.locator(this.locators.addcolumnbutton)).toBeVisible({ timeout: 30000 });
+      await expect(this.page.locator(this.locators.nextoption)).toBeVisible({ timeout: 30000 });
+      await expect(this.page.locator(this.locators.saltcornBuilder)).toBeVisible({ timeout: 30000 });
+      await expect(this.page.locator(this.locators.saltcornBuilder).getByText('Settings')).toBeVisible({ timeout: 30000 });
+      await expect(this.page.locator(this.locators.saltcornBuilder).getByText('No element selected')).toBeVisible({ timeout: 30000 });
+
+      // Breadcrumb should mention People_list context
+      await expect(this.page.locator(this.locators.breadcrumbNav)).toBeVisible({ timeout: 30000 });
+      await expect(this.page.locator(this.locators.breadcrumbNav)).toContainText('People_list');
+    });
+  }
+
+  async tc40_registry_editor_code_panel_keys_and_save(Logger) {
+    await this.tc40_openRegistryEditorFromPeopleList_WithScreenshot(Logger);
+
+    await customAssert('Registry editor JSON/code panel should be visible and contain expected keys', async () => {
+      const editorContainer = this.page.locator(this.locators.registryEditorContainer).first();
+      await expect(editorContainer).toBeVisible({ timeout: 15000 });
+
+      const editorText = await editorContainer.innerText().catch(async () => await editorContainer.textContent());
+      expect(editorText).toBeTruthy();
+      expect(editorText).toContain('description');
+      expect(editorText).toContain('viewtemplate');
+      expect(editorText).toContain('configuration');
+    });
+
+    await customAssert('Save button should be visible (enabled state logged)', async () => {
+      const saveButton = this.page.locator(this.locators.saveButtonByText).first();
+      await expect(saveButton).toBeVisible({ timeout: 15000 });
+      const enabled = await saveButton.isEnabled().catch(() => false);
+      await expect(saveButton).toContainText('Save');
+      Logger?.info?.(`Save button enabled state: ${enabled}`);
+    });
+
+    await this.takeDebugScreenshot('tc_39_editor_01_keys_and_save', Logger);
   }
 
 }
